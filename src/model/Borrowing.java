@@ -5,28 +5,25 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  *
  * @author SILVI PRISILLIA
  */
-public class Borrowing {
+public class Borrowing implements InterfaceBookState {
     private int idBorrow;
     private int idBook;
     private int idUser;
     private int idBranch;
     private int borrowDays;
     private int priceTotal;
-    private String date;
+    private int moneyFine;
+    private int status;
+    private Date date;
 
-    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, String date) {
-        this.idBorrow = idBorrow;
-        this.idBook = idBook;
-        this.idUser = idUser;
-        this.idBranch = idBranch;
-        this.borrowDays = borrowDays;
-        this.priceTotal = priceTotal;
-        this.date = date;
-    }
+   
 
     public int getIdBorrow() {
         return idBorrow;
@@ -76,15 +73,44 @@ public class Borrowing {
         this.priceTotal = priceTotal;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
        this.date = date;
     }
     
     public void printDataPeminjaman() {
         
     }
+
+    public int getMoneyFine() {
+        return moneyFine;
+    }
+
+    public void setMoneyFine(int moneyFine) {
+        this.moneyFine = moneyFine;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
+    public Borrowing() {}
+
+    @Override
+    public String selectBookState(int status) {
+        if (status == AVAILABLE) {
+            return "Available";
+        } else {
+            return "Borrowed";
+        }
+    }
+    
+    
 }

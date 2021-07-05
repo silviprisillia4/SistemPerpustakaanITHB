@@ -5,22 +5,23 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author SILVI PRISILLIA
  */
-public class Member extends User {
+public class Member extends User implements InterfaceBranchCity {
     private String address;
     private String phoneNumber;
     private int cash;
     private int debt;
     private int idBranch;
     
-    public Member(String idUser, String firstName, String lastName, String email, String password, UserType type, String address, String phoneNumber, int cash, int debt, int idBranch) {
-        super(idUser, firstName, lastName, email, password, type);
-        this.idBranch = idBranch;
+    
+    public Member() {
+        
     }
-
     public String getAddress() {
         return address;
     }
@@ -70,4 +71,24 @@ public class Member extends User {
                         +"Hutang : Rp"+getDebt()+"\n"
                         +"Cabang : <pake interface kali ya>"+getIdBranch();
     }
+    
+    @Override
+    public String selectBranchCity(int idBranch) {
+        switch(idBranch) {
+            case BANDUNG :
+                return "Bandung";
+            case JAKARTA :
+                return "Jakarta";
+            case SURABAYA :
+                return "Surabaya";
+        }
+        return "";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Member{" + "address=" + address + ", phoneNumber=" + phoneNumber + ", cash=" + cash + ", debt=" + debt + ", idBranch=" + idBranch + '}';
+    }
+    
+    
 }
