@@ -9,9 +9,9 @@ package model;
  *
  * @author SILVI PRISILLIA
  */
-public class Book {
-    private String idBook;
-    private String idBranch;
+public class Book implements InterfaceBranchCity, InterfaceBookState{
+    private int idBook;
+    private int idBranch;
     private String title;
     private String author;
     private String publisher;
@@ -19,30 +19,22 @@ public class Book {
     private int year;
     private String genre;
 
-    public Book(String idBook, String idBranch, String title, String author, String publisher, int pages, int year, String genre) {
-        this.idBook = idBook;
-        this.idBranch = idBranch;
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.pages = pages;
-        this.year = year;
-        this.genre = genre;
-    }
+    public Book() {
+     }
 
-    public String getIdBook() {
+    public int getIdBook() {
         return idBook;
     }
 
-    public void setIdBook(String idBook) {
+    public void setIdBook(int idBook) {
         this.idBook = idBook;
     }
 
-    public String getIdBranch() {
+    public int getIdBranch() {
         return idBranch;
     }
 
-    public void setIdBranch(String idBranch) {
+    public void setIdBranch(int idBranch) {
         this.idBranch = idBranch;
     }
 
@@ -96,5 +88,15 @@ public class Book {
     
     public void printDataBuku() {
         
+    }
+
+    @Override
+    public String selectBranchCity(int idBranch) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String selectBookState(int idBook) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

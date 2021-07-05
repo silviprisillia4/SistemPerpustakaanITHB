@@ -14,12 +14,7 @@ public class Branch implements InterfaceBranchCity {
     private String address;
     private String city;
 
-    public Branch(int idBranch, String address, String city) {
-        this.idBranch = idBranch;
-        this.address = address;
-        this.city = city;
-    }
-
+    
     public int getIdBranch() {
         return idBranch;
     }

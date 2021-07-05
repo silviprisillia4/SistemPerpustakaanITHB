@@ -10,27 +10,19 @@ package model;
  * @author SILVI PRISILLIA
  */
 public abstract class User {
-    private String idUser;
+    private int idUser;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-    private UserType type;
+    private UserTypeEnum type;
 
-    public User(String idUser, String firstName, String lastName, String email, String password, UserType type) {
-        this.idUser = idUser;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.type = type;
-    }
-
-    public String getIdUser() {
+    public User() {}
+    public int getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 
@@ -66,12 +58,17 @@ public abstract class User {
         this.password = password;
     }
 
-    public UserType getType() {
+    public UserTypeEnum getType() {
         return type;
     }
 
-    public void setType(UserType type) {
+    public void setType(UserTypeEnum type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password + ", type=" + type + '}';
     }
     
 }
