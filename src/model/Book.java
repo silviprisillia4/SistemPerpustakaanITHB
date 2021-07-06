@@ -115,13 +115,11 @@ public class Book implements InterfaceBookState, InterfaceBranchCity {
     
     @Override
     public String selectBookState(int idBook) {
-        String state = "";
         if(idBook==AVAILABLE) {
-            state = "Tersedia";
+            return Tersedia";
         } else {
-            state = "Dipinjam";
+            return "Dipinjam";
         }
-        return state;
     }
 
     @Override
