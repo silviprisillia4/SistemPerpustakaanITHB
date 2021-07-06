@@ -17,10 +17,15 @@ public class Member extends User implements InterfaceBranchCity {
     private int cash;
     private int debt;
     private int idBranch;
-    
-    
+
     public Member() {
         
+    }
+    
+    public Member(int idUser, String firstName, String lastName, String email, String password, UserType type, String address, String phoneNumber, int cash, int debt, int idBranch) {
+        super(idUser, firstName, lastName, email, password, type);
+        setIdBranch(idBranch);
+
     }
     public String getAddress() {
         return address;
@@ -71,7 +76,7 @@ public class Member extends User implements InterfaceBranchCity {
                         +"Hutang : Rp"+getDebt()+"\n"
                         +"Cabang : <pake interface kali ya>"+getIdBranch();
     }
-    
+
     @Override
     public String selectBranchCity(int idBranch) {
         switch(idBranch) {
@@ -84,11 +89,4 @@ public class Member extends User implements InterfaceBranchCity {
         }
         return "";
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + "Member{" + "address=" + address + ", phoneNumber=" + phoneNumber + ", cash=" + cash + ", debt=" + debt + ", idBranch=" + idBranch + '}';
-    }
-    
-    
 }

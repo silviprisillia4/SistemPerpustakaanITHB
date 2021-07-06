@@ -9,7 +9,8 @@ package model;
  *
  * @author SILVI PRISILLIA
  */
-public class Book implements InterfaceBranchCity, InterfaceBookState{
+
+public class Book implements InterfaceBookState, InterfaceBranchCity {
     private int idBook;
     private int idBranch;
     private String title;
@@ -18,9 +19,23 @@ public class Book implements InterfaceBranchCity, InterfaceBookState{
     private int pages;
     private int year;
     private String genre;
+    private int availability;
 
     public Book() {
-     }
+        
+    }
+    
+    public Book(int idBook, int idBranch, String title, String author, String publisher, int pages, int year, String genre, int availability) {
+        setIdBook(idBook);
+        setIdBranch(idBranch);
+        setTitle(title);
+        setAuthor(author);
+        setPublisher(publisher);
+        setPages(pages);
+        setYear(year);
+        setGenre(genre);
+        setAvailability(availability);
+    }
 
     public int getIdBook() {
         return idBook;
@@ -89,14 +104,36 @@ public class Book implements InterfaceBranchCity, InterfaceBookState{
     public void printDataBuku() {
         
     }
-
+    
+    public int getAvailability() {
+        return availability;
+    }
+    
+    public void setAvailability(int availability) {
+        
+    }
+    
     @Override
-    public String selectBranchCity(int idBranch) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String selectBookState(int idBook) {
+        String state = "";
+        if(idBook==AVAILABLE) {
+            state = "Tersedia";
+        } else {
+            state = "Dipinjam";
+        }
+        return state;
     }
 
     @Override
-    public String selectBookState(int idBook) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String selectBranchCity(int idBranch) {
+        switch(idBranch) {
+            case BANDUNG :
+                return "Bandung";
+            case JAKARTA :
+                return "Jakarta";
+            case SURABAYA :
+                return "Surabaya";
+        }
+        return "";
     }
 }

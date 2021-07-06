@@ -17,7 +17,19 @@ public abstract class User {
     private String password;
     private UserTypeEnum type;
 
-    public User() {}
+    public User() {
+        
+    }
+    
+    public User(int idUser, String firstName, String lastName, String email, String password, UserType type) {
+        setIdUser(idUser);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEmail(email);
+        setPassword(password);
+        setType(type);
+    }
+
     public int getIdUser() {
         return idUser;
     }
@@ -65,10 +77,4 @@ public abstract class User {
     public void setType(UserTypeEnum type) {
         this.type = type;
     }
-
-    @Override
-    public String toString() {
-        return "User{" + "idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password + ", type=" + type + '}';
-    }
-    
 }

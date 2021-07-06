@@ -9,12 +9,21 @@ package model;
  *
  * @author SILVI PRISILLIA
  */
-public class Branch implements InterfaceBranchCity {
+public class Branch implements InterfaceBookState, InterfaceBranchCity {
     private int idBranch;
     private String address;
     private String city;
-
     
+    public Branch() {
+        
+    }
+    
+    public Branch(int idBranch, String address, String city) {
+        setIdBranch(idBranch);
+        setAddress(address);
+        setCity(city);
+    }
+
     public int getIdBranch() {
         return idBranch;
     }
@@ -39,6 +48,18 @@ public class Branch implements InterfaceBranchCity {
         this.city = city;
     }
     
+    @Override
+    public String selectBookState(int idBook) {
+        String state = "";
+        if(idBook==AVAILABLE) {
+            state = "Tersedia";
+        } else {
+            state = "Dipinjam";
+        }
+        return state;
+    }
+    
+    @Override
     public String selectBranchCity(int idBranch) {
         switch(idBranch) {
             case BANDUNG :
@@ -50,5 +71,4 @@ public class Branch implements InterfaceBranchCity {
         }
         return "";
     }
-        
 }

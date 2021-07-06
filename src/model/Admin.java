@@ -12,8 +12,15 @@ package model;
 public class Admin extends User implements InterfaceBranchCity {
     private int idBranch;
     
-    public Admin() {}
+    public Admin() {
+        
+    }
     
+    public Admin(int idUser, String firstName, String lastName, String email, String password, UserType type, int idBranch) {
+        super(idUser, firstName, lastName, email, password, type);
+        setIdBranch(idBranch);
+    }
+
     public int getIdBranch() {
         return idBranch;
     }
@@ -22,6 +29,7 @@ public class Admin extends User implements InterfaceBranchCity {
         this.idBranch = idBranch;
     }
     
+    @Override
     public String selectBranchCity(int idBranch) {
         switch(idBranch) {
             case BANDUNG :
