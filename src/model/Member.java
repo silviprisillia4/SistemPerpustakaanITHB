@@ -22,7 +22,7 @@ public class Member extends User implements InterfaceBranchCity {
         
     }
     
-    public Member(int idUser, String firstName, String lastName, String email, String password, UserType type, String address, String phoneNumber, int cash, int debt, int idBranch) {
+    public Member(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, String address, String phoneNumber, int cash, int debt, int idBranch) {
         super(idUser, firstName, lastName, email, password, type);
         setIdBranch(idBranch);
 

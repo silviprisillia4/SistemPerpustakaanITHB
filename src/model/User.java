@@ -21,7 +21,7 @@ public abstract class User {
         
     }
     
-    public User(int idUser, String firstName, String lastName, String email, String password, UserType type) {
+    public User(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type) {
         setIdUser(idUser);
         setFirstName(firstName);
         setLastName(lastName);

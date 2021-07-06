@@ -16,7 +16,7 @@ public class Admin extends User implements InterfaceBranchCity {
         
     }
     
-    public Admin(int idUser, String firstName, String lastName, String email, String password, UserType type, int idBranch) {
+    public Admin(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, int idBranch) {
         super(idUser, firstName, lastName, email, password, type);
         setIdBranch(idBranch);
     }
