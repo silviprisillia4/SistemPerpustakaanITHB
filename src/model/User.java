@@ -10,27 +10,31 @@ package model;
  * @author SILVI PRISILLIA
  */
 public abstract class User {
-    private String idUser;
+    private int idUser;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private UserType type;
 
-    public User(String idUser, String firstName, String lastName, String email, String password, UserType type) {
-        this.idUser = idUser;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.type = type;
+    public User() {
+        
+    }
+    
+    public User(int idUser, String firstName, String lastName, String email, String password, UserType type) {
+        setIdUser(idUser);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEmail(email);
+        setPassword(password);
+        setType(type);
     }
 
-    public String getIdUser() {
+    public int getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 

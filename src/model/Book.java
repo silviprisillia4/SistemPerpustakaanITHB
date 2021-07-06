@@ -9,40 +9,46 @@ package model;
  *
  * @author SILVI PRISILLIA
  */
-public class Book {
-    private String idBook;
-    private String idBranch;
+public class Book implements InterfaceBookState, InterfaceBranchCity {
+    private int idBook;
+    private int idBranch;
     private String title;
     private String author;
     private String publisher;
     private int pages;
     private int year;
     private String genre;
+    private int availability;
 
-    public Book(String idBook, String idBranch, String title, String author, String publisher, int pages, int year, String genre) {
-        this.idBook = idBook;
-        this.idBranch = idBranch;
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.pages = pages;
-        this.year = year;
-        this.genre = genre;
+    public Book() {
+        
+    }
+    
+    public Book(int idBook, int idBranch, String title, String author, String publisher, int pages, int year, String genre, int availability) {
+        setIdBook(idBook);
+        setIdBranch(idBranch);
+        setTitle(title);
+        setAuthor(author);
+        setPublisher(publisher);
+        setPages(pages);
+        setYear(year);
+        setGenre(genre);
+        setAvailability(availability);
     }
 
-    public String getIdBook() {
+    public int getIdBook() {
         return idBook;
     }
 
-    public void setIdBook(String idBook) {
+    public void setIdBook(int idBook) {
         this.idBook = idBook;
     }
 
-    public String getIdBranch() {
+    public int getIdBranch() {
         return idBranch;
     }
 
-    public void setIdBranch(String idBranch) {
+    public void setIdBranch(int idBranch) {
         this.idBranch = idBranch;
     }
 
@@ -96,5 +102,37 @@ public class Book {
     
     public void printDataBuku() {
         
+    }
+    
+    public int getAvailability() {
+        return availability;
+    }
+    
+    public void setAvailability(int availability) {
+        
+    }
+    
+    @Override
+    public String selectBookState(int idBook) {
+        String state = "";
+        if(idBook==AVAILABLE) {
+            state = "Tersedia";
+        } else {
+            state = "Dipinjam";
+        }
+        return state;
+    }
+
+    @Override
+    public String selectBranchCity(int idBranch) {
+        switch(idBranch) {
+            case BANDUNG :
+                return "Bandung";
+            case JAKARTA :
+                return "Jakarta";
+            case SURABAYA :
+                return "Surabaya";
+        }
+        return "";
     }
 }

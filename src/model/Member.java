@@ -9,16 +9,20 @@ package model;
  *
  * @author SILVI PRISILLIA
  */
-public class Member extends User {
+public class Member extends User implements InterfaceBranchCity {
     private String address;
     private String phoneNumber;
     private int cash;
     private int debt;
     private int idBranch;
     
-    public Member(String idUser, String firstName, String lastName, String email, String password, UserType type, String address, String phoneNumber, int cash, int debt, int idBranch) {
+    public Member() {
+        
+    }
+    
+    public Member(int idUser, String firstName, String lastName, String email, String password, UserType type, String address, String phoneNumber, int cash, int debt, int idBranch) {
         super(idUser, firstName, lastName, email, password, type);
-        this.idBranch = idBranch;
+        setIdBranch(idBranch);
     }
 
     public String getAddress() {
@@ -69,5 +73,18 @@ public class Member extends User {
                         +"Saldo : Rp "+getCash()+"\n"
                         +"Hutang : Rp"+getDebt()+"\n"
                         +"Cabang : <pake interface kali ya>"+getIdBranch();
+    }
+
+    @Override
+    public String selectBranchCity(int idBranch) {
+        switch(idBranch) {
+            case BANDUNG :
+                return "Bandung";
+            case JAKARTA :
+                return "Jakarta";
+            case SURABAYA :
+                return "Surabaya";
+        }
+        return "";
     }
 }

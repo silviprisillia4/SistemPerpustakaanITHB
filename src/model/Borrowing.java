@@ -9,7 +9,7 @@ package model;
  *
  * @author SILVI PRISILLIA
  */
-public class Borrowing {
+public class Borrowing implements InterfaceBookState {
     private int idBorrow;
     private int idBook;
     private int idUser;
@@ -17,15 +17,21 @@ public class Borrowing {
     private int borrowDays;
     private int priceTotal;
     private String date;
+    private int availability;
 
-    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, String date) {
-        this.idBorrow = idBorrow;
-        this.idBook = idBook;
-        this.idUser = idUser;
-        this.idBranch = idBranch;
-        this.borrowDays = borrowDays;
-        this.priceTotal = priceTotal;
-        this.date = date;
+    public Borrowing() {
+        
+    }
+    
+    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, String date, int availability) {
+        setIdBorrow(idBorrow);
+        setIdBook(idBook);
+        setIdUser(idUser);
+        setIdBranch(idBranch);
+        setBorrowDays(borrowDays);
+        setPriceTotal(priceTotal);
+        setDate(date);
+        setAvailability(availability);
     }
 
     public int getIdBorrow() {
@@ -84,7 +90,26 @@ public class Borrowing {
        this.date = date;
     }
     
+    public int getAvailability() {
+        return availability;
+    }
+    
+    public void setAvailability(int availability) {
+        this.availability = availability;
+    }
+    
     public void printDataPeminjaman() {
         
+    }
+    
+    @Override
+    public String selectBookState(int idBook) {
+        String state = "";
+        if(idBook==AVAILABLE) {
+            state = "Tersedia";
+        } else {
+            state = "Dipinjam";
+        }
+        return state;
     }
 }
