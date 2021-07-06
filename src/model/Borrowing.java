@@ -118,7 +118,7 @@ public class Borrowing implements InterfaceBookState {
     @Override
     public String selectBookState(int idBook) {
         if(idBook==AVAILABLE) {
-            return Tersedia";
+            return "Tersedia";
         } else {
             return "Dipinjam";
         }
