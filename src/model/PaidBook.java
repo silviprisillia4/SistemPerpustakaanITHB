@@ -18,9 +18,9 @@ public class PaidBook extends Book {
     
     public PaidBook(int idBook, int idBranch, String title, String author, String publisher, int pages, int year, String genre, int availability, int borrowPrice) {
         super(idBook, idBranch, title, author, publisher, pages, year, genre, availability);
-        this.borrowPrice = borrowPrice;
+        showBorrowPrice(borrowPrice);
     }
-
+    
     public int getBorrowPrice() {
         return borrowPrice;
     }
@@ -28,5 +28,4 @@ public class PaidBook extends Book {
     public void setBorrowPrice(int borrowPrice) {
         this.borrowPrice = borrowPrice;
     }
- 
 }

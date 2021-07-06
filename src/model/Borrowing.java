@@ -5,6 +5,9 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  *
  * @author SILVI PRISILLIA
@@ -16,14 +19,15 @@ public class Borrowing implements InterfaceBookState {
     private int idBranch;
     private int borrowDays;
     private int priceTotal;
-    private String date;
-    private int availability;
+    private Date date;
+    private int status;
+    private int moneyFine;
 
     public Borrowing() {
         
     }
     
-    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, String date, int availability) {
+    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, Date date, int status, int moneyFine) {
         setIdBorrow(idBorrow);
         setIdBook(idBook);
         setIdUser(idUser);
@@ -31,7 +35,8 @@ public class Borrowing implements InterfaceBookState {
         setBorrowDays(borrowDays);
         setPriceTotal(priceTotal);
         setDate(date);
-        setAvailability(availability);
+        setStatus(status);
+        setMoneyFine(moneyFine);
     }
 
     public int getIdBorrow() {
@@ -82,34 +87,41 @@ public class Borrowing implements InterfaceBookState {
         this.priceTotal = priceTotal;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
        this.date = date;
     }
     
-    public int getAvailability() {
-        return availability;
+    public int getStatus() {
+        return status;
     }
     
-    public void setAvailability(int availability) {
-        this.availability = availability;
+    public void setStatus(int status) {
+        this.status = status;
     }
-    
+  
+    public int getMoneyFine() {
+        return moneyFine;
+    }
+
+    public void setMoneyFine(int moneyFine) {
+        this.moneyFine = moneyFine;
+    }
+  
     public void printDataPeminjaman() {
         
     }
-    
+
     @Override
     public String selectBookState(int idBook) {
         String state = "";
         if(idBook==AVAILABLE) {
-            state = "Tersedia";
+            return "Tersedia";
         } else {
-            state = "Dipinjam";
+            return "Dipinjam";
         }
-        return state;
     }
 }

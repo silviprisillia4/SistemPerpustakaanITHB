@@ -9,6 +9,7 @@ package model;
  *
  * @author SILVI PRISILLIA
  */
+
 public class Book implements InterfaceBookState, InterfaceBranchCity {
     private int idBook;
     private int idBranch;

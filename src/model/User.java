@@ -15,7 +15,7 @@ public abstract class User {
     private String lastName;
     private String email;
     private String password;
-    private UserType type;
+    private UserTypeEnum type;
 
     public User() {
         
@@ -70,12 +70,11 @@ public abstract class User {
         this.password = password;
     }
 
-    public UserType getType() {
+    public UserTypeEnum getType() {
         return type;
     }
 
-    public void setType(UserType type) {
+    public void setType(UserTypeEnum type) {
         this.type = type;
     }
-    
 }

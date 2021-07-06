@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author SILVI PRISILLIA
@@ -15,7 +17,7 @@ public class Member extends User implements InterfaceBranchCity {
     private int cash;
     private int debt;
     private int idBranch;
-    
+
     public Member() {
         
     }
@@ -23,8 +25,8 @@ public class Member extends User implements InterfaceBranchCity {
     public Member(int idUser, String firstName, String lastName, String email, String password, UserType type, String address, String phoneNumber, int cash, int debt, int idBranch) {
         super(idUser, firstName, lastName, email, password, type);
         setIdBranch(idBranch);
-    }
 
+    }
     public String getAddress() {
         return address;
     }
