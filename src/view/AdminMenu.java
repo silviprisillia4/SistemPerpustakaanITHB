@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package View;
+package view;
 
-import Controller.TableCheckBoxBorrowing;
-import Controller.databaseChange;
+import controller.TableCheckBoxBorrowing;
+import controller.databaseChange;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.Format;
@@ -35,6 +30,7 @@ import model.PaidBook;
 public class AdminMenu {
 
     public void adminMenu(Admin admin) {
+        new OutputInfo().welcomeToMenuAdmin((admin.getFirstName() + " " + admin.getLastName()), admin.selectBranchCity(admin.getIdBranch()));
         JFrame frame = new JFrame();
 
         JButton approval = new JButton("Penyetujuan");
@@ -73,6 +69,7 @@ public class AdminMenu {
         branchCash.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
+                new OutputInfo().changeShowDanaCabang(admin.selectBranchCity(admin.getIdBranch()));
                 printDanaSatuCabang(admin.getIdBranch());
             }
         });
@@ -82,6 +79,7 @@ public class AdminMenu {
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new OutputInfo().exitFromOwnerMenu();
                 System.exit(0);
             }
 
@@ -128,9 +126,8 @@ public class AdminMenu {
             }
             data[j][8] = Boolean.FALSE;
         }
-
         DefaultTableModel model = new DefaultTableModel(data, column);
-        table = new Controller.TableCheckBoxBorrowing();
+        table = new controller.TableCheckBoxBorrowing();
         table.setModel(model);
         table.setBounds(50, 50, 1100, 300);
 
@@ -151,14 +148,15 @@ public class AdminMenu {
                 for (int i = 0; i < tModel.getRowCount(); i++) {
                     Boolean checked = (Boolean) model.getValueAt(i, 8);
                     if (checked) {
-                        new Controller.databaseChange().updateBorrowing((int) model.getValueAt(i, 0), (int) model.getValueAt(i, 7));
+                        new controller.databaseChange().updateBorrowing((int) model.getValueAt(i, 0), (int) model.getValueAt(i, 7));
                         if ((int) model.getValueAt(i, 7) != 0) {
-                            new Controller.databaseChange().updateUser((int) model.getValueAt(i, 2), (int) model.getValueAt(i, 7));
+                            new controller.databaseChange().updateUser((int) model.getValueAt(i, 2), (int) model.getValueAt(i, 7));
                         }
                     }
                 }
+                new OutputInfo().infoApprovePengembalian(true);
                 frame.setVisible(false);
-                adminMenu(new Controller.databaseChange().getAdmin(1));
+                adminMenu(new controller.databaseChange().getAdmin(1));
             }
 
         });
@@ -168,7 +166,8 @@ public class AdminMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                adminMenu(new Controller.databaseChange().getAdmin(1));
+                new OutputInfo().exit();
+                adminMenu(new controller.databaseChange().getAdmin(1));
             }
 
         });
@@ -189,7 +188,8 @@ public class AdminMenu {
         updateBook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                changeBookData(new Controller.databaseChange().getABook(1));
+                new OutputInfo().infoUpdateListBook(true);
+                changeBookData(new controller.databaseChange().getABook(1));
             }
         });
         JButton addBook = new JButton("Tambah Buku Baru");
@@ -197,6 +197,7 @@ public class AdminMenu {
         addBook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
+                new OutputInfo().infoUpdateListBook(false);
                 addBookData(idBranch);
             }
         });
@@ -206,7 +207,8 @@ public class AdminMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                adminMenu(new Controller.databaseChange().getAdmin(1));
+                new OutputInfo().exit();
+                adminMenu(new controller.databaseChange().getAdmin(1));
             }
 
         });
@@ -300,21 +302,24 @@ public class AdminMenu {
         JButton addBook = new JButton("Update");
         addBook.setBounds(30, 510, 150, 30);
         addBook.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                if (inputPaid.getText() == String.valueOf(book.getBorrowPrice())) {
+                if (book.getBorrowPrice() != Integer.parseInt(inputPaid.getText()) && Integer.parseInt(inputPaid.getText()) >= 0) {
                     if (!"".equals(inputPaid.getText())) {
                         book.setBorrowPrice(Integer.parseInt(inputPaid.getText()));
                     } else {
                         book.setBorrowPrice(0);
                     }
-                    boolean state = new Controller.databaseChange().updateBook(book);
+                    boolean state = new controller.databaseChange().updateBook(book);
                     if (state) {
-                        System.out.println("Success!!");
+                        new OutputInfo().successAddNewBook(book.getTitle(), state);
                         frame.setVisible(false);
-                        adminMenu(new Controller.databaseChange().getAdmin(1));
+                        adminMenu(new controller.databaseChange().getAdmin(1));
                     } else {
-                        System.out.println("Nangis aja");
+                        new OutputInfo().successAddNewBook(book.getTitle(), state);
                     }
+                } else {
+                    new OutputInfo().cantUpdateBecauseNoChange();
                 }
             }
         });
@@ -324,7 +329,8 @@ public class AdminMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                bookListUpdate(new Controller.databaseChange().getAdmin(1).getIdBranch());
+                new OutputInfo().exit();
+                bookListUpdate(new controller.databaseChange().getAdmin(1).getIdBranch());
             }
 
         });
@@ -503,14 +509,16 @@ public class AdminMenu {
                     book.setYear(Integer.parseInt(inputYear.getText()));
                     book.setIdBranch(idBranch);
 
-                    boolean state = new Controller.databaseChange().insertNewBook(book);
+                    boolean state = new controller.databaseChange().insertNewBook(book);
                     if (state) {
-                        System.out.println("Success!!");
+                        new OutputInfo().successAddNewBook(book.getTitle(), state);
                         frame.setVisible(false);
-                        adminMenu(new Controller.databaseChange().getAdmin(1));
+                        adminMenu(new controller.databaseChange().getAdmin(1));
                     } else {
-                        System.out.println("Nangis aja");
+                        new OutputInfo().successAddNewBook(book.getTitle(), state);
                     }
+                } else {
+                    new OutputInfo().infoFormValidate();
                 }
             }
         });
@@ -520,7 +528,8 @@ public class AdminMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                bookListUpdate(new Controller.databaseChange().getAdmin(1).getIdBranch());
+                new OutputInfo().exit();
+                bookListUpdate(new controller.databaseChange().getAdmin(1).getIdBranch());
             }
 
         });
@@ -534,27 +543,29 @@ public class AdminMenu {
     public void printDanaSatuCabang(int idBranch) {
         JFrame f = new JFrame();
         JButton exit = new JButton("Exit");
-        exit.setBounds(50, 450, 800, 20);
+        exit.setBounds(50, 470, 800, 20);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
-                adminMenu(new Controller.databaseChange().getAdmin(1));
+                new OutputInfo().exit();
+                adminMenu(new controller.databaseChange().getAdmin(1));
             }
 
         });
         f.add(exit);
         f.add(danaPerpus(idBranch));
-        f.setSize(950, 600);
+        f.setSize(950, 660);
         f.setLayout(null);
         f.setVisible(true);
 
     }
 
     public JPanel danaPerpus(int idBranch) {
-        ArrayList<Member> listMember = new Controller.databaseChange().getAllMember(idBranch);
+        ArrayList<Member> listMember = new controller.databaseChange().getAllMember(idBranch);
         int pendapatanByMemberRegister = 0;
         int pendapatanByBorrowing = 0;
+        int pendapatanByMoneyFine = 0;
         String[] column = {"Keterangan", "Saldo", "Tanggal"};
         DefaultTableModel tableModel = new DefaultTableModel(column, 0);
         JTable table = new JTable(tableModel);
@@ -576,15 +587,15 @@ public class AdminMenu {
                     tableModel = (DefaultTableModel) table.getModel();
                     tableModel.addRow(datum);
                     pendapatanByBorrowing += borrow.getPriceTotal();
-                    if (borrow.getMoneyFine() != 0) {
-                        datum = new Object[3];
-                        datum[0] = "Denda dari peminjaman buku " + new databaseChange().getABook(borrow.getIdBook()).getTitle();
-                        datum[1] = "(+)" + borrow.getMoneyFine();
-                        datum[2] = borrow.getDate();
-                        tableModel = (DefaultTableModel) table.getModel();
-                        tableModel.addRow(datum);
-                        pendapatanByBorrowing += borrow.getMoneyFine();
-                    }
+                }
+                if (borrow.getMoneyFine() != 0) {
+                    datum = new Object[3];
+                    datum[0] = "Denda dari peminjaman buku " + new databaseChange().getABook(borrow.getIdBook()).getTitle();
+                    datum[1] = "(+)" + borrow.getMoneyFine();
+                    datum[2] = borrow.getDate();
+                    tableModel = (DefaultTableModel) table.getModel();
+                    tableModel.addRow(datum);
+                    pendapatanByMoneyFine += borrow.getMoneyFine();
                 }
             }
         }
@@ -600,13 +611,16 @@ public class AdminMenu {
         label1.setBounds(50, 370, 300, 20);
         JLabel label2 = new JLabel("Pendapatan dari Peminjaman Buku :  Rp " + pendapatanByBorrowing);
         label2.setBounds(50, 390, 300, 20);
-        JLabel label3 = new JLabel("Total Pendapatan : Rp " + (pendapatanByMemberRegister + pendapatanByBorrowing));
-        label3.setBounds(50, 410, 300, 20);
+        JLabel label3 = new JLabel("Pendapatan dari Denda Buku :  Rp " + pendapatanByMoneyFine);
+        label2.setBounds(50, 410, 300, 20);
+        JLabel label4 = new JLabel("Total Pendapatan : Rp " + (pendapatanByMemberRegister + pendapatanByBorrowing));
+        label3.setBounds(50, 430, 300, 20);
 
         panel.add(label1);
         panel.add(label2);
         panel.add(label3);
-        panel.setSize(850, 480);
+        panel.add(label4);
+        panel.setSize(850, 450);
         panel.setLayout(null);
         panel.setVisible(true);
         return panel;
@@ -615,7 +629,7 @@ public class AdminMenu {
     public JPanel getUserHistory(int idBranch) {
         int[] counterGenre = new int[15];
         JPanel panel = new JPanel();
-        ArrayList<Member> listMember = new Controller.databaseChange().getAllMember(idBranch);
+        ArrayList<Member> listMember = new controller.databaseChange().getAllMember(idBranch);
         String[] column = {"Peminjam", "Buku", "Lama Peminjaman", "Harga Pinjam Buku", "Denda", "Status"};
         DefaultTableModel tableModel = new DefaultTableModel(column, 0);
         JTable table = new JTable(tableModel);
@@ -639,42 +653,55 @@ public class AdminMenu {
         JScrollPane sp = new JScrollPane(table);
         sp.setBounds(50, 50, 800, 300);
         JLabel info = new JLabel("Banyak Peminjaman Berdasar Genre : ");
-        info.setBounds(50,380,250,30);
+        info.setBounds(50, 380, 250, 30);
         JLabel horror = new JLabel("Horror : " + counterGenre[0]);
         horror.setBounds(50, 430, 140, 30);
         JLabel fantasi = new JLabel("Fantasi : " + counterGenre[1]);
-        fantasi.setBounds(50, 480, 140, 30);
+        fantasi.setBounds(50, 460, 140, 30);
         JLabel sciFi = new JLabel("Sci-Fi : " + counterGenre[2]);
-        sciFi.setBounds(50, 530, 140, 30);
+        sciFi.setBounds(50, 490, 140, 30);
         JLabel roman = new JLabel("Romantis : " + counterGenre[3]);
         roman.setBounds(210, 430, 140, 30);
         JLabel komedi = new JLabel("Komedi : " + counterGenre[4]);
-        komedi.setBounds(210, 480, 140, 30);
+        komedi.setBounds(210, 460, 140, 30);
         JLabel misteri = new JLabel("Misteri : " + counterGenre[5]);
-        misteri.setBounds(210, 530, 140, 30);
+        misteri.setBounds(210, 490, 140, 30);
         JLabel petualangan = new JLabel("Petualangan : " + counterGenre[6]);
         petualangan.setBounds(370, 430, 140, 30);
         JLabel biografi = new JLabel("Biografi : " + counterGenre[7]);
-        biografi.setBounds(370, 480, 140, 30);
+        biografi.setBounds(370, 460, 140, 30);
         JLabel ensiklopedia = new JLabel("Ensiklopedia : " + counterGenre[8]);
-        ensiklopedia.setBounds(370, 530, 140, 30);
+        ensiklopedia.setBounds(370, 490, 140, 30);
         JLabel jurnal = new JLabel("Jurnal : " + counterGenre[9]);
         jurnal.setBounds(530, 430, 140, 30);
         JLabel kamus = new JLabel("Kamus : " + counterGenre[10]);
-        kamus.setBounds(530, 480, 140, 30);
+        kamus.setBounds(530, 460, 140, 30);
         JLabel filsafat = new JLabel("Filsafat : " + counterGenre[11]);
-        filsafat.setBounds(530, 530, 140, 30);
+        filsafat.setBounds(530, 590, 140, 30);
         JLabel sejarah = new JLabel("Sejarah : " + counterGenre[12]);
         sejarah.setBounds(690, 430, 140, 30);
         JLabel psikologi = new JLabel("Psikologi : " + counterGenre[13]);
-        psikologi.setBounds(690, 480, 140, 30);
+        psikologi.setBounds(690, 460, 140, 30);
         JLabel others = new JLabel("Lainnya : " + counterGenre[14]);
-        others.setBounds(690, 530, 140, 30);
-        panel.add(horror);panel.add(fantasi);panel.add(sciFi);panel.add(roman);panel.add(komedi);panel.add(misteri);panel.add(petualangan);panel.add(biografi);panel.add(ensiklopedia);
-        panel.add(jurnal);panel.add(kamus);panel.add(filsafat);panel.add(sejarah);panel.add(psikologi);panel.add(others);
+        others.setBounds(690, 490, 140, 30);
+        panel.add(horror);
+        panel.add(fantasi);
+        panel.add(sciFi);
+        panel.add(roman);
+        panel.add(komedi);
+        panel.add(misteri);
+        panel.add(petualangan);
+        panel.add(biografi);
+        panel.add(ensiklopedia);
+        panel.add(jurnal);
+        panel.add(kamus);
+        panel.add(filsafat);
+        panel.add(sejarah);
+        panel.add(psikologi);
+        panel.add(others);
         panel.add(sp);
         panel.add(info);
-        panel.setSize(850, 580);
+        panel.setSize(850, 520);
         panel.setLayout(null);
         panel.setVisible(true);
         return panel;
@@ -689,7 +716,8 @@ public class AdminMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                adminMenu(new Controller.databaseChange().getAdmin(1));
+                new OutputInfo().exit();
+                adminMenu(new controller.databaseChange().getAdmin(1));
             }
 
         });
@@ -700,7 +728,7 @@ public class AdminMenu {
     }
 
     public int[] genreCount(int[] counterGenre, String genre) {
-        
+
         switch (genre) {
             case "Horror":
                 counterGenre[0]++;

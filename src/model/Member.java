@@ -1,26 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-import java.util.ArrayList;
-
-/**
- *
- * @author SILVI PRISILLIA
- */
 public class Member extends User implements InterfaceBranchCity {
     private String address;
     private String phoneNumber;
     private int cash;
     private int debt;
     private int idBranch;
-    
-    
+
     public Member() {
         
+    }
+    
+    public Member(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, String address, String phoneNumber, int cash, int debt, int idBranch) {
+        super(idUser, firstName, lastName, email, password, type);
+        setIdBranch(idBranch);
+
     }
     public String getAddress() {
         return address;
@@ -71,7 +65,7 @@ public class Member extends User implements InterfaceBranchCity {
                         +"Hutang : Rp"+getDebt()+"\n"
                         +"Cabang : <pake interface kali ya>"+getIdBranch();
     }
-    
+
     @Override
     public String selectBranchCity(int idBranch) {
         switch(idBranch) {
@@ -84,11 +78,4 @@ public class Member extends User implements InterfaceBranchCity {
         }
         return "";
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + "Member{" + "address=" + address + ", phoneNumber=" + phoneNumber + ", cash=" + cash + ", debt=" + debt + ", idBranch=" + idBranch + '}';
-    }
-    
-    
 }

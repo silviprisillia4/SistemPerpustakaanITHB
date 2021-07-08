@@ -1,17 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author SILVI PRISILLIA
- */
 public class Borrowing implements InterfaceBookState {
     private int idBorrow;
     private int idBook;
@@ -19,11 +9,25 @@ public class Borrowing implements InterfaceBookState {
     private int idBranch;
     private int borrowDays;
     private int priceTotal;
-    private int moneyFine;
-    private int status;
     private Date date;
+    private int status;
+    private int moneyFine;
 
-   
+    public Borrowing() {
+        
+    }
+    
+    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, Date date, int status, int moneyFine) {
+        setIdBorrow(idBorrow);
+        setIdBook(idBook);
+        setIdUser(idUser);
+        setIdBranch(idBranch);
+        setBorrowDays(borrowDays);
+        setPriceTotal(priceTotal);
+        setDate(date);
+        setStatus(status);
+        setMoneyFine(moneyFine);
+    }
 
     public int getIdBorrow() {
         return idBorrow;
@@ -81,10 +85,14 @@ public class Borrowing implements InterfaceBookState {
        this.date = date;
     }
     
-    public void printDataPeminjaman() {
-        
+    public int getStatus() {
+        return status;
     }
-
+    
+    public void setStatus(int status) {
+        this.status = status;
+    }
+  
     public int getMoneyFine() {
         return moneyFine;
     }
@@ -92,25 +100,18 @@ public class Borrowing implements InterfaceBookState {
     public void setMoneyFine(int moneyFine) {
         this.moneyFine = moneyFine;
     }
-
-    public int getStatus() {
-        return status;
+  
+    public void printDataPeminjaman() {
+        
     }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-    
-    public Borrowing() {}
 
     @Override
-    public String selectBookState(int status) {
-        if (status == AVAILABLE) {
-            return "Available";
+    public String selectBookState(int idBook) {
+        String state = "";
+        if(idBook==AVAILABLE) {
+            return "Tersedia";
         } else {
-            return "Borrowed";
+            return "Dipinjam";
         }
     }
-    
-    
 }
