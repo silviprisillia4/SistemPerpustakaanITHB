@@ -12,7 +12,7 @@ package model;
 public class Admin extends User {
     private int idBranch;
 
-    public Admin(String idUser, String firstName, String lastName, String email, String password, UserType type, int idBranch) {
+    public Admin(int idUser, String firstName, String lastName, String email, String password, UserType type, int idBranch) {
         super(idUser, firstName, lastName, email, password, type);
         this.idBranch = idBranch;
     }

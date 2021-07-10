@@ -9,7 +9,7 @@ package controller;
  *
  * @author Yen
  */
-public class regex {
+public class Regex {
     
     static boolean emailValidation(String email) {
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";

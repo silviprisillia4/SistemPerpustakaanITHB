@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import model.Member;
+import model.User;
 import model.UserType;
 
 /**
@@ -106,17 +108,17 @@ public class DataController {
     }
     
     public boolean processingRegistration(int selectedBranch, String firstName, String lastName, String address, String phone, String email, String newPass, String rePass) {
-        boolean isValid = regex.firstNameValidation(firstName);
+        boolean isValid = Regex.firstNameValidation(firstName);
         if (isValid) {
-            isValid = regex.lastNameValidation(lastName);
+            isValid = Regex.lastNameValidation(lastName);
             if (isValid) {
-                isValid = regex.addressValidation(address);
+                isValid = Regex.addressValidation(address);
                 if (isValid) {
-                    isValid = regex.mobileNumberValidation(phone);
+                    isValid = Regex.mobileNumberValidation(phone);
                     if (isValid) {
-                        isValid = regex.emailValidation(email);
+                        isValid = Regex.emailValidation(email);
                         if (isValid) {
-                            isValid = regex.passValidation(newPass);
+                            isValid = Regex.passValidation(newPass);
                             if (isValid) {
                                 if (newPass.equals(rePass)) {
                                     DataController c = new DataController();
@@ -163,5 +165,29 @@ public class DataController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public Member getLoggedInUser(String email) {
+        Member member = new Member();
+        String query = "SELECT * FROM users WHERE email = '" + email + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            member.setIdUser(rs.getInt("idUser"));
+            member.setIdBranch(rs.getInt("idBranch"));
+            member.setFirstName(rs.getString("firstName"));
+            member.setLastName(rs.getString("lastName"));
+            member.setEmail(rs.getString("email"));
+            member.setPassword(rs.getString("password"));
+            member.setAddress(rs.getString("address"));
+            member.setPhoneNumber(rs.getString("phoneNumber"));
+            member.setType(UserType.valueOf(rs.getString("type")));
+            member.setCash(rs.getInt("cash"));
+            member.setDebt(rs.getInt("debt"));
+            member.setApproved(rs.getInt("approved"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return member;
     }
 }

@@ -15,13 +15,23 @@ public class Member extends User {
     private int cash;
     private int debt;
     private int idBranch;
+    private int approved;
     
     public Member() {
     }
     
-    public Member(String idUser, String firstName, String lastName, String email, String password, UserType type, String address, String phoneNumber, int cash, int debt, int idBranch) {
+    public Member(int idUser, String firstName, String lastName, String email, String password, UserType type, String address, String phoneNumber, int cash, int debt, int idBranch, int approved) {
         super(idUser, firstName, lastName, email, password, type);
         this.idBranch = idBranch;
+        this.approved = approved;
+    }
+
+    public int getApproved() {
+        return approved;
+    }
+
+    public void setApproved(int approved) {
+        this.approved = approved;
     }
 
     public String getAddress() {
