@@ -6,11 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.Admin;
-import model.Borrowing;
-import model.Member;
-import model.PaidBook;
-import model.UserTypeEnum;
+
+import model.*;
 
 
 public class databaseChange {
@@ -39,30 +36,37 @@ public class databaseChange {
         }
     }
 
-    public Member getAMember(int idUser) {
-        Member member = new Member();
+    public Object getAMember(int idUser) {
+        Object object = new Object();
         conn.connect();
         String query = "SELECT * FROM users WHERE idUser = '" + idUser + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                member.setAddress(rs.getString("address"));
-                member.setCash(rs.getInt("cash"));
-                member.setDebt(rs.getInt("debt"));
-                member.setEmail(rs.getString("email"));
-                member.setFirstName(rs.getString("firstName"));
-                member.setLastName(rs.getString("lastName"));
-                member.setPhoneNumber(rs.getString("phoneNumber"));
-                member.setIdBranch(rs.getInt("idBranch"));
-                member.setType(UserTypeEnum.MEMBER);
-                member.setPassword(rs.getString("password"));
-                member.setIdUser(rs.getInt("idUser"));
+                String mail = rs.getString("email");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                UserTypeEnum type = UserTypeEnum.MEMBER;
+                String password = rs.getString("password");
+                if (type == UserTypeEnum.MEMBER) {
+                    String address = rs.getString("address");
+                    int cash = rs.getInt("cash");
+                    int debt = rs.getInt("debt");
+                    String phone = rs.getString("phoneNumber");
+                    int idBranch = rs.getInt("idBranch");
+                    object = new Member(idUser, firstName, lastName, mail, password, type, address, phone, cash, debt, idBranch);
+                } else if (type == UserTypeEnum.ADMIN) {
+                    int idBranch = rs.getInt("idBranch");
+                    object = new Admin(idUser, firstName, lastName, mail, password, type, idBranch);
+                } else {
+                    object = new User(idUser, firstName, lastName, mail, password, type);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return member;
+        return object;
     }
 
     public ArrayList<Member> getAllMember(int idBranch) {
@@ -100,11 +104,11 @@ public class databaseChange {
         return members;
     }
 
-    public Admin getAdmin(int idBranch) {
+    public Admin getAdmin(int idUser) {
         Admin admin = new Admin();
         conn.connect();
         String query;
-        query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.ADMIN + "'";
+        query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.ADMIN + "' && idUser = '" + idUser +"'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -190,8 +194,8 @@ public class databaseChange {
         }
     }
 
-    public PaidBook getABook(int idBuku) {
-        PaidBook book = new PaidBook();
+    public Object getABook(int idBuku) {
+        Object object = new Object();
         conn.connect();
         String query = "SELECT * FROM Books WHERE idBook = '" + idBuku + "'";
 
@@ -199,21 +203,26 @@ public class databaseChange {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                book.setTitle(rs.getString("title"));
-                book.setAuthor(rs.getString("author"));
-                book.setBorrowPrice(rs.getInt("borrowPrice"));
-                book.setGenre(rs.getString("genre"));
-                book.setIdBook(rs.getInt("idBook"));
-                book.setIdBranch(rs.getInt("idBranch"));
-                book.setPages(rs.getInt("pages"));
-                book.setPublisher(rs.getString("publisher"));
-                book.setYear(rs.getInt("year"));
-                return book;
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                String genre = rs.getString("genre");
+                int idBook = rs.getInt("idBook");
+                int idBranch = rs.getInt("idBranch");
+                int pages = rs.getInt("pages");
+                String publisher = rs.getString("publisher");
+                int year = rs.getInt("year");
+                int availability = rs.getInt("status");
+                if (rs.getInt("borrowPrice") != 0) {
+                    int borrowPrice = rs.getInt("borrowPrice");
+                    object = new PaidBook(idBook, idBranch, title, author, publisher, pages, year, genre, availability, borrowPrice);
+                } else {
+                    object = new Book(idBook, idBranch, title, author, publisher, pages, year, genre, availability);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return book;
+        return object;
     }
 
     public static boolean updateBook(PaidBook book) {
