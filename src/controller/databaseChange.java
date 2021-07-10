@@ -125,14 +125,16 @@ public class databaseChange {
         return null;
     }
 
-    public ArrayList<Borrowing> getAllBorrowList(int id, boolean condition) {
+    public ArrayList<Borrowing> getAllBorrowList(int id, int condition) {
         ArrayList<Borrowing> listBorrows = new ArrayList<>();
         conn.connect();
         String query = "";
-        if (condition) {
+        if (condition == 0) {
             query = "SELECT * FROM Borrows WHERE iduser = '" + id + "'";
-        } else {
+        } else if (condition == 1){
             query = "SELECT * FROM Borrows WHERE idbranch = '" + id + "' && status = '0'";
+        } else {
+            query = "SELECT * FROM Borrows WHERE idbranch = '" + id + "' && status = '0' || status = '1'";
         }
 
         try {

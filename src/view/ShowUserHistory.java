@@ -59,11 +59,11 @@ public class ShowUserHistory {
 
 
         for (int i = 0; i < listMember.size(); i++) {
-            for (int j = 0; j < new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), true).size(); j++) {
+            for (int j = 0; j < new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), 0).size(); j++) {
                 Object[] datum = new Object[6];
-                Borrowing borrow = new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), true).get(j);
+                Borrowing borrow = new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), 0).get(j);
                 datum[0] = ((Member) new databaseChange().getAMember(borrow.getIdUser())).getFirstName() + " " + ((Member)new databaseChange().getAMember(borrow.getIdUser())).getLastName();
-                datum[1] = ((Book)new databaseChange().getABook(borrow.getIdBook())).getTitle();
+                datum[1] = ((Book) new databaseChange().getABook(borrow.getIdBook())).getTitle();
                 datum[2] = borrow.getBorrowDays();
                 datum[3] = borrow.getPriceTotal();
                 datum[4] = borrow.getMoneyFine();

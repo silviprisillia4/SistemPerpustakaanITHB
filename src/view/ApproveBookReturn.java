@@ -83,9 +83,9 @@ public class ApproveBookReturn {
         Admin admin = UserManager.getInstance().getAdmin();
         int idBranch = admin.getIdBranch();
 
-        Object[][] data = new Object[new databaseChange().getAllBorrowList(idBranch, false).size()][9];
-        for (int j = 0; j < new databaseChange().getAllBorrowList(idBranch, false).size(); j++) {
-            Borrowing borrow = new databaseChange().getAllBorrowList(idBranch, false).get(j);
+        Object[][] data = new Object[new databaseChange().getAllBorrowList(idBranch, 1).size()][9];
+        for (int j = 0; j < new databaseChange().getAllBorrowList(idBranch, 1).size(); j++) {
+            Borrowing borrow = new databaseChange().getAllBorrowList(idBranch, 1).get(j);
             Member member = (Member) new databaseChange().getAMember(borrow.getIdUser());
             data[j][0] = borrow.getIdBorrow();
             data[j][1] = member.getFirstName() + " " + member.getLastName();

@@ -108,8 +108,10 @@ public class Book implements InterfaceBookState, InterfaceBranchCity {
         String state = "";
         if(idBook==AVAILABLE) {
             state = "Tersedia";
-        } else {
+        } else if (idBook == BORROWED){
             state = "Dipinjam";
+        } else {
+            state = "Diproses";
         }
         return state;
     }

@@ -63,8 +63,8 @@ public class CheckMoney {
             tableModel = (DefaultTableModel) table.getModel();
             tableModel.addRow(datum);
             pendapatanByMemberRegister += 50000;
-            for (int j = 0; j < new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), true).size(); j++) {
-                Borrowing borrow = new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), true).get(j);
+            for (int j = 0; j < new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), 2).size(); j++) {
+                Borrowing borrow = new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), 2).get(j);
                 if (borrow.getPriceTotal() != 0) {
                     datum = new Object[3];
                     datum[0] = "Peminjaman  buku " + ((Book)new databaseChange().getABook(borrow.getIdBook())).getTitle() + " selama " + borrow.getBorrowDays() + " hari";
