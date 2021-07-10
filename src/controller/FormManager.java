@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package controller;
+import view.MainScreen;
 
 /**
  *
- * @author SILVI PRISILLIA
+ * @author Yen
  */
-public class Main {
-
-    public static void main(String[] args) {
-//        new controller.FormManager();
-        new view.ApprovalMenu();
-    }
+public class FormManager {
     
+    public FormManager() {
+        MainScreen m = new MainScreen();
+        
+    }
 }

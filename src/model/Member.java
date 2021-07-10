@@ -16,6 +16,9 @@ public class Member extends User {
     private int debt;
     private int idBranch;
     
+    public Member() {
+    }
+    
     public Member(String idUser, String firstName, String lastName, String email, String password, UserType type, String address, String phoneNumber, int cash, int debt, int idBranch) {
         super(idUser, firstName, lastName, email, password, type);
         this.idBranch = idBranch;
