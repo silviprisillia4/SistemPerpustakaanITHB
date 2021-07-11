@@ -1,30 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
-
 import java.util.ArrayList;
 
-/**
- *
- * @author SILVI PRISILLIA
- */
 public class Member extends User implements InterfaceBranchCity {
     private String address;
     private String phoneNumber;
     private int cash;
     private int debt;
     private int idBranch;
+    private ArrayList<Borrowing> borrows = new ArrayList<>();
 
     public Member() {
         
     }
     
-    public Member(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, String address, String phoneNumber, int cash, int debt, int idBranch) {
+    public Member(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, String address, String phoneNumber, int cash, int debt, int idBranch, ArrayList<Borrowing> borrows) {
         super(idUser, firstName, lastName, email, password, type);
+        setAddress(address);
+        setPhoneNumber(phoneNumber);
+        setCash(cash);
+        setDebt(debt);
         setIdBranch(idBranch);
+        setBorrows(borrows);
 
     }
     public String getAddress() {
@@ -65,6 +61,14 @@ public class Member extends User implements InterfaceBranchCity {
 
     public void setIdBranch(int idBranch) {
         this.idBranch = idBranch;
+    }
+    
+    public ArrayList<Borrowing> getBorrows () {
+        return borrows;
+    }
+    
+    public void setBorrows(ArrayList<Borrowing> borrows) {
+        this.borrows = borrows;
     }
     
     public void printDataMember() {

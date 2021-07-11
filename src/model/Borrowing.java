@@ -1,17 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
-
-import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author SILVI PRISILLIA
- */
 public class Borrowing implements InterfaceBookState {
     private int idBorrow;
     private int idBook;
@@ -117,11 +106,14 @@ public class Borrowing implements InterfaceBookState {
 
     @Override
     public String selectBookState(int idBook) {
-        String state = "";
         if(idBook==AVAILABLE) {
             return "Tersedia";
-        } else {
+        } else if(idBook==BORROWED) {
             return "Dipinjam";
+        } else if(idBook==PROCESSED) {
+            return "Sedang diproses";
+        } else {
+            return "Sudah dikembalikan";
         }
     }
 }
