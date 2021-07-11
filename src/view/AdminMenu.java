@@ -13,7 +13,7 @@ public class AdminMenu {
     public void adminMenu() {
         Admin admin = UserManager.getInstance().getAdmin();
 
-        new OutputInfo().welcomeToMenuAdmin((admin.getFirstName() + " " + admin.getLastName()), admin.selectBranchCity(admin.getIdBranch()));
+        new OutputInfo().welcomeToMenuAdmin();
 
         //declare
         JFrame frame = new DefaultFrameSetting().defaultFrame();
@@ -66,7 +66,7 @@ public class AdminMenu {
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new OutputInfo().exitFromOwnerMenu();
+                new OutputInfo().logOutInfo();
                 System.exit(0);
             }
 

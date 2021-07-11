@@ -19,7 +19,7 @@ public class ShowUserHistory {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new OutputInfo().exit();
+                new OutputInfo().backToPreviousMenu();
                 new AdminMenu().adminMenu();
             }
 
@@ -159,7 +159,7 @@ public class ShowUserHistory {
             case "Misteri":
                 counterGenre[5]++;
                 break;
-            case "Petualangan":
+            case "Drama":
                 counterGenre[6]++;
                 break;
             case "Biografi":
@@ -168,7 +168,7 @@ public class ShowUserHistory {
             case "Ensiklopedia":
                 counterGenre[8]++;
                 break;
-            case "Jurnal":
+            case "Pengetahuan":
                 counterGenre[9]++;
                 break;
             case "Kamus":

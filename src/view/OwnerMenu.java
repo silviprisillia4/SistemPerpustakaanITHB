@@ -66,7 +66,7 @@ public class OwnerMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new OutputInfo().exit();
+                new OutputInfo().logOutInfo();
                 System.exit(0);
             }
             

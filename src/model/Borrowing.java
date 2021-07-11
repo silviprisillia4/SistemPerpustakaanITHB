@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Borrowing implements InterfaceBookState {
@@ -12,12 +13,22 @@ public class Borrowing implements InterfaceBookState {
     private Date date;
     private int status;
     private int moneyFine;
+    private ArrayList<Book> books = new ArrayList<>();
 
+    public ArrayList<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(ArrayList<Book> books) {
+        this.books = books;
+    }
+    
+    
     public Borrowing() {
         
     }
     
-    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, Date date, int status, int moneyFine) {
+    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, Date date, int status, int moneyFine, ArrayList<Book> books) {
         setIdBorrow(idBorrow);
         setIdBook(idBook);
         setIdUser(idUser);
@@ -27,6 +38,7 @@ public class Borrowing implements InterfaceBookState {
         setDate(date);
         setStatus(status);
         setMoneyFine(moneyFine);
+        setBooks(books);
     }
 
     public int getIdBorrow() {
@@ -107,13 +119,14 @@ public class Borrowing implements InterfaceBookState {
 
     @Override
     public String selectBookState(int idBook) {
-        String state = "";
         if(idBook == AVAILABLE) {
             return "Tersedia";
         } else if (idBook == BORROWED){
             return "Dipinjam";
-        } else {
+        } else if (idBook == PROCESSED){
             return "Diproses";
+        } else {
+            return "Dikembalikan";
         }
-    }
+    } 
 }
