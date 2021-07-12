@@ -439,5 +439,5 @@ public class BorrowBook {
         panel1.add(btnGenre);
         panel1.add(btnYear);
         frame.add(panel1);
-    }
+    } 
 }
