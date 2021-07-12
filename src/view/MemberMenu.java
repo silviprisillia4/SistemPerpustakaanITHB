@@ -1,62 +1,56 @@
 package view;
-import model.UserManager;
-import controller.*;
-import model.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.Color;
+import controller.*;
+import model.*;
 
 public class MemberMenu {
     JFrame frame;
     JPanel panel1;
-    JButton btnMenu1, btnMenu2;
+    JButton btnBorrow, btnProfile;
     
     public MemberMenu() {
         Controller c = new Controller();
         Member member = c.getSelectedMember(1);
         UserManager.getInstance().setUser(member);
-        
+
         //Frame
-        frame = new JFrame("Perpustakaan ITHB");
-        frame.setSize(400, 400);
+        frame = new DefaultFrameSetting().defaultFrame();
+        frame.setSize(300, 250);
         frame.setLocationRelativeTo(null);
         
         //Panel
-        panel1 = new JPanel();
-        panel1.setSize(400, 400);
-        panel1.setBackground(Color.GRAY);
+        panel1 = new DefaultFrameSetting().defaultPanel();
+        panel1.setSize(300, 250);
+        panel1.setBackground(new Color(255, 234, 202));
         panel1.setVisible(true);
         
         //Button
-        btnMenu1 = new JButton("Pinjam Buku");
-        btnMenu1.setBounds(50, 50, 120, 50);
-        btnMenu1.addActionListener(new ActionListener() {
+        btnBorrow = new JButton("Pinjam Buku");
+        btnBorrow.setBounds(75, 40, 120, 50);
+        btnBorrow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new PanelBorrowBook();
+                new BorrowBook();
             }
         });
         
-        btnMenu2 = new JButton("Lihat Profil");
-        btnMenu2.setBounds(50, 110, 120, 50);
-        btnMenu2.addActionListener(new ActionListener() {
+        btnProfile = new JButton("Lihat Profil");
+        btnProfile.setBounds(75, 110, 120, 50);
+        btnProfile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new PanelProfile();
+                new Profile();
             }
         });
         
         //Add
-        panel1.add(btnMenu1);
-        panel1.add(btnMenu2);
+        panel1.add(btnBorrow);
+        panel1.add(btnProfile);
         frame.add(panel1);
-        
-        //Initialize
-        panel1.setLayout(null);
-        frame.setLayout(null);
-        frame.setVisible(true);
         
     }
 }
