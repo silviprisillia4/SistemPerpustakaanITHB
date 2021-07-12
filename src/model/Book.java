@@ -9,13 +9,13 @@ public class Book implements InterfaceBookState, InterfaceBranchCity {
     private int pages;
     private int year;
     private String genre;
-    private int availability;
+    private int status;
 
     public Book() {
         
     }
     
-    public Book(int idBook, int idBranch, String title, String author, String publisher, int pages, int year, String genre, int availability) {
+    public Book(int idBook, int idBranch, String title, String author, String publisher, int pages, int year, String genre, int status) {
         setIdBook(idBook);
         setIdBranch(idBranch);
         setTitle(title);
@@ -24,7 +24,7 @@ public class Book implements InterfaceBookState, InterfaceBranchCity {
         setPages(pages);
         setYear(year);
         setGenre(genre);
-        setAvailability(availability);
+        setStatus(status);
     }
 
     public int getIdBook() {
@@ -86,6 +86,14 @@ public class Book implements InterfaceBookState, InterfaceBranchCity {
     public String getGenre() {
         return genre;
     }
+    
+    public int getStatus() {
+        return status;
+    }
+    
+    public void setStatus(int status) {
+        
+    }
 
     public void setGenre(String genre) {
         this.genre = genre;
@@ -95,25 +103,13 @@ public class Book implements InterfaceBookState, InterfaceBranchCity {
         
     }
     
-    public int getAvailability() {
-        return availability;
-    }
-    
-    public void setAvailability(int availability) {
-        
-    }
-    
     @Override
     public String selectBookState(int idBook) {
-        String state = "";
         if(idBook==AVAILABLE) {
-            state = "Tersedia";
-        } else if (idBook == BORROWED){
-            state = "Dipinjam";
+            return "Tersedia";
         } else {
-            state = "Diproses";
+            return "Dipinjam";
         }
-        return state;
     }
 
     @Override

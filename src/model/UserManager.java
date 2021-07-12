@@ -32,10 +32,11 @@ public class UserManager {
         return admin;
     }
 
-    public User getOwner() {return owner;}
+    public User getOwner() {
+      return owner;
+    }
 
     public void logOut() {
         instance = null;
     }
-
 }

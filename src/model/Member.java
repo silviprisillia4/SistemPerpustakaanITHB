@@ -1,5 +1,4 @@
 package model;
-
 import java.util.ArrayList;
 
 public class Member extends User implements InterfaceBranchCity {
@@ -10,15 +9,8 @@ public class Member extends User implements InterfaceBranchCity {
     private int idBranch;
     private ArrayList<Borrowing> borrows = new ArrayList<>();
 
-    public ArrayList<Borrowing> getBorrows() {
-        return borrows;
-    }
-
-    public void setBorrows(ArrayList<Borrowing> borrows) {
-        this.borrows = borrows;
-    }
-
     public Member() {
+        
     }
     
     public Member(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, String address, String phoneNumber, int cash, int debt, int idBranch, ArrayList<Borrowing> borrows) {
@@ -29,8 +21,8 @@ public class Member extends User implements InterfaceBranchCity {
         setDebt(debt);
         setIdBranch(idBranch);
         setBorrows(borrows);
-    }
 
+    }
     public String getAddress() {
         return address;
     }
@@ -71,6 +63,14 @@ public class Member extends User implements InterfaceBranchCity {
         this.idBranch = idBranch;
     }
     
+    public ArrayList<Borrowing> getBorrows () {
+        return borrows;
+    }
+    
+    public void setBorrows(ArrayList<Borrowing> borrows) {
+        this.borrows = borrows;
+    }
+    
     public void printDataMember() {
         String print = "Nama : "+getFirstName()+" "+getLastName()+"\n"
                         +"Alamat : "+getAddress()+"\n"
@@ -78,7 +78,7 @@ public class Member extends User implements InterfaceBranchCity {
                         +"Email : "+getEmail()+"\n"
                         +"Saldo : Rp "+getCash()+"\n"
                         +"Hutang : Rp"+getDebt()+"\n"
-                        +"Cabang : <pake interface kali ya>"+getIdBranch();
+                        +"Cabang : "+selectBranchCity(getIdBranch());
     }
 
     @Override

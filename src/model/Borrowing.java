@@ -1,6 +1,4 @@
 package model;
-
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Borrowing implements InterfaceBookState {
@@ -14,14 +12,6 @@ public class Borrowing implements InterfaceBookState {
     private int status;
     private int moneyFine;
     private PaidBook book;
-
-    public PaidBook getBook() {
-        return book;
-    }
-
-    public void setBook(PaidBook book) {
-        this.book = book;
-    }
     
     public Borrowing() {
         
@@ -110,6 +100,14 @@ public class Borrowing implements InterfaceBookState {
 
     public void setMoneyFine(int moneyFine) {
         this.moneyFine = moneyFine;
+    }
+  
+    public PaidBook getBook() {
+        return book;
+    }
+
+    public void setBook(PaidBook book) {
+        this.book = book;
     }
   
     public void printDataPeminjaman() {
