@@ -7,6 +7,7 @@ package view;
 import controller.DataController;
 import controller.LoginHandler;
 import controller.UserManager;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -63,6 +64,7 @@ public class MainScreen {
         
         mainFrame.setTitle("Sistem Perpustakaan");
         mainFrame.setSize(330, 110);
+        mainFrame.getContentPane().setBackground(new Color(255, 228, 189));
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setLayout(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,6 +172,7 @@ public class MainScreen {
         
         registerFrame.setTitle("Register - Sistem Perpustakaan");
         registerFrame.setSize(360, 320);
+        registerFrame.getContentPane().setBackground(new Color(255, 228, 189));
         registerFrame.setLocationRelativeTo(null);
         registerFrame.setLayout(null);
         registerFrame.setVisible(true);
@@ -221,6 +224,7 @@ public class MainScreen {
         
         loginFrame.setTitle("Login - Sistem Perpustakaan");
         loginFrame.setSize(330, 170);
+        loginFrame.getContentPane().setBackground(new Color(255, 228, 189));
         loginFrame.setLocationRelativeTo(null);
         loginFrame.setLayout(null);
         loginFrame.setVisible(true);

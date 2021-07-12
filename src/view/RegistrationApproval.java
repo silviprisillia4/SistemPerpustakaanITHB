@@ -41,20 +41,36 @@ public class RegistrationApproval {
         // Create Label
         JLabel idUserLabel = new JLabel("User ID");
         idUserLabel.setBounds(20, 10, 150, 20);
+        idUserLabel.setBackground(new Color(240, 240, 240));
+        idUserLabel.setOpaque(true);
         JLabel idBranchLabel = new JLabel("Branch ID");
         idBranchLabel.setBounds(170, 10, 150, 20);
+        idBranchLabel.setBackground(new Color(240, 240, 240));
+        idBranchLabel.setOpaque(true);
         JLabel fnameLabel = new JLabel("First Name");
         fnameLabel.setBounds(320, 10, 150, 20);
+        fnameLabel.setBackground(new Color(240, 240, 240));
+        fnameLabel.setOpaque(true);
         JLabel lnameLabel = new JLabel("Last Name");
         lnameLabel.setBounds(470, 10, 150, 20);
+        lnameLabel.setBackground(new Color(240, 240, 240));
+        lnameLabel.setOpaque(true);
         JLabel emailLabel = new JLabel("Email");
         emailLabel.setBounds(620, 10, 150, 20);
+        emailLabel.setBackground(new Color(240, 240, 240));
+        emailLabel.setOpaque(true);
         JLabel addressLabel = new JLabel("Address");
         addressLabel.setBounds(770, 10, 150, 20);
+        addressLabel.setBackground(new Color(240, 240, 240));
+        addressLabel.setOpaque(true);
         JLabel phoneLabel = new JLabel("Phone Number");
         phoneLabel.setBounds(920, 10, 150, 20);
+        phoneLabel.setBackground(new Color(240, 240, 240));
+        phoneLabel.setOpaque(true);
         JLabel approveLabel = new JLabel("Approve");
         approveLabel.setBounds(1070, 10, 150, 20);
+        approveLabel.setBackground(new Color(240, 240, 240));
+        approveLabel.setOpaque(true);
         
         // Create Border
         Border boldBorder = BorderFactory.createLineBorder(Color.GRAY, 2);
@@ -81,24 +97,38 @@ public class RegistrationApproval {
             JLabel idUser = new JLabel(data[i][0]);
             idUser.setBounds(0, y, 150, 20);
             idUser.setBorder(lightBorder);
+            idUser.setBackground(new Color(240, 240, 240));
+            idUser.setOpaque(true);
             JLabel idBranch = new JLabel(data[i][1]);
             idBranch.setBounds(150, y, 150, 20);
             idBranch.setBorder(lightBorder);
+            idBranch.setBackground(new Color(240, 240, 240));
+            idBranch.setOpaque(true);
             JLabel fname = new JLabel(data[i][2]);
             fname.setBounds(300, y, 150, 20);
             fname.setBorder(lightBorder);
+            fname.setBackground(new Color(240, 240, 240));
+            fname.setOpaque(true);
             JLabel lname = new JLabel(data[i][3]);
             lname.setBounds(450, y, 150, 20);
             lname.setBorder(lightBorder);
+            lname.setBackground(new Color(240, 240, 240));
+            lname.setOpaque(true);
             JLabel email = new JLabel(data[i][4]);
             email.setBounds(600, y, 150, 20);
             email.setBorder(lightBorder);
+            email.setBackground(new Color(240, 240, 240));
+            email.setOpaque(true);
             JLabel address = new JLabel(data[i][5]);
             address.setBounds(750, y, 150, 20);
             address.setBorder(lightBorder);
+            address.setBackground(new Color(240, 240, 240));
+            address.setOpaque(true);
             JLabel phone = new JLabel(data[i][6]);
             phone.setBounds(900, y, 150, 20);
             phone.setBorder(lightBorder);
+            phone.setBackground(new Color(240, 240, 240));
+            phone.setOpaque(true);
             DatabaseHandler conn = new DatabaseHandler();
             conn.connect();
             if (data[i][7].equals("0")) {
@@ -144,6 +174,7 @@ public class RegistrationApproval {
         // Set JScrollPane
         panel.setPreferredSize(new Dimension(1195, y));
         panel.setLayout(null);
+        panel.setBackground(new Color(255, 228, 189));
         JScrollPane sp = new JScrollPane(panel);
         sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -163,6 +194,7 @@ public class RegistrationApproval {
         
         frame.setTitle("Penyetujuan Pendaftaran - Sistem Perpustakaan");
         frame.setSize(1260, 600);
+        frame.getContentPane().setBackground(new Color(255, 228, 189));
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);    
         frame.setVisible(true);

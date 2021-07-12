@@ -41,18 +41,32 @@ public class BookBorrowApproval {
         // Create Label
         JLabel idBorrowLabel = new JLabel("Borrow ID");
         idBorrowLabel.setBounds(20, 10, 150, 20);
+        idBorrowLabel.setBackground(new Color(240, 240, 240));
+        idBorrowLabel.setOpaque(true);
         JLabel idBookLabel = new JLabel("Book ID");
         idBookLabel.setBounds(170, 10, 150, 20);
+        idBookLabel.setBackground(new Color(240, 240, 240));
+        idBookLabel.setOpaque(true);
         JLabel idUserLabel = new JLabel("Borrower ID");
         idUserLabel.setBounds(320, 10, 150, 20);
+        idUserLabel.setBackground(new Color(240, 240, 240));
+        idUserLabel.setOpaque(true);
         JLabel dateLabel = new JLabel("Date");
         dateLabel.setBounds(470, 10, 150, 20);
+        dateLabel.setBackground(new Color(240, 240, 240));
+        dateLabel.setOpaque(true);
         JLabel daysLabel = new JLabel("Borrow Days");
         daysLabel.setBounds(620, 10, 150, 20);
+        daysLabel.setBackground(new Color(240, 240, 240));
+        daysLabel.setOpaque(true);
         JLabel priceLabel = new JLabel("Total Price");
         priceLabel.setBounds(770, 10, 150, 20);
+        priceLabel.setBackground(new Color(240, 240, 240));
+        priceLabel.setOpaque(true);
         JLabel approveLabel = new JLabel("Approve");
         approveLabel.setBounds(920, 10, 150, 20);
+        approveLabel.setBackground(new Color(240, 240, 240));
+        approveLabel.setOpaque(true);
         
         // Create Border
         Border boldBorder = BorderFactory.createLineBorder(Color.GRAY, 2);
@@ -78,21 +92,33 @@ public class BookBorrowApproval {
             JLabel idBorrow = new JLabel(data[i][0]);
             idBorrow.setBounds(0, y, 150, 20);
             idBorrow.setBorder(lightBorder);
+            idBorrow.setBackground(new Color(240, 240, 240));
+            idBorrow.setOpaque(true);
             JLabel idBook = new JLabel(data[i][1]);
             idBook.setBounds(150, y, 150, 20);
             idBook.setBorder(lightBorder);
+            idBook.setBackground(new Color(240, 240, 240));
+            idBook.setOpaque(true);
             JLabel idUser = new JLabel(data[i][2]);
             idUser.setBounds(300, y, 150, 20);
             idUser.setBorder(lightBorder);
+            idUser.setBackground(new Color(240, 240, 240));
+            idUser.setOpaque(true);
             JLabel date = new JLabel(data[i][3]);
             date.setBounds(450, y, 150, 20);
             date.setBorder(lightBorder);
+            date.setBackground(new Color(240, 240, 240));
+            date.setOpaque(true);
             JLabel days = new JLabel(data[i][4]);
             days.setBounds(600, y, 150, 20);
             days.setBorder(lightBorder);
+            days.setBackground(new Color(240, 240, 240));
+            days.setOpaque(true);
             JLabel price = new JLabel(data[i][5]);
             price.setBounds(750, y, 150, 20);
             price.setBorder(lightBorder);
+            price.setBackground(new Color(240, 240, 240));
+            price.setOpaque(true);
             DatabaseHandler conn = new DatabaseHandler();
             conn.connect();
             if (data[i][6].equals("0")) {
@@ -137,6 +163,7 @@ public class BookBorrowApproval {
         // Set JScrollPane
         panel.setPreferredSize(new Dimension(1055, y));
         panel.setLayout(null);
+        panel.setBackground(new Color(255, 228, 189));
         JScrollPane sp = new JScrollPane(panel);
         sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -156,6 +183,7 @@ public class BookBorrowApproval {
         
         frame.setTitle("Penyetujuan Peminjaman - Sistem Perpustakaan");
         frame.setSize(1120, 600);
+        frame.getContentPane().setBackground(new Color(255, 228, 189));
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);    
         frame.setVisible(true);

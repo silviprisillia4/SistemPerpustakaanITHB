@@ -5,6 +5,7 @@
  */
 package view;
 import controller.UserManager;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -22,6 +23,7 @@ public class ApprovalMenu {
         JFrame mainFrame = new JFrame();
         mainFrame.setTitle("Sistem Perpustakaan");
         mainFrame.setSize(335, 330);
+        mainFrame.getContentPane().setBackground(new Color(255, 228, 189));
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setLayout(null);        
         mainFrame.setVisible(true);
