@@ -18,7 +18,7 @@ import model.UserType;
 
 /**
  *
- * @author Yen
+ * @author yen
  */
 public class DataController {
     

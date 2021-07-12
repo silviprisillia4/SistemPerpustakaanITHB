@@ -23,7 +23,7 @@ import javax.swing.border.Border;
 
 /**
  *
- * @author Yen
+ * @author yen
  */
 public class RegistrationApproval {
     

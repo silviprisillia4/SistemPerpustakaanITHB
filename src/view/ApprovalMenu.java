@@ -13,7 +13,7 @@ import model.Admin;
 
 /**
  *
- * @author Yen
+ * @author yen
  */
 public class ApprovalMenu {
     

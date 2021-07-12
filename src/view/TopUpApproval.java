@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Yen
+ * @author yen
  */
 public class TopUpApproval {
     

@@ -7,7 +7,7 @@ package controller;
 
 /**
  *
- * @author Yen
+ * @author yen
  */
 public class RegexController {
     

@@ -9,7 +9,7 @@ import model.User;
 
 /**
  *
- * @author Yen
+ * @author yen
  */
 public class UserManager {
     
