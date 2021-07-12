@@ -13,6 +13,16 @@ public class UserManager {
         }
         return instance;
     }
+    
+    public User getUser() {
+        if(member!=null) {
+            return getMember();
+        } else if(admin!=null) {
+            return getAdmin();
+        } else {
+            return getOwner();
+        }
+    }
 
     public void setUser(Object object) {
         if(object instanceof Member) {
