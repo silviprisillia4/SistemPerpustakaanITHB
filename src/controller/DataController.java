@@ -199,4 +199,26 @@ public class DataController {
         }
         return user;
     }
+    
+    public void topUpByAdmin(int idUser, int saldo) {
+        int totalCash = 0;
+        String query = "SELECT * FROM users WHERE idUser = '" + idUser + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                totalCash = rs.getInt("cash");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        totalCash += saldo;
+        query = "UPDATE users SET cash = '" + totalCash + "' WHERE idUser = '" + idUser + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

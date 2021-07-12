@@ -133,10 +133,6 @@ public class RegistrationApproval {
                     createApprovalScreen(id);
                 });
                 panel.add(buttons[i]);
-//                JLabel approve = new JLabel("Approved");
-//                approve.setBounds(1050, y, 150, 20);
-//                approve.setBorder(lightBorder);
-//                panel.add(approve);
             }
             panel.add(idUser); panel.add(idBranch);
             panel.add(fname); panel.add(lname);

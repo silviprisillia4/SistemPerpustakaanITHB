@@ -127,10 +127,6 @@ public class BookBorrowApproval {
                     createApprovalScreen(id);
                 });
                 panel.add(buttons[i]);
-//                JLabel approve = new JLabel("Approved");
-//                approve.setBounds(900, y, 150, 20);
-//                approve.setBorder(lightBorder);
-//                panel.add(approve);
             }
             y += 20;
             panel.add(idBorrow); panel.add(idBook);
