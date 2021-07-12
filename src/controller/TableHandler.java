@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import model.UserType;
+import model.UserTypeEnum;
 
 /**
  *
@@ -24,7 +24,7 @@ public class TableHandler {
     };
     
     public String[][] getUsersDataForTable(int idBranch) {
-        String query = "SELECT * FROM users WHERE idBranch = '" + idBranch + "' AND type = '" + UserType.MEMBER.toString() + "'";
+        String query = "SELECT * FROM users WHERE idBranch = '" + idBranch + "' AND type = '" + UserTypeEnum.MEMBER.toString() + "'";
         int size = 0, userCount = 0;
         try {
             Statement stmt = conn.con.createStatement();
@@ -96,7 +96,7 @@ public class TableHandler {
     }
     
     public int getMemberAmountOfABranch(int idBranch) {
-        String query = "SELECT * FROM users WHERE idBranch = '" + idBranch + "' AND type = '" + UserType.MEMBER.toString() + "'";
+        String query = "SELECT * FROM users WHERE idBranch = '" + idBranch + "' AND type = '" + UserTypeEnum.MEMBER.toString() + "'";
         int userCount = 0;
         try {
             Statement stmt = conn.con.createStatement();
@@ -113,7 +113,7 @@ public class TableHandler {
     public String[] getUsersEmail(int idBranch) {
         int userCount = getMemberAmountOfABranch(idBranch);
         String[] users = new String[userCount];
-        String query = "SELECT * FROM users WHERE idBranch = '" + idBranch + "' AND type = '" + UserType.MEMBER.toString() + "'";
+        String query = "SELECT * FROM users WHERE idBranch = '" + idBranch + "' AND type = '" + UserTypeEnum.MEMBER.toString() + "'";
         int i = 0;
         try {
             Statement stmt = conn.con.createStatement();
@@ -128,7 +128,7 @@ public class TableHandler {
     }
     
     public String[][] getMembersData(int idBranch) {
-        String query = "SELECT * FROM users WHERE idBranch = '" + idBranch + "' AND type = '" + UserType.MEMBER.toString() + "'";
+        String query = "SELECT * FROM users WHERE idBranch = '" + idBranch + "' AND type = '" + UserTypeEnum.MEMBER.toString() + "'";
         int userCount = getMemberAmountOfABranch(idBranch);
         String[][] users = new String[userCount][8];
         try {
@@ -153,7 +153,7 @@ public class TableHandler {
     }
     
     public String[] getMemberID(int idBranch) {
-        String query = "SELECT * FROM users WHERE idBranch = '" + idBranch + "' AND type = '" + UserType.MEMBER.toString() + "'";
+        String query = "SELECT * FROM users WHERE idBranch = '" + idBranch + "' AND type = '" + UserTypeEnum.MEMBER.toString() + "'";
         int userCount = getMemberAmountOfABranch(idBranch);
         String[] id = new String[userCount];
         try {

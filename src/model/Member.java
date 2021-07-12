@@ -7,6 +7,7 @@ public class Member extends User implements InterfaceBranchCity {
     private int cash;
     private int debt;
     private int idBranch;
+    private int approved;
     private ArrayList<Borrowing> borrows = new ArrayList<>();
 
     public Member() {
@@ -22,6 +23,14 @@ public class Member extends User implements InterfaceBranchCity {
         setIdBranch(idBranch);
         setBorrows(borrows);
 
+    }
+
+    public int getApproved() {
+        return approved;
+    }
+
+    public void setApproved(int approved) {
+        this.approved = approved;
     }
     public String getAddress() {
         return address;

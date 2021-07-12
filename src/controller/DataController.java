@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import model.Admin;
 import model.Member;
 import model.User;
-import model.UserType;
+import model.UserTypeEnum;
 
 /**
  *
@@ -148,7 +148,7 @@ public class DataController {
             stmt.setString(6, pass);
             stmt.setString(7, address);
             stmt.setString(8, phone);
-            stmt.setString(9, UserType.MEMBER.toString());
+            stmt.setString(9, UserTypeEnum.MEMBER.toString());
             stmt.setInt(10, 0);
             stmt.setInt(11, 0);
             stmt.setInt(12, 0);
@@ -174,33 +174,33 @@ public class DataController {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                if (rs.getString("type").equals(UserType.OWNER.toString())) {
+                if (rs.getString("type").equals(UserTypeEnum.OWNER.toString())) {
                     User user = new User();
                     user.setIdUser(rs.getInt("idUser"));
                     user.setFirstName(rs.getString("firstName"));
                     user.setLastName(rs.getString("lastName"));
                     user.setEmail(rs.getString("email"));
                     user.setPassword(rs.getString("password"));
-                    user.setType(UserType.valueOf(rs.getString("type")));
+                    user.setType(UserTypeEnum.valueOf(rs.getString("type")));
                     UserManager.getInstance().setUser(user);
-                } else if (rs.getString("type").equals(UserType.ADMIN.toString())) {
+                } else if (rs.getString("type").equals(UserTypeEnum.ADMIN.toString())) {
                     Admin admin = new Admin();
                     admin.setIdUser(rs.getInt("idUser"));
                     admin.setFirstName(rs.getString("firstName"));
                     admin.setLastName(rs.getString("lastName"));
                     admin.setEmail(rs.getString("email"));
                     admin.setPassword(rs.getString("password"));
-                    admin.setType(UserType.valueOf(rs.getString("type")));
+                    admin.setType(UserTypeEnum.valueOf(rs.getString("type")));
                     admin.setIdBranch(rs.getInt("idBranch"));
                     UserManager.getInstance().setUser(admin);
-                } else if (rs.getString("type").equals(UserType.MEMBER.toString())) {
+                } else if (rs.getString("type").equals(UserTypeEnum.MEMBER.toString())) {
                     Member member = new Member();
                     member.setIdUser(rs.getInt("idUser"));
                     member.setFirstName(rs.getString("firstName"));
                     member.setLastName(rs.getString("lastName"));
                     member.setEmail(rs.getString("email"));
                     member.setPassword(rs.getString("password"));
-                    member.setType(UserType.valueOf(rs.getString("type")));
+                    member.setType(UserTypeEnum.valueOf(rs.getString("type")));
                     member.setIdBranch(rs.getInt("idBranch"));
                     member.setAddress(rs.getString("address"));
                     member.setPhoneNumber(rs.getString("phoneNumber"));

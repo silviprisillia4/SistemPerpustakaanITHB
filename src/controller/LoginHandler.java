@@ -6,7 +6,7 @@
 package controller;
 
 import model.User;
-import model.UserType;
+import model.UserTypeEnum;
 
 /**
  *
@@ -19,9 +19,9 @@ public class LoginHandler {
         int idBranch = c.getBranchIDByCity(branch);
         c.setLoggedInUser(email, idBranch);
         User user = UserManager.getInstance().getUser();
-        if (user.getType() == UserType.ADMIN) {
+        if (user.getType() == UserTypeEnum.ADMIN) {
             //new AdminMenu();
-        } else if (user.getType() == UserType.MEMBER) {
+        } else if (user.getType() == UserTypeEnum.MEMBER) {
             //new MemberMenu();
         } else {
             //new OwnerMenu();
