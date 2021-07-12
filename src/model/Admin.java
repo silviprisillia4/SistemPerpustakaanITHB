@@ -1,24 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
+import java.util.ArrayList;
 
-/**
- *
- * @author SILVI PRISILLIA
- */
 public class Admin extends User implements InterfaceBranchCity {
     private int idBranch;
+    private ArrayList<Book> books = new ArrayList<>();
+    private ArrayList<Member> members = new ArrayList<>();
     
     public Admin() {
         
     }
     
-    public Admin(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, int idBranch) {
+    public Admin(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, int idBranch, ArrayList<Book> books, ArrayList<Member> members) {
         super(idUser, firstName, lastName, email, password, type);
         setIdBranch(idBranch);
+        setBooks(books);
+        setMembers(members);
     }
 
     public int getIdBranch() {
@@ -27,6 +23,22 @@ public class Admin extends User implements InterfaceBranchCity {
 
     public void setIdBranch(int idBranch) {
         this.idBranch = idBranch;
+    }
+    
+    public ArrayList<Book> getBooks() {
+        return books;
+    }
+    
+    public void setBooks(ArrayList<Book> books) {
+        this.books = books;
+    }
+    
+    public ArrayList<Member> getMembers() {
+        return members;
+    }
+    
+    public void setMembers(ArrayList<Member> members) {
+        this.members = members;
     }
     
     @Override
