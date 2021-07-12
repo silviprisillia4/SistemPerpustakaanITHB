@@ -15,7 +15,7 @@ public class TopUp {
     
     public TopUp() {
         //Frame
-        frame = new DefaultFrameSetting().defaultFrame();
+        frame = new DefaultFrameSetting().defaultFrame(); 
         frame.setSize(350, 230);
         frame.setLocationRelativeTo(null);
         

@@ -13,7 +13,7 @@ public class ChangePassword {
     JPasswordField textFieldOldPassword, textFieldNewPassword, textFieldValidatePassword;
     JButton btnSave, btnBack;
     
-    ErrorMessages em = new ErrorMessages();
+    ErrorMessages em = new ErrorMessages(); 
     
     public ChangePassword() {
         Member member = UserManager.getInstance().getMember();

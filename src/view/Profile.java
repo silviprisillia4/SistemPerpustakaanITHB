@@ -18,7 +18,7 @@ public class Profile {
     JTable table;
     
     public Profile() {
-        Member member = UserManager.getInstance().getMember();
+        Member member = UserManager.getInstance().getMember(); 
         
         //Frame
         frame = new DefaultFrameSetting().defaultFrame();

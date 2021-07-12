@@ -20,6 +20,6 @@ public class DefaultFrameSetting {
         //initialize panel
         panel.setLayout(null);
         panel.setVisible(true);
-        return panel;
+        return panel; 
     }
 }

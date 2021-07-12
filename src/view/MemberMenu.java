@@ -10,7 +10,7 @@ public class MemberMenu {
     
     public MemberMenu() {
         //Frame
-        frame = new DefaultFrameSetting().defaultFrame();
+        frame = new DefaultFrameSetting().defaultFrame(); 
         frame.setSize(300, 250);
         frame.setLocationRelativeTo(null);
         
