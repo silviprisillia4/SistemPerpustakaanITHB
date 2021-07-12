@@ -2,8 +2,6 @@ package view;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.Color;
-import controller.*;
-import model.*;
 
 public class MemberMenu {
     JFrame frame;
@@ -11,10 +9,6 @@ public class MemberMenu {
     JButton btnBorrow, btnProfile;
     
     public MemberMenu() {
-        Controller c = new Controller();
-        Member member = c.getSelectedMember(1);
-        UserManager.getInstance().setUser(member);
-
         //Frame
         frame = new DefaultFrameSetting().defaultFrame();
         frame.setSize(300, 250);
