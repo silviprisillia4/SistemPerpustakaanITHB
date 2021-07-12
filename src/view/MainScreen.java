@@ -5,7 +5,8 @@
  */
 package view;
 import controller.DataController;
-import controller.MemberManager;
+import controller.LoginHandler;
+import controller.UserManager;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -197,10 +198,9 @@ public class MainScreen {
             DataController c = new DataController();
             boolean valid = c.userLoginAvailability(selectedBranch, emailFieldLogin.getText(), passFieldLogin.getText());
             if (valid) {
-                MemberManager.getInstance().setUser(c.getLoggedInUser(emailFieldLogin.getText()));
                 loginFrame.dispose();
                 JOptionPane.showMessageDialog(null, "Login Berhasil!");
-                // ACTION FOR LOGIN
+                new LoginHandler(emailFieldLogin.getText(), selectedBranch);
             } else {
                 loginFrame.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Login Gagal!");

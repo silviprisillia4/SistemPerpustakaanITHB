@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package view;
+import controller.UserManager;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import model.Admin;
 
 /**
  *
@@ -15,6 +17,8 @@ import javax.swing.JButton;
 public class ApprovalMenu {
     
     public ApprovalMenu() {
+        Admin admin = (Admin) UserManager.getInstance().getUser();
+        
         JFrame mainFrame = new JFrame();
         mainFrame.setTitle("Sistem Perpustakaan");
         mainFrame.setSize(335, 330);
@@ -27,14 +31,14 @@ public class ApprovalMenu {
         menu1.setBounds(10, 10, 300, 60);
         menu1.addActionListener((ActionEvent e) -> {
             mainFrame.setVisible(false);
-            new RegistrationApproval(1);
+            new RegistrationApproval(admin.getIdBranch());
         });
         
         JButton menu2 = new JButton("Penyetujuan Peminjaman Buku");
         menu2.setBounds(10, 80, 300, 60);
         menu2.addActionListener((ActionEvent e) -> {
             mainFrame.setVisible(false);
-            new BookBorrowApproval(1);
+            new BookBorrowApproval(admin.getIdBranch());
         });
         
         JButton menu3 = new JButton("Penyetujuan Top Up");

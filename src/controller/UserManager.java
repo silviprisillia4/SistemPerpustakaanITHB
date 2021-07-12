@@ -11,17 +11,17 @@ import model.User;
  *
  * @author Yen
  */
-public class MemberManager {
+public class UserManager {
     
-    private static MemberManager instance;
+    private static UserManager instance;
     private User user;
     
-    private MemberManager() {
+    private UserManager() {
     }
     
-    public static MemberManager getInstance() {
+    public static UserManager getInstance() {
         if (instance == null) {
-            instance = new MemberManager();
+            instance = new UserManager();
         }
         return instance;
     }

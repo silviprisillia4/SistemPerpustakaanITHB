@@ -9,7 +9,7 @@ package model;
  *
  * @author SILVI PRISILLIA
  */
-public abstract class User {
+public class User {
     private int idUser;
     private String firstName;
     private String lastName;

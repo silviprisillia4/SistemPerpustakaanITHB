@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import model.Admin;
 import model.Member;
 import model.User;
 import model.UserType;
@@ -108,17 +109,17 @@ public class DataController {
     }
     
     public boolean processingRegistration(int selectedBranch, String firstName, String lastName, String address, String phone, String email, String newPass, String rePass) {
-        boolean isValid = Regex.firstNameValidation(firstName);
+        boolean isValid = RegexController.firstNameValidation(firstName);
         if (isValid) {
-            isValid = Regex.lastNameValidation(lastName);
+            isValid = RegexController.lastNameValidation(lastName);
             if (isValid) {
-                isValid = Regex.addressValidation(address);
+                isValid = RegexController.addressValidation(address);
                 if (isValid) {
-                    isValid = Regex.mobileNumberValidation(phone);
+                    isValid = RegexController.mobileNumberValidation(phone);
                     if (isValid) {
-                        isValid = Regex.emailValidation(email);
+                        isValid = RegexController.emailValidation(email);
                         if (isValid) {
-                            isValid = Regex.passValidation(newPass);
+                            isValid = RegexController.passValidation(newPass);
                             if (isValid) {
                                 if (newPass.equals(rePass)) {
                                     DataController c = new DataController();
@@ -167,27 +168,35 @@ public class DataController {
         }
     }
     
-    public Member getLoggedInUser(String email) {
-        Member member = new Member();
-        String query = "SELECT * FROM users WHERE email = '" + email + "'";
+    public User getLoggedInUser(String email, int idBranch) {
+        User user = new User();
+        String query = "SELECT * FROM users WHERE email = '" + email + "' AND idBranch = '" + idBranch + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            member.setIdUser(rs.getInt("idUser"));
-            member.setIdBranch(rs.getInt("idBranch"));
-            member.setFirstName(rs.getString("firstName"));
-            member.setLastName(rs.getString("lastName"));
-            member.setEmail(rs.getString("email"));
-            member.setPassword(rs.getString("password"));
-            member.setAddress(rs.getString("address"));
-            member.setPhoneNumber(rs.getString("phoneNumber"));
-            member.setType(UserType.valueOf(rs.getString("type")));
-            member.setCash(rs.getInt("cash"));
-            member.setDebt(rs.getInt("debt"));
-            member.setApproved(rs.getInt("approved"));
+            while (rs.next()) {
+                user.setIdUser(rs.getInt("idUser"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setType(UserType.valueOf(rs.getString("type")));
+                if (user.getType() == UserType.ADMIN) {
+                    Admin admin = (Admin) user;
+                    admin.setIdBranch(rs.getInt("idBranch"));
+                } else if (user.getType() == UserType.MEMBER) {
+                    Member member = (Member) user;
+                    member.setIdBranch(rs.getInt("idBranch"));
+                    member.setAddress(rs.getString("address"));
+                    member.setPhoneNumber(rs.getString("phoneNumber"));
+                    member.setCash(rs.getInt("cash"));
+                    member.setDebt(rs.getInt("debt"));
+                    member.setApproved(rs.getInt("approved"));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return member;
+        return user;
     }
 }
