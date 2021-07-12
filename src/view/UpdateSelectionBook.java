@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import model.Book;
 import model.PaidBook;
 import controller.databaseChange;
+import java.awt.Color;
 import model.Admin;
 import model.UserManager;
 
@@ -19,8 +20,10 @@ public class UpdateSelectionBook {
     JFrame frame;
     public void updateBookData() {
         Admin admin = UserManager.getInstance().getAdmin();
+        
         //declare components
         frame = new DefaultFrameSetting().defaultFrame();
+        JPanel background = new DefaultFrameSetting().defaultPanel();
         JPanel panel = new DefaultFrameSetting().defaultPanel();
         JButton exit = new JButton("Back");
         JComboBox comboTitle = comboBooksTitle();
@@ -29,7 +32,7 @@ public class UpdateSelectionBook {
         //add components to panel
         panel.add(changeBookData(admin.getBooks().get(0), 0));
         
-        //set components posiition
+        //set components position
         comboTitle.setBounds(200,50,250,30);
         label.setBounds(30,50,150,30);
         panel.setBounds(0,30,600,650);
@@ -55,11 +58,17 @@ public class UpdateSelectionBook {
             }
         });
         
+        //set background panel
+        background.setSize(500,680);
+
         //add components to frame
-        frame.add(comboTitle);
-        frame.add(label);
-        frame.add(exit);
-        frame.add(panel);
+        background.add(comboTitle);
+        background.add(label);
+        background.add(exit);
+        background.add(panel);
+
+        //add panel to frame
+        frame.add(background);
         
         //set frame size
         frame.setSize(500,680);
@@ -114,7 +123,10 @@ public class UpdateSelectionBook {
         paid.setVisible(false);
         inputPaid.setText(String.valueOf(((PaidBook) book).getBorrowPrice()));
         inputPaid.setVisible(false);
-
+        
+        //set component background
+        checkPaid.setBackground(new Color(255, 234, 202));
+        
         //button action listener
         checkPaid.addActionListener(new ActionListener() {
             @Override
@@ -139,8 +151,6 @@ public class UpdateSelectionBook {
                     }
                     boolean state = new databaseChange().updateBook(book);
                     if (state) {
-//                        Admin admin = UserManager.getInstance().getAdmin();
-//                        PaidBook updateBook = (PaidBook) admin.getBooks().get(index);
                         book.setBorrowPrice(Integer.parseInt(inputPaid.getText()));
                         new OutputInfo().infoUpdateABook(book.getTitle(), state);
                         frame.setVisible(false);

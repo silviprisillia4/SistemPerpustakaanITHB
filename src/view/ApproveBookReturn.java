@@ -22,6 +22,7 @@ public class ApproveBookReturn {
         } else {
             //declare
             JFrame frame = new DefaultFrameSetting().defaultFrame();
+            JPanel background = new DefaultFrameSetting().defaultPanel();
             JPanel panel1 = new DefaultFrameSetting().defaultPanel();
             TableCheckBoxBorrowing table = new controller.TableCheckBoxBorrowing();
             DefaultTableModel model = new DefaultTableModel(getTableData(), getColumnData());
@@ -71,14 +72,19 @@ public class ApproveBookReturn {
                 }
 
             });
+            //set background panel
+            background.setSize(1200,550);
 
             //add component frame
-            frame.add(button);
-            frame.add(exit);
-            frame.add(panel1);
+            background.add(button);
+            background.add(exit);
+            background.add(panel1);
 
+            //add panel to frame
+            frame.add(background);
+            
             //set frame size
-            frame.setSize(1200, 600);
+            frame.setSize(1200, 550);
         }
     }
     public String[] getColumnData() {
@@ -91,11 +97,11 @@ public class ApproveBookReturn {
         Object[][] data = new Object[new databaseChange().getAllBorrowList(admin.getIdBranch(), 1).size()][9];
         for (int j = 0; j < new databaseChange().getAllBorrowList(idBranch, 1).size(); j++) {
             Borrowing borrow = new databaseChange().getAllBorrowList(idBranch, 1).get(j);
-            Member member = (Member) new databaseChange().getAMember(borrow.getIdUser());
+            Member member = (Member) new databaseChange().getAUser(borrow.getIdUser());
             data[j][0] = borrow.getIdBorrow();
             data[j][1] = member.getFirstName() + " " + member.getLastName();
             data[j][2] = member.getIdUser();
-            data[j][3] = ((Book)new databaseChange().getABook(borrow.getIdBook())).getTitle();
+            data[j][3] = ((PaidBook)new databaseChange().getABook(borrow.getIdBook())).getTitle();
             data[j][4] = borrow.getBorrowDays();
             Format formatter = new SimpleDateFormat("dd/MM/yyyy");
             data[j][5] = formatter.format(borrow.getDate());

@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import javax.swing.*;
 
 public class DefaultFrameSetting {
@@ -17,6 +18,9 @@ public class DefaultFrameSetting {
         //declare panel
         JPanel panel = new JPanel();
 
+        //panel set color
+        panel.setBackground(new Color(255, 234, 202));
+        
         //initialize panel
         panel.setLayout(null);
         panel.setVisible(true);

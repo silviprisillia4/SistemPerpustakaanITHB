@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ public class OwnerMenu {
     public void ownerMenu() {
         //declare components
         JFrame frame = new DefaultFrameSetting().defaultFrame();
+        JPanel background = new DefaultFrameSetting().defaultPanel();
         JPanel panel1 = new DefaultFrameSetting().defaultPanel();
         JLabel label1 = new JLabel("PilihCabang : ");
         JPanel panel3 = new DefaultFrameSetting().defaultPanel();
@@ -71,11 +73,17 @@ public class OwnerMenu {
             }
             
         });
+        //set background panel
+        background.setSize(1000,680);
+        background.setBackground(new Color(255, 234, 202));
 
         //add tabbedpane and button exit to frame
-        frame.add(header);
-        frame.add(exit);
+        background.add(header);
+        background.add(exit);
 
+        //add panel to frame
+        frame.add(background);
+        
         //set frame size
         frame.setSize(1000, 680);
     }

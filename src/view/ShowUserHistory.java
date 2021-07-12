@@ -11,10 +11,15 @@ import java.util.ArrayList;
 
 public class ShowUserHistory {
     public void userHistory() {
+        //declare components
         JFrame frame = new DefaultFrameSetting().defaultFrame();
-        frame.add(getUserHistory());
+        JPanel background = new DefaultFrameSetting().defaultPanel();
         JButton exit = new JButton("Exit");
+        
+        //set components position
         exit.setBounds(50, 580, 800, 20);
+        
+        //button action listener
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -24,17 +29,28 @@ public class ShowUserHistory {
             }
 
         });
-        frame.add(exit);
-        frame.setSize(950, 700);
+        
+        //add components to panel
+        background.add(getUserHistory());
+        background.add(exit);
+        
+        //set background panel
+        background.setSize(920,700);
+        
+        //add panel to frame
+        frame.add(background);
+        
+        //set frame size
+        frame.setSize(920, 700);
     }
 
     public JPanel getUserHistory() {
-        //declare components
         Admin admin = UserManager.getInstance().getAdmin();
-        int idBranch = admin.getIdBranch();
+        
+        //declare components
         int[] counterGenre = new int[15];
         JPanel panel = new DefaultFrameSetting().defaultPanel();
-        ArrayList<Member> listMember = new controller.databaseChange().getAllMember(idBranch);
+        ArrayList<Member> listMember = admin.getMembers();
         String[] column = {"Peminjam", "Buku", "Lama Peminjaman", "Harga Pinjam Buku", "Denda", "Status"};
         DefaultTableModel tableModel = new DefaultTableModel(column, 0);
         JTable table = new JTable(tableModel);
@@ -62,15 +78,15 @@ public class ShowUserHistory {
             for (int j = 0; j < new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), 0).size(); j++) {
                 Object[] datum = new Object[6];
                 Borrowing borrow = new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), 0).get(j);
-                datum[0] = ((Member) new databaseChange().getAMember(borrow.getIdUser())).getFirstName() + " " + ((Member)new databaseChange().getAMember(borrow.getIdUser())).getLastName();
-                datum[1] = ((Book) new databaseChange().getABook(borrow.getIdBook())).getTitle();
+                datum[0] = listMember.get(i).getFirstName() + " " + listMember.get(i).getLastName();
+                datum[1] = borrow.getBook().getTitle();
                 datum[2] = borrow.getBorrowDays();
                 datum[3] = borrow.getPriceTotal();
                 datum[4] = borrow.getMoneyFine();
                 datum[5] = borrow.selectBookState(borrow.getStatus());
                 tableModel = (DefaultTableModel) table.getModel();
                 tableModel.addRow(datum);
-                counterGenre = genreCount(counterGenre, ((Book)new databaseChange().getABook(borrow.getIdBook())).getGenre());
+                counterGenre = genreCount(counterGenre, borrow.getBook().getGenre());
             }
         }
 

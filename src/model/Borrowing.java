@@ -13,22 +13,21 @@ public class Borrowing implements InterfaceBookState {
     private Date date;
     private int status;
     private int moneyFine;
-    private ArrayList<Book> books = new ArrayList<>();
+    private PaidBook book;
 
-    public ArrayList<Book> getBooks() {
-        return books;
+    public PaidBook getBook() {
+        return book;
     }
 
-    public void setBooks(ArrayList<Book> books) {
-        this.books = books;
+    public void setBook(PaidBook book) {
+        this.book = book;
     }
-    
     
     public Borrowing() {
         
     }
     
-    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, Date date, int status, int moneyFine, ArrayList<Book> books) {
+    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, Date date, int status, int moneyFine, PaidBook book) {
         setIdBorrow(idBorrow);
         setIdBook(idBook);
         setIdUser(idUser);
@@ -38,7 +37,7 @@ public class Borrowing implements InterfaceBookState {
         setDate(date);
         setStatus(status);
         setMoneyFine(moneyFine);
-        setBooks(books);
+        setBook(book);
     }
 
     public int getIdBorrow() {

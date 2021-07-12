@@ -1,6 +1,7 @@
 package view;
 
 import controller.databaseChange;
+import java.awt.Color;
 import model.*;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class CheckMoney {
         } else {
             //declare components
             JFrame frame = new DefaultFrameSetting().defaultFrame();
+            JPanel background = new DefaultFrameSetting().defaultPanel();
             JButton exit = new JButton("Exit");
 
             //set components position
@@ -33,13 +35,18 @@ public class CheckMoney {
                     new AdminMenu().adminMenu();
                 }
             });
+            //set background panel
+            background.setSize(930,590);
 
             //add components to frame
-            frame.add(exit);
-            frame.add(danaPerpus(admin.getIdBranch()));
+            background.add(exit);
+            background.add(danaPerpus(admin.getIdBranch()));
 
+            //add panel to frame
+            frame.add(background);
+            
             //set frame size
-            frame.setSize(950, 660);
+            frame.setSize(930, 590);
         }
     }
 

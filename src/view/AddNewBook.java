@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class AddNewBook {
 
         //declare components
         JFrame frame = new DefaultFrameSetting().defaultFrame();
+        JPanel background = new DefaultFrameSetting().defaultPanel();
         JLabel paid = new JLabel("Harga Pinjam Buku : ");
         JTextField inputPaid = new JTextField();
         JLabel title = new JLabel("Judul : ");
@@ -86,7 +88,25 @@ public class AddNewBook {
         r15.setBounds(240, 140, 100, 30);
         addBook.setBounds(30, 600, 150, 30);
         exit.setBounds(380, 600, 150, 30);
-
+        
+        //set components background color
+        r1.setBackground(new Color(255, 234, 202));
+        r2.setBackground(new Color(255, 234, 202));
+        r3.setBackground(new Color(255, 234, 202));
+        r4.setBackground(new Color(255, 234, 202));
+        r5.setBackground(new Color(255, 234, 202));
+        r6.setBackground(new Color(255, 234, 202));
+        r7.setBackground(new Color(255, 234, 202));
+        r8.setBackground(new Color(255, 234, 202));
+        r9.setBackground(new Color(255, 234, 202));
+        r10.setBackground(new Color(255, 234, 202));
+        r11.setBackground(new Color(255, 234, 202));
+        r12.setBackground(new Color(255, 234, 202));
+        r13.setBackground(new Color(255, 234, 202));
+        r14.setBackground(new Color(255, 234, 202));
+        r15.setBackground(new Color(255, 234, 202));
+        checkPaid.setBackground(new Color(255, 234, 202));
+        
         //add radio button to panel
         inputGenre.add(r1);
         inputGenre.add(r2);
@@ -193,27 +213,32 @@ public class AddNewBook {
                 new ChangeListBook().bookListUpdate();
             }
         });
+        //set background panel
+        background.setSize(600,700);
 
-        //add components to frame
-        frame.add(title);
-        frame.add(author);
-        frame.add(publisher);
-        frame.add(genre);
-        frame.add(pages);
-        frame.add(year);
-        frame.add(checkPaid);
-        frame.add(inputTitle);
-        frame.add(inputAuthor);
-        frame.add(inputPublisher);
-        frame.add(inputGenre);
-        frame.add(inputPages);
-        frame.add(inputYear);
-        frame.add(paid);
-        frame.add(inputPaid);
-        frame.add(exit);
-        frame.add(addBook);
+        //add components to panel
+        background.add(title);
+        background.add(author);
+        background.add(publisher);
+        background.add(genre);
+        background.add(pages);
+        background.add(year);
+        background.add(checkPaid);
+        background.add(inputTitle);
+        background.add(inputAuthor);
+        background.add(inputPublisher);
+        background.add(inputGenre);
+        background.add(inputPages);
+        background.add(inputYear);
+        background.add(paid);
+        background.add(inputPaid);
+        background.add(exit);
+        background.add(addBook);
+
+        //add panel to frame
+        frame.add(background);
 
         //set frame size
-        frame.setSize(600, 800);
+        frame.setSize(600, 700);
     }
 }

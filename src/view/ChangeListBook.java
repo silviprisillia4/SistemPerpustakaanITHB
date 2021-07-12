@@ -1,10 +1,5 @@
 package view;
 
-import model.Admin;
-import model.Book;
-import model.PaidBook;
-import model.UserManager;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,15 +8,16 @@ public class ChangeListBook {
     public void bookListUpdate() {
         //declare components
         JFrame frame = new DefaultFrameSetting().defaultFrame();
+        JPanel background = new DefaultFrameSetting().defaultPanel();
         JButton updateBook = new JButton("Update Data Buku");
         JButton addBook = new JButton("Tambah Buku Baru");
         JButton exit = new JButton("Back to Admin Menu");
 
 
         //set components position
-        updateBook.setBounds(100, 50, 200, 50);
-        addBook.setBounds(100, 150, 200, 50);
-        exit.setBounds(100, 250, 200, 50);
+        updateBook.setBounds(50, 50, 200, 50);
+        addBook.setBounds(50, 150, 200, 50);
+        exit.setBounds(50, 250, 200, 50);
 
         //buttone action listener
         updateBook.addActionListener(new ActionListener() {
@@ -47,13 +43,18 @@ public class ChangeListBook {
             }
 
         });
+        //set background panel
+        background.setSize(330,380);
 
         //add components to frame
-        frame.add(exit);
-        frame.add(updateBook);
-        frame.add(addBook);
+        background.add(exit);
+        background.add(updateBook);
+        background.add(addBook);
 
+        //add panel to frame
+        frame.add(background);
+        
         //set frame size
-        frame.setSize(750, 500);
+        frame.setSize(330, 380);
     }
 }

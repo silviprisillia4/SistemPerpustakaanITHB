@@ -7,16 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 public class AdminMenu {
     public void adminMenu() {
         Admin admin = UserManager.getInstance().getAdmin();
-
-        new OutputInfo().welcomeToMenuAdmin();
-
+        
         //declare
         JFrame frame = new DefaultFrameSetting().defaultFrame();
+        JPanel background = new DefaultFrameSetting().defaultPanel();
         JButton approval = new JButton("Penyetujuan");
         JButton changeListBooks = new JButton("Update Data Buku");
         JButton borrowingList = new JButton("List Pengembalian");
@@ -25,12 +25,12 @@ public class AdminMenu {
         JButton exit = new JButton("Keluar");
 
         //set position
-        approval.setBounds(100, 50, 250, 50);
-        changeListBooks.setBounds(100, 150, 250, 50);
-        borrowingList.setBounds(100, 250, 250, 50);
-        userHistory.setBounds(100, 350, 250, 50);
-        branchCash.setBounds(100, 450, 250, 50);
-        exit.setBounds(100, 550, 250, 50);
+        approval.setBounds(50, 50, 250, 50);
+        changeListBooks.setBounds(50, 150, 250, 50);
+        borrowingList.setBounds(50, 250, 250, 50);
+        userHistory.setBounds(50, 350, 250, 50);
+        branchCash.setBounds(50, 450, 250, 50);
+        exit.setBounds(50, 550, 250, 50);
 
         //button action listener
         approval.addActionListener(new ActionListener() {
@@ -71,17 +71,23 @@ public class AdminMenu {
             }
 
         });
+        
+        //set backgrounf panel
+        background.setSize(380, 700);
 
-        //add to frame
-        frame.add(approval);
-        frame.add(changeListBooks);
-        frame.add(borrowingList);
-        frame.add(userHistory);
-        frame.add(branchCash);
-        frame.add(exit);
+        //add to panel
+        background.add(approval);
+        background.add(changeListBooks);
+        background.add(borrowingList);
+        background.add(userHistory);
+        background.add(branchCash);
+        background.add(exit);
+
+        //add panel to frame
+        frame.add(background);
 
         //set frame size
-        frame.setSize(500, 800);
+        frame.setSize(380, 700);
     }
 }
 

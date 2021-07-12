@@ -37,7 +37,7 @@ public class databaseChange {
         }
     }
 
-    public Object getAMember(int idUser) {
+    public Object getAUser(int idUser) {
         Object object = new Object();
         conn.connect();
         String query = "SELECT * FROM users WHERE idUser = '" + idUser + "'";
@@ -118,7 +118,7 @@ public class databaseChange {
         } else if (condition == 1){
             query = "SELECT * FROM Borrows WHERE idbranch = '" + id + "' && status = '0'";
         } else {
-            query = "SELECT * FROM Borrows WHERE idbranch = '" + id + "' && status = '0' || status = '1'";
+            query = "SELECT * FROM Borrows WHERE idbranch = '" + id + "' && status = '0' || status = '3'";
         }
 
         try {
@@ -135,6 +135,7 @@ public class databaseChange {
                 borrow.setIdBorrow(rs.getInt("idBorrow"));
                 borrow.setMoneyFine(rs.getInt("moneyFine"));
                 borrow.setStatus(rs.getInt("status"));
+                borrow.setBook((PaidBook) getABook(rs.getInt("idBook")));
                 listBorrows.add(borrow);
             }
         } catch (SQLException e) {
@@ -198,12 +199,8 @@ public class databaseChange {
                 String publisher = rs.getString("publisher");
                 int year = rs.getInt("year");
                 int availability = rs.getInt("status");
-                if (rs.getInt("borrowPrice") != 0) {
-                    int borrowPrice = rs.getInt("borrowPrice");
-                    object = new PaidBook(idBook, idBranch, title, author, publisher, pages, year, genre, availability, borrowPrice);
-                } else {
-                    object = new Book(idBook, idBranch, title, author, publisher, pages, year, genre, availability);
-                }
+                int borrowPrice = rs.getInt("borrowPrice");
+                object = new PaidBook(idBook, idBranch, title, author, publisher, pages, year, genre, availability, borrowPrice);
             }
         } catch (SQLException e) {
             e.printStackTrace();
