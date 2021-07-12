@@ -15,7 +15,7 @@ public class TopUp {
     
     public TopUp() {
         //Frame
-        frame = new DefaultFrameSetting().defaultFrame();
+        frame = new DefaultFrameSetting().defaultFrame(); 
         frame.setSize(350, 230);
         frame.setLocationRelativeTo(null);
         
@@ -61,5 +61,5 @@ public class TopUp {
         panel1.setLayout(null);
         frame.setLayout(null);
         frame.setVisible(true);
-    }   
+    } 
 }

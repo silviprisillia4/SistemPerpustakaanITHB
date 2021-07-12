@@ -16,6 +16,7 @@ import model.PaidBook;
 import model.UserManager;
 
 public class AddNewBook {
+    
     public void addBookData() {
         Admin admin = UserManager.getInstance().getAdmin();
 

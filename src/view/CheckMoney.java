@@ -51,6 +51,7 @@ public class CheckMoney {
     }
 
     public JPanel danaPerpus(int idBranch) {
+        
         //declare components
         ArrayList<Member> members = new databaseChange().getAllMember(idBranch);
         int pendapatanByMemberRegister = 0;

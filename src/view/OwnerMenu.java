@@ -89,6 +89,7 @@ public class OwnerMenu {
     }
 
     public JComboBox chooseBranchMenu() {
+        
         //declare array branch
         String[] branch = {"Bandung", "Jakarta", "Surabaya"};
 

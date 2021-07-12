@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 public class ErrorMessages {
     
     public void showErrorCantSave() {
-        JOptionPane.showMessageDialog(null, "Perubahan gagal disimpan!", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Perubahan gagal disimpan!", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE); 
     }
     
     public void showErrorPasswordNotValid() {

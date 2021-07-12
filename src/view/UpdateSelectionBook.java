@@ -19,6 +19,7 @@ import model.UserManager;
 public class UpdateSelectionBook {
     JFrame frame;
     public void updateBookData() {
+        
         Admin admin = UserManager.getInstance().getAdmin();
         
         //declare components

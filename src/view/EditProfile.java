@@ -13,7 +13,7 @@ public class EditProfile {
     JTextField textFieldId, textFieldName, textFieldEmail, textFieldPassword, textFieldAddress, textFieldPhoneNumber, textFieldCash, textFieldDebt, textFieldBranch;
     JButton btnSave, btnBack;
     
-    ErrorMessages em = new ErrorMessages();
+    ErrorMessages em = new ErrorMessages(); 
     
     public EditProfile() { 
         Member member = UserManager.getInstance().getMember();

@@ -45,6 +45,7 @@ public class ShowUserHistory {
     }
 
     public JPanel getUserHistory() {
+        
         Admin admin = UserManager.getInstance().getAdmin();
         
         //declare components

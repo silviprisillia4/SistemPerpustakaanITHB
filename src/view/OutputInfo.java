@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.JOptionPane;
-
 import model.UserManager;
 import model.UserTypeEnum;
 

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 
 public class AdminMenu {
+    
     public void adminMenu() {
         Admin admin = UserManager.getInstance().getAdmin();
         
