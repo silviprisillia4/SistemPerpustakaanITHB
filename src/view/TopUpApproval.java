@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.DataController;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,16 +14,15 @@ import javax.swing.JOptionPane;
  */
 public class TopUpApproval {
     
+    DataController c = new DataController();
+    
     public TopUpApproval() {
         createApprovalScreen();
     }
     
     private void createApprovalScreen() {
-        String kode = JOptionPane.showInputDialog("Masukkan kode Top Up:");
-        if (kode == null) {
-            new ApprovalMenu();
-        } else {
-            
-        }
+        int idUser = Integer.parseInt(JOptionPane.showInputDialog("Input ID User:"));
+        int saldo = Integer.parseInt(JOptionPane.showInputDialog("Jumlah Saldo Top-Up:"));
+        c.topUpByAdmin(idUser, saldo);
     }
 }
