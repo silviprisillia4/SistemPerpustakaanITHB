@@ -215,7 +215,8 @@ public class DataController {
         }
     }
     
-    public void topUpByAdmin(int idUser, int saldo) {
+    public boolean topUpByAdmin(int idUser, int saldo) {
+        boolean isSuccess = false;
         int totalCash = 0;
         String query = "SELECT * FROM users WHERE idUser = '" + idUser + "'";
         try {
@@ -224,6 +225,7 @@ public class DataController {
             while (rs.next()) {
                 totalCash = rs.getInt("cash");
             }
+            isSuccess = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -231,9 +233,11 @@ public class DataController {
         query = "UPDATE users SET cash = '" + totalCash + "' WHERE idUser = '" + idUser + "'";
         try {
             Statement stmt = conn.con.createStatement();
-            stmt.executeQuery(query);
+            stmt.executeUpdate(query);
+            isSuccess = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return isSuccess;
     }
 }

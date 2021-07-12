@@ -23,6 +23,12 @@ public class TopUpApproval {
     private void createApprovalScreen() {
         int idUser = Integer.parseInt(JOptionPane.showInputDialog("Input ID User:"));
         int saldo = Integer.parseInt(JOptionPane.showInputDialog("Jumlah Saldo Top-Up:"));
-        c.topUpByAdmin(idUser, saldo);
+        boolean isSuccess = c.topUpByAdmin(idUser, saldo);
+        if (isSuccess) {
+            JOptionPane.showMessageDialog(null, "Top-Up berhasil!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Top-Up gagal!");
+        }
+        new ApprovalMenu();
     }
 }
