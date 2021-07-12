@@ -1,21 +1,36 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Member extends User implements InterfaceBranchCity {
     private String address;
     private String phoneNumber;
     private int cash;
     private int debt;
     private int idBranch;
+    private ArrayList<Borrowing> borrows = new ArrayList<>();
+
+    public ArrayList<Borrowing> getBorrows() {
+        return borrows;
+    }
+
+    public void setBorrows(ArrayList<Borrowing> borrows) {
+        this.borrows = borrows;
+    }
 
     public Member() {
-        
     }
     
-    public Member(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, String address, String phoneNumber, int cash, int debt, int idBranch) {
+    public Member(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, String address, String phoneNumber, int cash, int debt, int idBranch, ArrayList<Borrowing> borrows) {
         super(idUser, firstName, lastName, email, password, type);
+        setAddress(address);
+        setPhoneNumber(phoneNumber);
+        setCash(cash);
+        setDebt(debt);
         setIdBranch(idBranch);
-
+        setBorrows(borrows);
     }
+
     public String getAddress() {
         return address;
     }

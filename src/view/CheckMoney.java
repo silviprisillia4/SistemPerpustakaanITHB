@@ -10,37 +10,42 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class CheckMoney {
+
     public void printDanaSatuCabang() {
         Admin admin = UserManager.getInstance().getAdmin();
+        if (new controller.databaseChange().getAllMember(admin.getIdBranch()).size() == 0) {
+            new OutputInfo().infoNoMoney();
+            new AdminMenu().adminMenu();
+        } else {
+            //declare components
+            JFrame frame = new DefaultFrameSetting().defaultFrame();
+            JButton exit = new JButton("Exit");
 
-        //declare components
-        JFrame frame = new DefaultFrameSetting().defaultFrame();
-        JButton exit = new JButton("Exit");
+            //set components position
+            exit.setBounds(50, 470, 800, 20);
 
-        //set components position
-        exit.setBounds(50, 470, 800, 20);
+            //button action listener
+            exit.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.setVisible(false);
+                    new OutputInfo().backToPreviousMenu();
+                    new AdminMenu().adminMenu();
+                }
+            });
 
-        //button action listener
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
-                new OutputInfo().exit();
-                new AdminMenu().adminMenu();
-            }
-        });
+            //add components to frame
+            frame.add(exit);
+            frame.add(danaPerpus(admin.getIdBranch()));
 
-        //add components to frame
-        frame.add(exit);
-        frame.add(danaPerpus(admin.getIdBranch()));
-
-        //set frame size
-        frame.setSize(950, 660);
+            //set frame size
+            frame.setSize(950, 660);
+        }
     }
 
     public JPanel danaPerpus(int idBranch) {
         //declare components
-        ArrayList<Member> listMember = new controller.databaseChange().getAllMember(idBranch);
+        ArrayList<Member> members = new databaseChange().getAllMember(idBranch);
         int pendapatanByMemberRegister = 0;
         int pendapatanByBorrowing = 0;
         int pendapatanByMoneyFine = 0;
@@ -55,19 +60,19 @@ public class CheckMoney {
         JLabel label4 = new JLabel();
 
         //make table data
-        for (int i = 0; i < listMember.size(); i++) {
+        for (int i = 0; i < members.size(); i++) {
             Object[] datum = new Object[3];
-            datum[0] = "Pendaftaran dari " + listMember.get(i).getFirstName() + " " + listMember.get(i).getLastName();
+            datum[0] = "Pendaftaran dari " + members.get(i).getFirstName() + " " + members.get(i).getLastName();
             datum[1] = "(+) " + 50000;
             datum[2] = "-";
             tableModel = (DefaultTableModel) table.getModel();
             tableModel.addRow(datum);
             pendapatanByMemberRegister += 50000;
-            for (int j = 0; j < new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), 2).size(); j++) {
-                Borrowing borrow = new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), 2).get(j);
+            for (int j = 0; j < members.get(i).getBorrows().size(); j++) {
+                Borrowing borrow = members.get(i).getBorrows().get(j);
                 if (borrow.getPriceTotal() != 0) {
                     datum = new Object[3];
-                    datum[0] = "Peminjaman  buku " + ((Book)new databaseChange().getABook(borrow.getIdBook())).getTitle() + " selama " + borrow.getBorrowDays() + " hari";
+                    datum[0] = "Peminjaman  buku " + ((Book) new databaseChange().getABook(borrow.getIdBook())).getTitle() + " selama " + borrow.getBorrowDays() + " hari";
                     datum[1] = "(+)" + borrow.getPriceTotal();
                     datum[2] = borrow.getDate();
                     tableModel = (DefaultTableModel) table.getModel();
@@ -76,7 +81,7 @@ public class CheckMoney {
                 }
                 if (borrow.getMoneyFine() != 0) {
                     datum = new Object[3];
-                    datum[0] = "Denda dari peminjaman buku " + ((Book)new databaseChange().getABook(borrow.getIdBook())).getTitle();
+                    datum[0] = "Denda dari peminjaman buku " + ((Book) new databaseChange().getABook(borrow.getIdBook())).getTitle();
                     datum[1] = "(+)" + borrow.getMoneyFine();
                     datum[2] = borrow.getDate();
                     tableModel = (DefaultTableModel) table.getModel();

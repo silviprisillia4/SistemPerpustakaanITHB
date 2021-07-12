@@ -1,23 +1,25 @@
 package view;
 
 import javax.swing.JOptionPane;
+
+import model.UserManager;
 import model.UserTypeEnum;
 
 public class OutputInfo {
 
-    public void welcomeToMenuAdmin(String name, String branch) {
-        JOptionPane.showMessageDialog(null, "Selamat datang admin " + name + " cabang " + branch);
+    public void welcomeToMenuAdmin() {
+        JOptionPane.showMessageDialog(null, "Selamat datang "+ UserTypeEnum.ADMIN + " " + UserManager.getInstance().getAdmin().getFirstName() + " " + UserManager.getInstance().getAdmin().getLastName() + " cabang " + UserManager.getInstance().getAdmin().selectBranchCity(UserManager.getInstance().getAdmin().getIdBranch()));
     }
 
     public void welcomeToOwnerMenu() {
-        JOptionPane.showMessageDialog(null, "Selamat datang "+ UserTypeEnum.OWNER);
+        JOptionPane.showMessageDialog(null, "Selamat datang "+ UserTypeEnum.OWNER + " " + UserManager.getInstance().getAdmin().getFirstName() + " " + UserManager.getInstance().getAdmin().getLastName());
     }
 
     public void changeShowDanaCabang(String branch) {
         JOptionPane.showMessageDialog(null, "Berikut akan di tampilkan pendapatan dari cabang " + branch);
     }
 
-    public void exitFromOwnerMenu() {
+    public void logOutInfo() {
         JOptionPane.showMessageDialog(null, "Anda akan keluar dari menu");
     }
 
@@ -37,7 +39,7 @@ public class OutputInfo {
         }
     }
 
-    public void exit() {
+    public void backToPreviousMenu() {
         JOptionPane.showMessageDialog(null, "Anda akan kembali ke menu sebelumnya");
     }
 
@@ -63,5 +65,13 @@ public class OutputInfo {
 
     public void infoFormValidate() {
         JOptionPane.showMessageDialog(null, "Form belum terisi lengkap!!\nPeriksa kembali form!!");
+    }
+    
+    public void infoNoBorrowList() {
+        JOptionPane.showMessageDialog(null,"Belum ada list peminjaman di cabang ini");
+    }
+
+    public void infoNoMoney() {
+        JOptionPane.showMessageDialog(null,"Belum ada pemasukkan di cabang ini");
     }
 }
