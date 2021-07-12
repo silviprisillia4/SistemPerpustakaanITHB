@@ -62,7 +62,7 @@ public class databaseChange {
                     int idBranch = rs.getInt("idBranch");
                     ArrayList<Member> members = getAllMember(rs.getInt("idBranch"));
                     ArrayList<PaidBook> books = getBookData(rs.getInt("idBranch"));
-                    //object = new Admin(idUser, firstName, lastName, mail, password, type, idBranch, members, books);
+                    object = new Admin(idUser, firstName, lastName, mail, password, type, idBranch, books, members);
                 } else {
                     object = new User(idUser, firstName, lastName, mail, password, type);
                 }
