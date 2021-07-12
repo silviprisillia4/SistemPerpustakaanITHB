@@ -28,7 +28,7 @@ public class databaseChange {
             stmt.setInt(7, book.getPages());
             stmt.setInt(8, book.getBorrowPrice());
             stmt.setInt(9, book.getYear());
-            stmt.setInt(10, book.getAvailability());
+            stmt.setInt(10, book.getStatus());
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {
@@ -62,7 +62,7 @@ public class databaseChange {
                     int idBranch = rs.getInt("idBranch");
                     ArrayList<Member> members = getAllMember(rs.getInt("idBranch"));
                     ArrayList<PaidBook> books = getBookData(rs.getInt("idBranch"));
-                    object = new Admin(idUser, firstName, lastName, mail, password, type, idBranch, members, books);
+                    object = new Admin(idUser, firstName, lastName, mail, password, type, idBranch, books, members);
                 } else {
                     object = new User(idUser, firstName, lastName, mail, password, type);
                 }

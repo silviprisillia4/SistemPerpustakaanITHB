@@ -188,7 +188,7 @@ public class AddNewBook {
                     book.setPages(Integer.parseInt(inputPages.getText()));
                     book.setYear(Integer.parseInt(inputYear.getText()));
                     book.setIdBranch(admin.getIdBranch());
-                    book.setAvailability(1);
+                    book.setStatus(1);
 
                     boolean state = new controller.databaseChange().insertNewBook(book);
                     if (state) {
