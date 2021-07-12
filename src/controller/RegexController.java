@@ -36,7 +36,7 @@ public class RegexController {
         return mNumber.matches(regex);
     }
 
-    static boolean passValidation(String pass) {
+    public static boolean passValidation(String pass) {
         String regex = "^(?=.*[0-9])(?=.*[a-z])(?=\\S+$).{8,20}$";
         return pass.matches(regex);
     }

@@ -52,7 +52,7 @@ public class ChangePassword {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Controller c = new Controller();
-                Regex r = new Regex();
+                controller.RegexController r = new controller.RegexController();
                 Member memberSelected = c.getSelectedMember(member.getIdUser());
                 boolean updated = false;
                 
@@ -64,7 +64,7 @@ public class ChangePassword {
                     String validatePassword = String.valueOf(textFieldValidatePassword.getPassword());
                     if(newPassword.equals(validatePassword)) {
                         String hashedNewPassword = c.getMD5(String.valueOf(textFieldNewPassword.getPassword())); //newPassword dari input dihash
-                        boolean isValid = r.passValidation(newPassword);
+                        boolean isValid = RegexController.passValidation(newPassword);
                         if(isValid) {
                             updated = c.updatePassword(memberSelected, hashedNewPassword);
                         } else {

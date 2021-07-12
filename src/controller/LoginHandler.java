@@ -18,7 +18,7 @@ public class LoginHandler {
         DataController c = new DataController();
         int idBranch = c.getBranchIDByCity(branch);
         c.setLoggedInUser(email, idBranch);
-        User user = UserManager.getInstance().getUser();
+        User user = UserManagerz.getInstance().getUser();
         if (user.getType() == UserTypeEnum.ADMIN) {
             //new AdminMenu();
         } else if (user.getType() == UserTypeEnum.MEMBER) {
