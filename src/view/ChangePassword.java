@@ -57,13 +57,13 @@ public class ChangePassword {
                 boolean updated = false;
                 
                 String oldPassword = c.getSelectedPassword(memberSelected.getIdUser()); //oldPassword dari database
-                String hashedOldPassword = c.getMD5(String.valueOf(textFieldOldPassword.getPassword())); //input oldPassword dihash
+                String hashedOldPassword = c.getMD5(String.valueOf(textFieldOldPassword.getPassword())); //oldPassword dari input dihash
                 
                 if(hashedOldPassword.equals(oldPassword)) {
                     String newPassword = String.valueOf(textFieldNewPassword.getPassword());
                     String validatePassword = String.valueOf(textFieldValidatePassword.getPassword());
                     if(newPassword.equals(validatePassword)) {
-                        String hashedNewPassword = c.getMD5(String.valueOf(textFieldNewPassword.getPassword()));
+                        String hashedNewPassword = c.getMD5(String.valueOf(textFieldNewPassword.getPassword())); //newPassword dari input dihash
                         boolean isValid = r.passValidation(newPassword);
                         if(isValid) {
                             updated = c.updatePassword(memberSelected, hashedNewPassword);
@@ -78,7 +78,6 @@ public class ChangePassword {
                 }
                 
                 if(updated) {
-                    //kasih notif berhasil
                     frame.setVisible(false);
                     new Profile();
                 }
