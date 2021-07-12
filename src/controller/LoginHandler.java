@@ -17,17 +17,15 @@ public class LoginHandler {
     public LoginHandler(String email, String branch) {
         DataController c = new DataController();
         int idBranch = c.getBranchIDByCity(branch);
-        UserManager.getInstance().setUser(c.getLoggedInUser(email, idBranch));
+        c.setLoggedInUser(email, idBranch);
+//        UserManager.getInstance().setUser(c.getLoggedInUser(email, idBranch));
         User user = UserManager.getInstance().getUser();
         if (user.getType() == UserType.ADMIN) {
             //new AdminMenu();
-            System.out.println("admin");
         } else if (user.getType() == UserType.MEMBER) {
             //new MemberMenu();
-            System.out.println("member");
         } else {
             //new OwnerMenu();
-            System.out.println("owner");
         }
     }
 }

@@ -168,36 +168,51 @@ public class DataController {
         }
     }
     
-    public User getLoggedInUser(String email, int idBranch) {
-        User user = new User();
+    public void setLoggedInUser(String email, int idBranch) {
         String query = "SELECT * FROM users WHERE email = '" + email + "' AND idBranch = '" + idBranch + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                user.setIdUser(rs.getInt("idUser"));
-                user.setFirstName(rs.getString("firstName"));
-                user.setLastName(rs.getString("lastName"));
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setType(UserType.valueOf(rs.getString("type")));
-                if (user.getType() == UserType.ADMIN) {
-                    Admin admin = (Admin) user;
+                if (rs.getString("type").equals(UserType.OWNER.toString())) {
+                    User user = new User();
+                    user.setIdUser(rs.getInt("idUser"));
+                    user.setFirstName(rs.getString("firstName"));
+                    user.setLastName(rs.getString("lastName"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(rs.getString("password"));
+                    user.setType(UserType.valueOf(rs.getString("type")));
+                    UserManager.getInstance().setUser(user);
+                } else if (rs.getString("type").equals(UserType.ADMIN.toString())) {
+                    Admin admin = new Admin();
+                    admin.setIdUser(rs.getInt("idUser"));
+                    admin.setFirstName(rs.getString("firstName"));
+                    admin.setLastName(rs.getString("lastName"));
+                    admin.setEmail(rs.getString("email"));
+                    admin.setPassword(rs.getString("password"));
+                    admin.setType(UserType.valueOf(rs.getString("type")));
                     admin.setIdBranch(rs.getInt("idBranch"));
-                } else if (user.getType() == UserType.MEMBER) {
-                    Member member = (Member) user;
+                    UserManager.getInstance().setUser(admin);
+                } else if (rs.getString("type").equals(UserType.MEMBER.toString())) {
+                    Member member = new Member();
+                    member.setIdUser(rs.getInt("idUser"));
+                    member.setFirstName(rs.getString("firstName"));
+                    member.setLastName(rs.getString("lastName"));
+                    member.setEmail(rs.getString("email"));
+                    member.setPassword(rs.getString("password"));
+                    member.setType(UserType.valueOf(rs.getString("type")));
                     member.setIdBranch(rs.getInt("idBranch"));
                     member.setAddress(rs.getString("address"));
                     member.setPhoneNumber(rs.getString("phoneNumber"));
                     member.setCash(rs.getInt("cash"));
                     member.setDebt(rs.getInt("debt"));
                     member.setApproved(rs.getInt("approved"));
+                    UserManager.getInstance().setUser(member);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user;
     }
     
     public void topUpByAdmin(int idUser, int saldo) {
