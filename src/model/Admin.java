@@ -3,14 +3,14 @@ import java.util.ArrayList;
 
 public class Admin extends User implements InterfaceBranchCity {
     private int idBranch;
-    private ArrayList<Book> books = new ArrayList<>();
+    private ArrayList<PaidBook> books = new ArrayList<>();
     private ArrayList<Member> members = new ArrayList<>();
     
     public Admin() {
         
     }
     
-    public Admin(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, int idBranch, ArrayList<Book> books, ArrayList<Member> members) {
+    public Admin(int idUser, String firstName, String lastName, String email, String password, UserTypeEnum type, int idBranch, ArrayList<PaidBook> books, ArrayList<Member> members) {
         super(idUser, firstName, lastName, email, password, type);
         setIdBranch(idBranch);
         setBooks(books);
@@ -25,11 +25,11 @@ public class Admin extends User implements InterfaceBranchCity {
         this.idBranch = idBranch;
     }
     
-    public ArrayList<Book> getBooks() {
+    public ArrayList<PaidBook> getBooks() {
         return books;
     }
     
-    public void setBooks(ArrayList<Book> books) {
+    public void setBooks(ArrayList<PaidBook> books) {
         this.books = books;
     }
     

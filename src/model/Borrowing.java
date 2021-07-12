@@ -11,12 +11,13 @@ public class Borrowing implements InterfaceBookState {
     private Date date;
     private int status;
     private int moneyFine;
-
+    private PaidBook book;
+    
     public Borrowing() {
         
     }
     
-    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, Date date, int status, int moneyFine) {
+    public Borrowing(int idBorrow, int idBook, int idUser, int idBranch, int borrowDays, int priceTotal, Date date, int status, int moneyFine, PaidBook book) {
         setIdBorrow(idBorrow);
         setIdBook(idBook);
         setIdUser(idUser);
@@ -26,6 +27,7 @@ public class Borrowing implements InterfaceBookState {
         setDate(date);
         setStatus(status);
         setMoneyFine(moneyFine);
+        setBook(book);
     }
 
     public int getIdBorrow() {
@@ -100,20 +102,28 @@ public class Borrowing implements InterfaceBookState {
         this.moneyFine = moneyFine;
     }
   
+    public PaidBook getBook() {
+        return book;
+    }
+
+    public void setBook(PaidBook book) {
+        this.book = book;
+    }
+  
     public void printDataPeminjaman() {
         
     }
 
     @Override
     public String selectBookState(int idBook) {
-        if(idBook==AVAILABLE) {
+        if(idBook == AVAILABLE) {
             return "Tersedia";
-        } else if(idBook==BORROWED) {
+        } else if (idBook == BORROWED){
             return "Dipinjam";
-        } else if(idBook==PROCESSED) {
-            return "Sedang diproses";
+        } else if (idBook == PROCESSED){
+            return "Diproses";
         } else {
-            return "Sudah dikembalikan";
+            return "Dikembalikan";
         }
-    }
+    } 
 }
