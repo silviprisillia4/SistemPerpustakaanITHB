@@ -78,7 +78,7 @@ public class Member extends User implements InterfaceBranchCity {
                         +"Email : "+getEmail()+"\n"
                         +"Saldo : Rp "+getCash()+"\n"
                         +"Hutang : Rp"+getDebt()+"\n"
-                        +"Cabang : <pake interface kali ya>"+getIdBranch();
+                        +"Cabang : "+selectBranchCity(getIdBranch());
     }
 
     @Override
