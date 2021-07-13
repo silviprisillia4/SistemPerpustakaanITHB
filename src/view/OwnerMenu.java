@@ -54,13 +54,13 @@ public class OwnerMenu {
                 panel3.setVisible(false);
                 panel3.removeAll();
                 if (cb.getItemAt(cb.getSelectedIndex()) == "Bandung") {
-                    new OutputInfo().changeShowDanaCabang("Bandung");
+                    new OutputInfo().infoDanaCabang("Bandung");
                     panel3.add(new CheckMoney().danaPerpus(1));
                 } else if (cb.getItemAt(cb.getSelectedIndex()) == "Jakarta") {
-                    new OutputInfo().changeShowDanaCabang("Jakarta");
+                    new OutputInfo().infoDanaCabang("Jakarta");
                     panel3.add(new CheckMoney().danaPerpus(2));
                 } else {
-                    new OutputInfo().changeShowDanaCabang("Surabaya");
+                    new OutputInfo().infoDanaCabang("Surabaya");
                     panel3.add(new CheckMoney().danaPerpus(3));
                 }
                 panel3.setVisible(true);
@@ -70,7 +70,7 @@ public class OwnerMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new OutputInfo().logOutInfo();
+                new OutputInfo().infoLogOut();
                 new MainScreen();
             }
             

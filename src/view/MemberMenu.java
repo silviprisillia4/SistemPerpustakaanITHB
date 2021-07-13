@@ -47,7 +47,7 @@ public class MemberMenu {
         btnExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Terima kasih sudah menggunakan layanan Sistem Perpustakaan ITHB!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
+                new OutputInfo().infoLogOut();
                 UserManager.getInstance().logOut();
                 frame.setVisible(false);
                 new MainScreen();

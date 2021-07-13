@@ -1,26 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 import controller.*;
 import controller.LoginHandler;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JFrame;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.JPasswordField;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
-/**
- *
- * @author yen
- */
 public class MainScreen {
     
     Controller c = new Controller();
@@ -140,16 +125,16 @@ public class MainScreen {
                         rePassFieldRegister.getText());
                 if (isSuccess) {
                     registerFrame.dispose();
-                    JOptionPane.showMessageDialog(null, "Registrasi Berhasil!");
+                    new OutputInfo().infoRegistrationSuccessed();
                     createMainScreen();
                 } else {
                     registerFrame.setVisible(false);
-                    JOptionPane.showMessageDialog(null, "Registrasi Gagal!\nHarap periksa kembali data Anda.");
+                    new ErrorMessages().showErrorRegistrationFailed();
                     registerFrame.setVisible(true);
                 }
             } else {
                 registerFrame.setVisible(false);
-                JOptionPane.showMessageDialog(null, "Email Anda sudah terdaftar!!");
+                new ErrorMessages().showErrorEmailRegistered();
                 registerFrame.setVisible(true);
             }
         });
@@ -202,11 +187,11 @@ public class MainScreen {
             boolean valid = c.userLoginAvailability(selectedBranch, emailFieldLogin.getText(), c.getMD5(passFieldLogin.getText()));
             if (valid) {
                 loginFrame.dispose();
-                JOptionPane.showMessageDialog(null, "Login Berhasil!");
+                new OutputInfo().infoLoginSuccessed();
                 new LoginHandler(emailFieldLogin.getText(), selectedBranch);
             } else {
                 loginFrame.setVisible(false);
-                JOptionPane.showMessageDialog(null, "Login Gagal!");
+                new ErrorMessages().showErrorLoginFailed();
                 loginFrame.setVisible(true);
             }
         });

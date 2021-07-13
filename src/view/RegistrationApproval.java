@@ -1,30 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
-import controller.DatabaseHandler;
-import controller.TableHandler;
+import controller.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.*;
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 
-/**
- *
- * @author yen
- */
 public class RegistrationApproval {
     
     public RegistrationApproval(int id) {
@@ -32,8 +17,8 @@ public class RegistrationApproval {
     }
     
     private void createApprovalScreen(int id) {
-        JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
+        JFrame frame = new DefaultFrameSetting().defaultFrame();
+        JPanel panel = new DefaultFrameSetting().defaultPanel();
         
         TableHandler h = new TableHandler();
         String[][] data = h.getMembersData(id);
@@ -142,7 +127,7 @@ public class RegistrationApproval {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                    JOptionPane.showMessageDialog(null, "Approved!");
+                    JOptionPane.showMessageDialog(null, "Approved!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
                     frame.dispose();
                     createApprovalScreen(id);
                 });
@@ -158,7 +143,7 @@ public class RegistrationApproval {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                    JOptionPane.showMessageDialog(null, "Unapproved!");
+                    JOptionPane.showMessageDialog(null, "Unapproved!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
                     frame.dispose();
                     createApprovalScreen(id);
                 });

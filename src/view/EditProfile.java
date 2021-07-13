@@ -77,7 +77,7 @@ public class EditProfile {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int confirm = JOptionPane.showConfirmDialog(null, "Yakin simpan perubahan?", "Perpustakaan ITHB", JOptionPane.YES_NO_OPTION);
-                if(confirm==JOptionPane.YES_OPTION) {
+                if(confirm == JOptionPane.YES_OPTION) {
                     String[] name = textFieldName.getText().split(" ");
                     String firstName = "";
                     for (int i=0; i<name.length-1; i++) {
@@ -88,12 +88,27 @@ public class EditProfile {
                         }
                     }
                     String lastName = name[name.length-1];
-                    member.setFirstName(firstName);
-                    member.setLastName(lastName);
-                    member.setEmail(textFieldEmail.getText());
-                    member.setAddress(textFieldAddress.getText());
-                    member.setPhoneNumber(textFieldPhoneNumber.getText());
-                    boolean success = c.updateProfile(member);
+                    
+                    boolean success = false;
+                    boolean isValid = RegexController.firstNameValidation(firstName);
+                    if (isValid) {
+                        isValid = RegexController.lastNameValidation(lastName);
+                        if (isValid) {
+                            isValid = RegexController.addressValidation(textFieldAddress.getText());
+                            if (isValid) {
+                                isValid = RegexController.mobileNumberValidation(textFieldPhoneNumber.getText());
+                                if (isValid) {
+                                    isValid = RegexController.emailValidation(textFieldEmail.getText());
+                                    member.setFirstName(firstName);
+                                    member.setLastName(lastName);
+                                    member.setEmail(textFieldEmail.getText());
+                                    member.setAddress(textFieldAddress.getText());
+                                    member.setPhoneNumber(textFieldPhoneNumber.getText());
+                                    success = c.updateProfile(member);
+                                }
+                            }
+                        }
+                    }
                     if(success) {
                         JOptionPane.showMessageDialog(null, "Perubahan berhasil disimpan!", "Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
                         frame.setVisible(false);

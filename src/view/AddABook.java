@@ -198,7 +198,7 @@ public class AddABook {
                         new OutputInfo().successAddNewBook(book.getTitle(), state);
                     }
                 } else {
-                    new OutputInfo().infoFormValidate();
+                    new ErrorMessages().showErrorFormValidate();
                 }
             }
         });

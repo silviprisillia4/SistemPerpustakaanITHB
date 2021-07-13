@@ -1,5 +1,4 @@
 package view;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -155,7 +154,7 @@ public class UpdateBookMenu {
                         new OutputInfo().infoUpdateABook(book.getTitle(), state);
                     }
                 } else {
-                    new OutputInfo().cantUpdateBecauseNoChange();
+                    new ErrorMessages().showErrorCantUpdateBecauseNoChange();
                 }
             }
         });

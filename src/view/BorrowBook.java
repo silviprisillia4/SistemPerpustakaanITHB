@@ -175,15 +175,15 @@ public class BorrowBook {
                             success = c.insertBorrowing(borrowing) && c.updateBookStatusAfterBorrowed(book.getIdBook());
                         }
                         if(success) {
-                            JOptionPane.showMessageDialog(null, "Buku berhasil dipinjam! Silakan ambil buku di meja pengambilan.", "Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
+                            new OutputInfo().infoBorrowed();
                             frame.setVisible(false);
                             new MemberMenu();
                         } else {
-                            JOptionPane.showMessageDialog(null, "Terjadi kesalahan.", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE);
+                            new ErrorMessages().showError();
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Anda belum memilih buku!", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE);
+                    new ErrorMessages().showErrorNoSelectedBook();
                 }
             }
         });

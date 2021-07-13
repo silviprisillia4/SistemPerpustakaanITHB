@@ -21,7 +21,7 @@ public class ApproveBookReturn {
         //check ada yang dipinjam atau ga
         
         if (c.getAllBorrowList(admin.getIdBranch(), 1).size() == 0) {
-            new OutputInfo().infoNoBorrowList();
+            new ErrorMessages().showErrorNoBorrowList();
             new AdminMenu();
         } else {
             //declare
@@ -32,7 +32,7 @@ public class ApproveBookReturn {
             DefaultTableModel model = new DefaultTableModel(getTableData(), getColumnData());
             JScrollPane scroll = new JScrollPane();
             JButton button = new JButton("Approve");
-            JButton exit = new JButton("Keluar");
+            JButton exit = new JButton("Kembali");
 
             //set position
             table.setBounds(50, 50, 1100, 300);

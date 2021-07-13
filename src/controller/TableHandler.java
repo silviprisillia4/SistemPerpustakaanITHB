@@ -161,7 +161,7 @@ public class TableHandler {
     }
     
     public String[][] getBorrowsData(int idBranch) {
-        String query = "SELECT * FROM borrows WHERE idBranch = '" + idBranch + "' AND (status = '0' OR status = '2')";
+        String query = "SELECT * FROM borrows WHERE idBranch = '" + idBranch + "' AND (status = 0 OR status = 2)";
         int borrowCount = getUnapprovedBorrowAmountOfABranch(idBranch);
         String[][] users = new String[borrowCount][7];
         try {
@@ -185,7 +185,7 @@ public class TableHandler {
     }
     
     public int getUnapprovedBorrowAmountOfABranch(int idBranch) {
-        String query = "SELECT * FROM borrows WHERE idBranch = '" + idBranch + "' AND NOT status = '2'";
+        String query = "SELECT * FROM borrows WHERE idBranch = '" + idBranch + "' AND (status = 0 OR status = 2)";
         int borrowCount = 0;
         try {
             Statement stmt = conn.con.createStatement();

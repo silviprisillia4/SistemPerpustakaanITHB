@@ -16,7 +16,7 @@ public class CheckMoney {
         Admin admin = UserManager.getInstance().getAdmin();
         
         if (c.getAllMembers(admin.getIdBranch()).size() == 0) {
-            new OutputInfo().infoNoMoney();
+            new ErrorMessages().showErrorNoMoney();
             new AdminMenu();
         } else {
             //declare components

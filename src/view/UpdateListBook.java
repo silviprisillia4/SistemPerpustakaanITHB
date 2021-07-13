@@ -1,5 +1,4 @@
 package view;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,6 @@ public class UpdateListBook {
         JButton updateBook = new JButton("Update Data Buku");
         JButton addBook = new JButton("Tambah Buku Baru");
         JButton exit = new JButton("Back to Admin Menu");
-
 
         //set components position
         updateBook.setBounds(50, 50, 200, 50);
