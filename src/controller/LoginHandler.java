@@ -7,6 +7,9 @@ package controller;
 
 import model.User;
 import model.UserTypeEnum;
+import view.AdminMenu;
+import view.MemberMenu;
+import view.OwnerMenu;
 
 /**
  *
@@ -20,11 +23,11 @@ public class LoginHandler {
         c.setLoggedInUser(email, idBranch);
         User user = UserManagerz.getInstance().getUser();
         if (user.getType() == UserTypeEnum.ADMIN) {
-            //new AdminMenu();
+            new AdminMenu();
         } else if (user.getType() == UserTypeEnum.MEMBER) {
-            //new MemberMenu();
+            new MemberMenu();
         } else {
-            //new OwnerMenu();
+            new OwnerMenu();
         }
     }
 }

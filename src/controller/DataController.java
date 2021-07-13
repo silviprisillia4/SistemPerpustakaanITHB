@@ -23,6 +23,8 @@ import model.UserTypeEnum;
 public class DataController {
     
     DatabaseHandler conn = new DatabaseHandler();
+    static Controller c = new Controller();
+    static DataController d = new DataController();
     
     public DataController() {
         conn.connect();
@@ -122,9 +124,8 @@ public class DataController {
                             isValid = RegexController.passValidation(newPass);
                             if (isValid) {
                                 if (newPass.equals(rePass)) {
-                                    DataController c = new DataController();
-                                    c.createNewUserAccount(selectedBranch, firstName,
-                                            lastName,address, phone, email, newPass);
+                                    d.createNewUserAccount(selectedBranch, firstName,
+                                            lastName,address, phone, email, c.getMD5(newPass));
                                     return true;
                                 }
                             }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+import controller.Controller;
 import controller.DataController;
 import controller.LoginHandler;
 import controller.UserManagerz;
@@ -198,8 +199,9 @@ public class MainScreen {
         JButton loginButton2 = new JButton("LOGIN");
         loginButton2.setBounds(10, 70, 290, 20);
         loginButton2.addActionListener((ActionEvent e) -> {
-            DataController c = new DataController();
-            boolean valid = c.userLoginAvailability(selectedBranch, emailFieldLogin.getText(), passFieldLogin.getText());
+            DataController d = new DataController();
+            Controller c = new Controller();
+            boolean valid = d.userLoginAvailability(selectedBranch, emailFieldLogin.getText(), c.getMD5(passFieldLogin.getText()));
             if (valid) {
                 loginFrame.dispose();
                 JOptionPane.showMessageDialog(null, "Login Berhasil!");

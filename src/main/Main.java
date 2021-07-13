@@ -15,7 +15,7 @@ public class Main {
         // new view.AdminMenu().adminMenu();
 //        new Controller.testing().print();
 //        new View.AdminMenu().adminMenu(new Controller.testing().getAdmin(1));
-//        new view.MainScreen();
+//        new view.ApprovalMenu();
 //        new View.OwnerMenu().ownerMenu();
             //new view.MemberMenu();
 //            new View.AdminMenu().returnBorrow(1);
