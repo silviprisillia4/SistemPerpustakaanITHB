@@ -1,4 +1,5 @@
 package controller;
+
 import model.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -14,11 +15,11 @@ import java.util.Date;
 public class Controller {
 
     static DatabaseHandler conn = new DatabaseHandler();
-    
+
     public Controller() {
         conn.connect();
     }
-    
+
     public boolean userRegisterAvailability(String branch, String email) {
         int selectedBranch = getBranchIDByCity(branch);
         String query = "SELECT * FROM users WHERE idBranch = '" + selectedBranch + "'";
@@ -36,7 +37,7 @@ public class Controller {
         }
         return true;
     }
-    
+
     public boolean userLoginAvailability(String branch, String email, String password) {
         int selectedBranch = getBranchIDByCity(branch);
         if (selectedBranch == -1) {
@@ -60,7 +61,7 @@ public class Controller {
             return false;
         }
     }
-    
+
     public int getBranchIDByCity(String name) {
         String query = "SELECT * FROM branches";
         try {
@@ -76,7 +77,7 @@ public class Controller {
         }
         return -1;
     }
-    
+
     public ArrayList<String> getBranchesCity() {
         String query = "SELECT * FROM branches";
         ArrayList<String> names = new ArrayList<>();
@@ -91,7 +92,7 @@ public class Controller {
         }
         return names;
     }
-    
+
     public boolean processingRegistration(int selectedBranch, String firstName, String lastName, String address, String phone, String email, String newPass, String rePass) {
         boolean isValid = RegexController.firstNameValidation(firstName);
         if (isValid) {
@@ -107,7 +108,7 @@ public class Controller {
                             if (isValid) {
                                 if (newPass.equals(rePass)) {
                                     createNewUserAccount(selectedBranch, firstName,
-                                            lastName,address, phone, email, getMD5(newPass));
+                                            lastName, address, phone, email, getMD5(newPass));
                                     return true;
                                 }
                             }
@@ -118,7 +119,7 @@ public class Controller {
         }
         return false;
     }
-    
+
     public void createNewUserAccount(int branch, String firstName, String lastName, String address, String phone, String email, String pass) {
         String query = "INSERT INTO users VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
@@ -140,7 +141,7 @@ public class Controller {
             e.printStackTrace();
         }
     }
-    
+
     public void approveAMember(String idUser) {
         String query = "UPDATE users SET approved = '1' WHERE idUser = '" + idUser + "'";
         try {
@@ -150,7 +151,7 @@ public class Controller {
             e.printStackTrace();
         }
     }
-    
+
     public ArrayList<Member> getAllMembers(int idBranch) {
         ArrayList<Member> members = new ArrayList<>();
         String query;
@@ -177,7 +178,7 @@ public class Controller {
                 member.setType(UserTypeEnum.MEMBER);
                 member.setPassword(rs.getString("password"));
                 member.setIdUser(rs.getInt("iduser"));
-                member.setBorrows(getAllBorrowList(rs.getInt("idBranch"), 0));
+                member.setBorrows(getAllBorrowList(rs.getInt("idUser"), 0));
                 members.add(member);
             }
         } catch (SQLException e) {
@@ -185,7 +186,7 @@ public class Controller {
         }
         return members;
     }
-    
+
     public ArrayList<Borrowing> getAllBorrowList(int id, int condition) {
         ArrayList<Borrowing> borrows = new ArrayList<>();
         String query = "";
@@ -218,10 +219,10 @@ public class Controller {
         }
         return borrows;
     }
-    
+
     public ArrayList<PaidBook> getAllBooks(int idBranch) {
         ArrayList<PaidBook> books = new ArrayList<>();
-        String query = "SELECT * from books WHERE idBranch = '"+idBranch+"' AND status = 1";
+        String query = "SELECT * from books WHERE idBranch = '" + idBranch + "' AND status = 1";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -243,10 +244,10 @@ public class Controller {
         }
         return books;
     }
-    
+
     public ArrayList<PaidBook> getAllBooksOrdered(int idBranch, String order) {
         ArrayList<PaidBook> books = new ArrayList<>();
-        String query = "SELECT * from books WHERE idBranch = '"+idBranch+"' AND status = 1 ORDER BY title "+order;
+        String query = "SELECT * from books WHERE idBranch = '" + idBranch + "' AND status = 1 ORDER BY title " + order;
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -268,10 +269,10 @@ public class Controller {
         }
         return books;
     }
-    
+
     public ArrayList<PaidBook> getAllBooksByFilter(int idBranch, String filter, String search) {
         ArrayList<PaidBook> books = new ArrayList<>();
-        String query = "SELECT * from books WHERE idBranch = '"+idBranch+"' AND status = 1 AND "+filter+" LIKE '%"+search+"%'";
+        String query = "SELECT * from books WHERE idBranch = '" + idBranch + "' AND status = 1 AND " + filter + " LIKE '%" + search + "%'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -293,7 +294,7 @@ public class Controller {
         }
         return books;
     }
-    
+
     public void getAUser(String email, int idBranch) {
         String query = "SELECT * FROM users WHERE email = '" + email + "' && idBranch = '" + idBranch + "'";
         try {
@@ -350,10 +351,10 @@ public class Controller {
             e.printStackTrace();
         }
     }
-    
+
     public Member getAMember(int idUser) {
         Member member = new Member();
-        String query = "SELECT * FROM users WHERE idUser = '"+idUser+"'";
+        String query = "SELECT * FROM users WHERE idUser = '" + idUser + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -375,7 +376,7 @@ public class Controller {
         }
         return member;
     }
-    
+
     public PaidBook getABook(int idBuku) {
         PaidBook book = new PaidBook();
         String query = "SELECT * FROM Books WHERE idBook = '" + idBuku + "'";
@@ -400,10 +401,10 @@ public class Controller {
         }
         return book;
     }
-    
+
     public String getTitleSelectedBook(int idBook) {
         String title = "";
-        String query = "SELECT * FROM books WHERE idBook = '"+idBook+"'";
+        String query = "SELECT * FROM books WHERE idBook = '" + idBook + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -415,23 +416,38 @@ public class Controller {
         }
         return title;
     }
-    
+
     public boolean topUpByAdmin(int idUser, int saldo) {
         boolean isSuccess = false;
         int totalCash = 0;
+        int totalDebt = 0;
         String query = "SELECT * FROM users WHERE idUser = '" + idUser + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 totalCash = rs.getInt("cash");
+                totalDebt = rs.getInt("debt");
             }
             isSuccess = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        //hitung total cash user
         totalCash += saldo;
-        query = "UPDATE users SET cash = '" + totalCash + "' WHERE idUser = '" + idUser + "'";
+
+        //cek cash dan debt
+        if (totalDebt != 0) {
+            if (totalCash >= totalDebt) {
+                totalCash -= totalDebt;
+                query = "UPDATE users SET cash = '" + totalCash + "', debt = '0' WHERE idUser = '" + idUser + "'";
+            } else {
+                totalDebt -= totalCash;
+                query = "UPDATE users SET cash = '0', debt = '" + totalDebt + "' WHERE idUser = '" + idUser + "'";
+            }
+        } else {
+            query = "UPDATE users SET cash = '" + totalCash + "' WHERE idUser = '" + idUser + "'";
+        }
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -441,9 +457,9 @@ public class Controller {
         }
         return isSuccess;
     }
-    
+
     public boolean updatePassword(Member member, String newPassword) {
-        String query = "UPDATE users SET password = '"+newPassword+"'";
+        String query = "UPDATE users SET password = '" + newPassword + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -453,12 +469,12 @@ public class Controller {
             return (false);
         }
     }
-    
+
     public boolean updateProfile(Member member) {
-        String query = "UPDATE users SET firstName = '"+member.getFirstName()+
-                       "', lastName = '"+member.getLastName()+"', email = '"+
-                       member.getEmail()+"', address = '"+member.getAddress()+
-                       "', phoneNumber = '"+member.getPhoneNumber()+"' WHERE idUser = '"+member.getIdUser()+"'";
+        String query = "UPDATE users SET firstName = '" + member.getFirstName()
+                + "', lastName = '" + member.getLastName() + "', email = '"
+                + member.getEmail() + "', address = '" + member.getAddress()
+                + "', phoneNumber = '" + member.getPhoneNumber() + "' WHERE idUser = '" + member.getIdUser() + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -468,7 +484,7 @@ public class Controller {
             return (false);
         }
     }
-    
+
     public static boolean updateBook(PaidBook book) {
         String query = "UPDATE books SET borrowPrice ='" + book.getBorrowPrice() + "' WHERE idBook = '" + book.getIdBook() + "'";
         try {
@@ -480,7 +496,7 @@ public class Controller {
             return (false);
         }
     }
-    
+
     public boolean updateBookStatusAfterBorrowed(int idBook) {
         String query = "UPDATE books SET status = 0 WHERE idBook = '" + idBook + "'";
         try {
@@ -492,7 +508,7 @@ public class Controller {
             return (false);
         }
     }
-    
+
     public boolean updateBookStatusAfterReturned(int idBook) {
         String query = "UPDATE books SET status = 1 WHERE idBook = '" + idBook + "'";
         try {
@@ -504,7 +520,7 @@ public class Controller {
             return (false);
         }
     }
-    
+
     public boolean updateBorrowing(int idBorrow, int finePrice) {
         String query = "SELECT * FROM borrows WHERE idBorrow = '" + idBorrow + "'";
         try {
@@ -527,7 +543,7 @@ public class Controller {
         }
         return false;
     }
-    
+
     public void updateUserMoney(int idUser, int fine) {
         Member member = new Member();
         int cash;
@@ -561,7 +577,7 @@ public class Controller {
             }
         }
     }
-    
+
     public boolean insertBorrowing(Borrowing borrowing) {
         String query = "INSERT INTO borrows VALUES (?,?,?,?,?,?,?,?,?)";
         try {
@@ -582,7 +598,7 @@ public class Controller {
             return (false);
         }
     }
-    
+
     public boolean insertNewBook(PaidBook book) {
         String query = "INSERT INTO books VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
@@ -604,24 +620,24 @@ public class Controller {
             return (false);
         }
     }
-    
+
     private static java.sql.Date getCurrentDate(Date date) {
         java.util.Date today = date;
         return new java.sql.Date(today.getTime());
     }
-        
+
     public String getMD5(String password) {
         try {
             // Static getInstance method is called with hashing MD5
             MessageDigest md = MessageDigest.getInstance("MD5");
-  
+
             // digest() method is called to calculate message digest
             //  of an input digest() return array of byte
             byte[] messageDigest = md.digest(password.getBytes());
-  
+
             // Convert byte array into signum representation
             BigInteger no = new BigInteger(1, messageDigest);
-  
+
             // Convert message digest into hex value
             String hashtext = no.toString(16);
             while (hashtext.length() < 32) {

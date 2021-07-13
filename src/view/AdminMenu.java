@@ -23,7 +23,7 @@ public class AdminMenu {
         JButton borrowingList = new JButton("List Pengembalian");
         JButton userHistory = new JButton("User History");
         JButton branchCash = new JButton("Cek Dana Perpustakaan");
-        JButton exit = new JButton("Keluar");
+        JButton exit = new JButton("Log Out");
 
         //set position
         approval.setBounds(50, 50, 250, 50);
@@ -88,7 +88,10 @@ public class AdminMenu {
 
         //add panel to frame
         frame.add(background);
-
+        
+        //frame set
+        frame.setTitle("Perpustakaan ITHB - Menu Admin");
+        
         //set frame size
         frame.setSize(380, 700);
         frame.setLocationRelativeTo(null);

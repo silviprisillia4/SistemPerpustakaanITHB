@@ -86,6 +86,9 @@ public class OwnerMenu {
         //add panel to frame
         frame.add(background);
         
+        //frame set
+        frame.setTitle("Perpustakaan ITHB - Menu Owner");
+        
         //set frame size
         frame.setSize(1000, 680);
     }

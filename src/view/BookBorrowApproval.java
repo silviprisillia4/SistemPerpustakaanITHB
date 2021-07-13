@@ -173,7 +173,7 @@ public class BookBorrowApproval {
         frame.add(sp);
         
         // Set OK Button
-        JButton ok = new JButton("OK");
+        JButton ok = new JButton("Kembali");
         ok.setBounds(920, 530, 150, 20);
         ok.addActionListener((ActionEvent event) -> {
             frame.dispose();
@@ -181,7 +181,9 @@ public class BookBorrowApproval {
         });
         frame.add(ok);
         
-        frame.setTitle("Penyetujuan Peminjaman - Sistem Perpustakaan");
+        //frame set
+        frame.setTitle("Perpustakaan ITHB - Penyetujuan Pinjaman");
+        
         frame.setSize(1120, 600);
         frame.getContentPane().setBackground(new Color(255, 228, 189));
         frame.setLayout(null);

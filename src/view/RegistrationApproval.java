@@ -169,7 +169,7 @@ public class RegistrationApproval {
         frame.add(sp);
         
         // Set OK Button
-        JButton ok = new JButton("OK");
+        JButton ok = new JButton("Kembali");
         ok.setBounds(1070, 530, 150, 20);
         ok.addActionListener((ActionEvent event) -> {
             frame.dispose();
@@ -177,7 +177,7 @@ public class RegistrationApproval {
         });
         frame.add(ok);
         
-        frame.setTitle("Penyetujuan Pendaftaran - Sistem Perpustakaan");
+        frame.setTitle("Perpustakaan ITHB - Penyetujuan Pendaftaran");
         frame.setSize(1260, 600);
         frame.getContentPane().setBackground(new Color(255, 228, 189));
         frame.setLocationRelativeTo(null);

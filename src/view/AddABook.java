@@ -49,7 +49,7 @@ public class AddABook {
         JTextField inputYear = new JTextField();
         JCheckBox checkPaid = new JCheckBox("Buku berbayar");
         JButton addBook = new JButton("Add");
-        JButton exit = new JButton("Back");
+        JButton exit = new JButton("Kembali");
 
         //set components position
         title.setBounds(30, 30, 130, 30);
@@ -234,7 +234,10 @@ public class AddABook {
 
         //add panel to frame
         frame.add(background);
-
+        
+        //frame set
+        frame.setTitle("Perpustakaan ITHB - Tambah Buku Baru");
+        
         //set frame size
         frame.setSize(600, 700);
         frame.setLocationRelativeTo(null);

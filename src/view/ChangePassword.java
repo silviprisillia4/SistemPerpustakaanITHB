@@ -22,6 +22,7 @@ public class ChangePassword {
         frame = new DefaultFrameSetting().defaultFrame();
         frame.setSize(350, 230);
         frame.setLocationRelativeTo(null);
+        frame.setTitle("Perpustakaan ITHB - Ubah Password");
         
         //Panel
         panel1 = new DefaultFrameSetting().defaultPanel();

@@ -18,6 +18,7 @@ public class TopUp {
         frame = new DefaultFrameSetting().defaultFrame(); 
         frame.setSize(350, 230);
         frame.setLocationRelativeTo(null);
+        frame.setTitle("Perpustakaan ITHB - Member Top Up");
         
         //Panel
         panel1 = new DefaultFrameSetting().defaultPanel();

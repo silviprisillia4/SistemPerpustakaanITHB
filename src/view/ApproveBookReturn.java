@@ -1,4 +1,5 @@
 package view;
+
 import controller.*;
 import model.*;
 import javax.swing.*;
@@ -10,16 +11,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ApproveBookReturn {
-    
+
     Controller c = new Controller();
-    
+
     public ApproveBookReturn() {
         showBorrowingList();
     }
+
     public void showBorrowingList() {
         Admin admin = UserManager.getInstance().getAdmin();
         //check ada yang dipinjam atau ga
-        
+
         if (c.getAllBorrowList(admin.getIdBranch(), 1).size() == 0) {
             new ErrorMessages().showErrorNoBorrowList();
             new AdminMenu();
@@ -77,7 +79,7 @@ public class ApproveBookReturn {
 
             });
             //set background panel
-            background.setSize(1200,550);
+            background.setSize(1200, 550);
 
             //add component frame
             background.add(button);
@@ -86,15 +88,23 @@ public class ApproveBookReturn {
 
             //add panel to frame
             frame.add(background);
-            
+
             //set frame size
             frame.setSize(1200, 550);
+
+            //frame set
+            frame.setTitle("Perpustakaan ITHB - Pengembalian Pinjaman");
+
+            //set frame to center
+            frame.setLocationRelativeTo(null);
         }
     }
+
     public String[] getColumnData() {
         String[] column = {"ID Pinjam", "Nama Peminjam", "ID User", "Judul Buku", "Lama Peminjaman", "Tanggal Pinjam", "Tanggal Kembali", "Denda", "Approval"};
         return column;
     }
+
     public Object[][] getTableData() {
         Admin admin = UserManager.getInstance().getAdmin();
         int idBranch = admin.getIdBranch();

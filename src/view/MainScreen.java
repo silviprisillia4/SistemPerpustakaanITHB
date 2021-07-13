@@ -48,7 +48,7 @@ public class MainScreen {
         mainFrame.add(branchLabel); mainFrame.add(branchComboBox);
         mainFrame.add(registerButton); mainFrame.add(loginButton);
         
-        mainFrame.setTitle("Sistem Perpustakaan ITHB");
+        mainFrame.setTitle("Perpustakaan ITHB");
         mainFrame.setSize(330, 110);
         mainFrame.getContentPane().setBackground(new Color(255, 228, 189));
         mainFrame.setLocationRelativeTo(null);

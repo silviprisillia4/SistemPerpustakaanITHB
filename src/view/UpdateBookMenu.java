@@ -65,6 +65,9 @@ public class UpdateBookMenu {
         //add panel to frame
         frame.add(background);
         
+        //frame set
+        frame.setTitle("Perpustakaan ITHB - Update Harga Buku");
+        
         //set frame size
         frame.setSize(500,680);
         frame.setLocationRelativeTo(null);

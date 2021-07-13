@@ -53,6 +53,9 @@ public class UpdateListBook {
         //add panel to frame
         frame.add(background);
         
+        //frame set
+        frame.setTitle("Perpustakaan ITHB - Menu Edit Buku");
+        
         //set frame size
         frame.setSize(330, 380);
         frame.setLocationRelativeTo(null);

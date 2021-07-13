@@ -12,9 +12,9 @@ public class CheckMoney {
 
     public void showBranchIncome() {
         Controller c = new Controller();
-        
+
         Admin admin = UserManager.getInstance().getAdmin();
-        
+
         if (c.getAllMembers(admin.getIdBranch()).size() == 0) {
             new ErrorMessages().showErrorNoMoney();
             new AdminMenu();
@@ -22,7 +22,7 @@ public class CheckMoney {
             //declare components
             JFrame frame = new DefaultFrameSetting().defaultFrame();
             JPanel background = new DefaultFrameSetting().defaultPanel();
-            JButton exit = new JButton("Exit");
+            JButton exit = new JButton("Kembali");
 
             //set components position
             exit.setBounds(50, 470, 800, 20);
@@ -37,7 +37,7 @@ public class CheckMoney {
                 }
             });
             //set background panel
-            background.setSize(930,590);
+            background.setSize(930, 590);
 
             //add components to frame
             background.add(exit);
@@ -45,7 +45,10 @@ public class CheckMoney {
 
             //add panel to frame
             frame.add(background);
-            
+
+            //frame set
+            frame.setTitle("Perpustakaan ITHB - Cek Pendapatan Cabang");
+
             //set frame size
             frame.setSize(930, 590);
             frame.setLocationRelativeTo(null);
@@ -54,7 +57,7 @@ public class CheckMoney {
 
     public JPanel danaPerpus(int idBranch) {
         Controller c = new Controller();
-        
+
         //declare components
         ArrayList<Member> members = c.getAllMembers(idBranch);
         int pendapatanByMemberRegister = 0;
@@ -72,32 +75,36 @@ public class CheckMoney {
 
         //make table data
         for (int i = 0; i < members.size(); i++) {
-            Object[] datum = new Object[3];
-            datum[0] = "Pendaftaran dari " + members.get(i).getFirstName() + " " + members.get(i).getLastName();
-            datum[1] = "(+) " + 50000;
-            datum[2] = "-";
-            tableModel = (DefaultTableModel) table.getModel();
-            tableModel.addRow(datum);
-            pendapatanByMemberRegister += 50000;
-            for (int j = 0; j < members.get(i).getBorrows().size(); j++) {
-                Borrowing borrow = members.get(i).getBorrows().get(j);
-                if (borrow.getPriceTotal() != 0) {
-                    datum = new Object[3];
-                    datum[0] = "Peminjaman  buku " + ((Book) c.getABook(borrow.getIdBook())).getTitle() + " selama " + borrow.getBorrowDays() + " hari";
-                    datum[1] = "(+)" + borrow.getPriceTotal();
-                    datum[2] = borrow.getDate();
-                    tableModel = (DefaultTableModel) table.getModel();
-                    tableModel.addRow(datum);
-                    pendapatanByBorrowing += borrow.getPriceTotal();
-                }
-                if (borrow.getMoneyFine() != 0) {
-                    datum = new Object[3];
-                    datum[0] = "Denda dari peminjaman buku " + ((Book) c.getABook(borrow.getIdBook())).getTitle();
-                    datum[1] = "(+)" + borrow.getMoneyFine();
-                    datum[2] = borrow.getDate();
-                    tableModel = (DefaultTableModel) table.getModel();
-                    tableModel.addRow(datum);
-                    pendapatanByMoneyFine += borrow.getMoneyFine();
+            if (members.get(i).getApproved() != 1) {
+                Object[] datum = new Object[3];
+                datum[0] = "Pendaftaran dari " + members.get(i).getFirstName() + " " + members.get(i).getLastName();
+                datum[1] = "(+) " + 50000;
+                datum[2] = "-";
+                tableModel = (DefaultTableModel) table.getModel();
+                tableModel.addRow(datum);
+                pendapatanByMemberRegister += 50000;
+                for (int j = 0; j < members.get(i).getBorrows().size(); j++) {
+                    Borrowing borrow = members.get(i).getBorrows().get(j);
+                    if (borrow.getStatus() != 2) {
+                        if (borrow.getPriceTotal() != 0) {
+                            datum = new Object[3];
+                            datum[0] = "Peminjaman  buku " + ((Book) c.getABook(borrow.getIdBook())).getTitle() + " selama " + borrow.getBorrowDays() + " hari";
+                            datum[1] = "(+)" + borrow.getPriceTotal();
+                            datum[2] = borrow.getDate();
+                            tableModel = (DefaultTableModel) table.getModel();
+                            tableModel.addRow(datum);
+                            pendapatanByBorrowing += borrow.getPriceTotal();
+                        }
+                        if (borrow.getMoneyFine() != 0) {
+                            datum = new Object[3];
+                            datum[0] = "Denda dari peminjaman buku " + ((Book) c.getABook(borrow.getIdBook())).getTitle();
+                            datum[1] = "(+)" + borrow.getMoneyFine();
+                            datum[2] = borrow.getDate();
+                            tableModel = (DefaultTableModel) table.getModel();
+                            tableModel.addRow(datum);
+                            pendapatanByMoneyFine += borrow.getMoneyFine();
+                        }
+                    }
                 }
             }
         }

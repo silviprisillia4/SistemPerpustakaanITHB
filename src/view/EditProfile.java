@@ -22,6 +22,7 @@ public class EditProfile {
         frame = new DefaultFrameSetting().defaultFrame();
         frame.setSize(400, 400);
         frame.setLocationRelativeTo(null);
+        frame.setTitle("Perpustakaan ITHB - Edit Profile");
         
         //Panel
         panel1 = new DefaultFrameSetting().defaultPanel();

@@ -45,6 +45,9 @@ public class UserHistory {
         //add panel to frame
         frame.add(background);
         
+        //frame set
+        frame.setTitle("Perpustakaan ITHB - Riwayat Peminjaman User");
+        
         //set frame size
         frame.setSize(920, 700);
         frame.setLocationRelativeTo(null);
@@ -82,9 +85,9 @@ public class UserHistory {
 
 
         for (int i = 0; i < listMember.size(); i++) {
-            for (int j = 0; j < c.getAllBorrowList(listMember.get(i).getIdUser(), 0).size(); j++) {
+            for (int j = 0; j < listMember.get(i).getBorrows().size(); j++) {
                 Object[] datum = new Object[6];
-                Borrowing borrow = c.getAllBorrowList(listMember.get(i).getIdUser(), 0).get(j);
+                Borrowing borrow = listMember.get(i).getBorrows().get(j);
                 datum[0] = listMember.get(i).getFirstName() + " " + listMember.get(i).getLastName();
                 datum[1] = borrow.getBook().getTitle();
                 datum[2] = borrow.getBorrowDays();

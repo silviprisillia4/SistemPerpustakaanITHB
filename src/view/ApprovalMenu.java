@@ -20,7 +20,6 @@ public class ApprovalMenu {
         Admin admin = new UserManager().getInstance().getAdmin();
         
         JFrame mainFrame = new DefaultFrameSetting().defaultFrame();
-        mainFrame.setTitle("Sistem Perpustakaan");
         mainFrame.setSize(335, 330);
         mainFrame.getContentPane().setBackground(new Color(255, 228, 189));
         mainFrame.setLocationRelativeTo(null);
@@ -49,7 +48,7 @@ public class ApprovalMenu {
             new TopUpApproval();
         });
         
-        JButton back1 = new JButton("Back");
+        JButton back1 = new JButton("Kembali");
         back1.setBounds(10, 220, 300, 60);
         back1.addActionListener((ActionEvent e) -> {
             mainFrame.setVisible(false);
@@ -59,5 +58,9 @@ public class ApprovalMenu {
         
         mainFrame.add(menu1); mainFrame.add(menu2);
         mainFrame.add(menu3); mainFrame.add(back1);
+        
+        //frame set
+        mainFrame.setTitle("Perpustakaan ITHB - Menu Penyetujuan");
+        
     }
 }

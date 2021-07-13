@@ -24,6 +24,7 @@ public class Profile {
         frame = new DefaultFrameSetting().defaultFrame();
         frame.setSize(600, 540);
         frame.setLocationRelativeTo(null);
+        frame.setTitle("Perpustakaan ITHB - Profile");
         
         //Panel
         panel1 = new DefaultFrameSetting().defaultPanel();

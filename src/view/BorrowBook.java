@@ -36,6 +36,7 @@ public class BorrowBook {
         frame = new DefaultFrameSetting().defaultFrame();
         frame.setSize(800, 490);
         frame.setLocationRelativeTo(null);
+        frame.setTitle("Perpustakaan ITHB - Pinjam Buku");
         
         //Panel
         panel1 = new DefaultFrameSetting().defaultPanel();

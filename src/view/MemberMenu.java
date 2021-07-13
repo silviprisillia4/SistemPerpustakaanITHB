@@ -14,6 +14,7 @@ public class MemberMenu {
         frame = new DefaultFrameSetting().defaultFrame(); 
         frame.setSize(300, 250);
         frame.setLocationRelativeTo(null);
+        frame.setTitle("Perpustakaan ITHB - Menu Member");
         
         //Panel
         panel1 = new DefaultFrameSetting().defaultPanel();
