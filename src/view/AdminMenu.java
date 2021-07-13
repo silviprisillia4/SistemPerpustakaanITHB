@@ -61,14 +61,14 @@ public class AdminMenu {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new OutputInfo().changeShowDanaCabang(admin.selectBranchCity(admin.getIdBranch()));
-                new CheckMoney();
+                new CheckMoney().showBranchIncome();
             }
         });
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new OutputInfo().logOutInfo();
-                System.exit(0);
+                new MainScreen();
             }
 
         });

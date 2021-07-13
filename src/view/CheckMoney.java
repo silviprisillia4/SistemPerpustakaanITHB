@@ -10,12 +10,9 @@ import java.util.ArrayList;
 
 public class CheckMoney {
 
-    Controller c = new Controller();
-    
-    public CheckMoney() {
-        showBranchIncome();
-    }
     public void showBranchIncome() {
+        Controller c = new Controller();
+        
         Admin admin = UserManager.getInstance().getAdmin();
         
         if (c.getAllMembers(admin.getIdBranch()).size() == 0) {
@@ -55,6 +52,7 @@ public class CheckMoney {
     }
 
     public JPanel danaPerpus(int idBranch) {
+        Controller c = new Controller();
         
         //declare components
         ArrayList<Member> members = c.getAllMembers(idBranch);

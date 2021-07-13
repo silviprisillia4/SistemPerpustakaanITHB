@@ -21,24 +21,20 @@ public class Controller {
     
     public boolean userRegisterAvailability(String branch, String email) {
         int selectedBranch = getBranchIDByCity(branch);
-        if (selectedBranch == -1) {
-            return false;
-        } else {
-            String query = "SELECT * FROM users WHERE idBranch = '" + selectedBranch + "'";
-            try {
-                Statement stmt = conn.con.createStatement();
-                ResultSet rs = stmt.executeQuery(query);
-                while (rs.next()) {
-                    if (rs.getString("email").equals(email)) {
-                        return false;
-                    }
+        String query = "SELECT * FROM users WHERE idBranch = '" + selectedBranch + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                if (rs.getString("email").equals(email)) {
+                    return false;
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return false;
             }
-            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
+        return true;
     }
     
     public boolean userLoginAvailability(String branch, String email, String password) {
@@ -82,8 +78,8 @@ public class Controller {
     }
     
     public ArrayList<String> getBranchesCity() {
-        ArrayList<String> names = new ArrayList<>();
         String query = "SELECT * FROM branches";
+        ArrayList<String> names = new ArrayList<>();
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -637,4 +633,3 @@ public class Controller {
         }
     }
 }
-

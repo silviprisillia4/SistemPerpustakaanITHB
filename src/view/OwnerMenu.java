@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
@@ -11,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class OwnerMenu {
-
+    
     public OwnerMenu() {
         //declare components
         JFrame frame = new DefaultFrameSetting().defaultFrame();
@@ -69,7 +71,7 @@ public class OwnerMenu {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new OutputInfo().logOutInfo();
-                System.exit(0);
+                new MainScreen();
             }
             
         });
@@ -91,10 +93,14 @@ public class OwnerMenu {
     public JComboBox chooseBranchMenu() {
         
         //declare array branch
-        String[] branch = {"Bandung", "Jakarta", "Surabaya"};
+        ArrayList<String> branch = new controller.Controller().getBranchesCity();
+        String[] branches = new String[branch.size()];
+        for (int i = 0; i < branches.length; i++) {
+            branches[i] = branch.get(i);
+        }
 
         //declare combobox
-        JComboBox comboBranch = new JComboBox(branch);
+        JComboBox comboBranch = new JComboBox(branches);
 
         //declare combobox position
         comboBranch.setBounds(30, 30, 90, 20);
