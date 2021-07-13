@@ -1,9 +1,7 @@
 package view;
 
-import controller.databaseChange;
-import java.awt.Color;
+import controller.*;
 import model.*;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -12,12 +10,15 @@ import java.util.ArrayList;
 
 public class CheckMoney {
 
+    Controller c = new Controller();
+    
     public CheckMoney() {
         showBranchIncome();
     }
     public void showBranchIncome() {
         Admin admin = UserManager.getInstance().getAdmin();
-        if (new controller.databaseChange().getAllMember(admin.getIdBranch()).size() == 0) {
+        
+        if (c.getAllMembers(admin.getIdBranch()).size() == 0) {
             new OutputInfo().infoNoMoney();
             new AdminMenu();
         } else {
@@ -56,7 +57,7 @@ public class CheckMoney {
     public JPanel danaPerpus(int idBranch) {
         
         //declare components
-        ArrayList<Member> members = new databaseChange().getAllMember(idBranch);
+        ArrayList<Member> members = c.getAllMembers(idBranch);
         int pendapatanByMemberRegister = 0;
         int pendapatanByBorrowing = 0;
         int pendapatanByMoneyFine = 0;
@@ -83,7 +84,7 @@ public class CheckMoney {
                 Borrowing borrow = members.get(i).getBorrows().get(j);
                 if (borrow.getPriceTotal() != 0) {
                     datum = new Object[3];
-                    datum[0] = "Peminjaman  buku " + ((Book) new databaseChange().getABook(borrow.getIdBook())).getTitle() + " selama " + borrow.getBorrowDays() + " hari";
+                    datum[0] = "Peminjaman  buku " + ((Book) c.getABook(borrow.getIdBook())).getTitle() + " selama " + borrow.getBorrowDays() + " hari";
                     datum[1] = "(+)" + borrow.getPriceTotal();
                     datum[2] = borrow.getDate();
                     tableModel = (DefaultTableModel) table.getModel();
@@ -92,7 +93,7 @@ public class CheckMoney {
                 }
                 if (borrow.getMoneyFine() != 0) {
                     datum = new Object[3];
-                    datum[0] = "Denda dari peminjaman buku " + ((Book) new databaseChange().getABook(borrow.getIdBook())).getTitle();
+                    datum[0] = "Denda dari peminjaman buku " + ((Book) c.getABook(borrow.getIdBook())).getTitle();
                     datum[1] = "(+)" + borrow.getMoneyFine();
                     datum[2] = borrow.getDate();
                     tableModel = (DefaultTableModel) table.getModel();

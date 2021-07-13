@@ -24,13 +24,13 @@ public class UserManager {
         }
     }
 
-    public void setUser(Object object) {
-        if(object instanceof Member) {
-            this.member = (Member) object;
-        } else if(object instanceof Admin) {
-            this.admin = (Admin) object;
+    public void setUser(User user) {
+        if(user instanceof Member) {
+            this.member = (Member) user;
+        } else if(user instanceof Admin) {
+            this.admin = (Admin) user;
         } else {
-            this.owner = (User) object;
+            this.owner = (User) user;
         }
     }
 

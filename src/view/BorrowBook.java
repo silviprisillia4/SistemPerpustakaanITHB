@@ -170,9 +170,9 @@ public class BorrowBook {
                     if(confirm==JOptionPane.YES_OPTION) {
                         boolean success = false;
                         for (int i=0; i<listCheckedBook.size(); i++) {
-                            PaidBook book = c.getSelectedBook(listCheckedBook.get(i));
+                            PaidBook book = c.getABook(listCheckedBook.get(i));
                             Borrowing borrowing = new Borrowing(0, book.getIdBook(), member.getIdUser(), member.getIdBranch(), borrowDays, book.getBorrowPrice(), new Date(), 0, 0, book);
-                            success = c.insertBorrowing(borrowing) && c.updateBookStatus(book.getIdBook());
+                            success = c.insertBorrowing(borrowing) && c.updateBookStatusAfterBorrowed(book.getIdBook());
                         }
                         if(success) {
                             JOptionPane.showMessageDialog(null, "Buku berhasil dipinjam! Silakan ambil buku di meja pengambilan.", "Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);

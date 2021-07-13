@@ -61,7 +61,6 @@ public class Profile {
         //Label Data
         Controller c = new Controller();
         int idUser = member.getIdUser();
-        member = c.getSelectedMember(idUser);
         labelDataId = new JLabel(String.valueOf(idUser));
         labelDataId.setBounds(140, 30, 100, 20);
         labelDataName = new JLabel(member.getFirstName()+" "+member.getLastName());
@@ -123,7 +122,7 @@ public class Profile {
         });
         
         //Table
-        ArrayList<Borrowing> borrows = c.getAllBorrowingHistory(member.getIdUser());
+        ArrayList<Borrowing> borrows = c.getAllBorrowList(member.getIdUser(), 2);
         member.setBorrows(borrows); 
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID Pinjam");

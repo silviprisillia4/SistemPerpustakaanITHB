@@ -1,9 +1,6 @@
 package view;
-
-import controller.TableCheckBoxBorrowing;
-import controller.databaseChange;
+import controller.*;
 import model.*;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -14,13 +11,16 @@ import java.util.Date;
 
 public class ApproveBookReturn {
     
+    Controller c = new Controller();
+    
     public ApproveBookReturn() {
         showBorrowingList();
     }
     public void showBorrowingList() {
         Admin admin = UserManager.getInstance().getAdmin();
         //check ada yang dipinjam atau ga
-        if (new databaseChange().getAllBorrowList(admin.getIdBranch(), 1).size() == 0) {
+        
+        if (c.getAllBorrowList(admin.getIdBranch(), 1).size() == 0) {
             new OutputInfo().infoNoBorrowList();
             new AdminMenu();
         } else {
@@ -56,9 +56,9 @@ public class ApproveBookReturn {
                     for (int i = 0; i < tModel.getRowCount(); i++) {
                         Boolean checked = (Boolean) model.getValueAt(i, 8);
                         if (checked) {
-                            new controller.databaseChange().updateBorrowing((int) model.getValueAt(i, 0), (int) model.getValueAt(i, 7));
+                            c.updateBorrowing((int) model.getValueAt(i, 0), (int) model.getValueAt(i, 7));
                             if ((int) model.getValueAt(i, 7) != 0) {
-                                new controller.databaseChange().updateUser((int) model.getValueAt(i, 2), (int) model.getValueAt(i, 7));
+                                c.updateUserMoney((int) model.getValueAt(i, 2), (int) model.getValueAt(i, 7));
                             }
                         }
                     }
@@ -98,14 +98,14 @@ public class ApproveBookReturn {
     public Object[][] getTableData() {
         Admin admin = UserManager.getInstance().getAdmin();
         int idBranch = admin.getIdBranch();
-        Object[][] data = new Object[new databaseChange().getAllBorrowList(admin.getIdBranch(), 1).size()][9];
-        for (int j = 0; j < new databaseChange().getAllBorrowList(idBranch, 1).size(); j++) {
-            Borrowing borrow = new databaseChange().getAllBorrowList(idBranch, 1).get(j);
-            Member member = new databaseChange().getAMember(borrow.getIdUser());
+        Object[][] data = new Object[c.getAllBorrowList(admin.getIdBranch(), 1).size()][9];
+        for (int j = 0; j < c.getAllBorrowList(idBranch, 1).size(); j++) {
+            Borrowing borrow = c.getAllBorrowList(idBranch, 1).get(j);
+            Member member = c.getAMember(borrow.getIdUser());
             data[j][0] = borrow.getIdBorrow();
             data[j][1] = member.getFirstName() + " " + member.getLastName();
             data[j][2] = member.getIdUser();
-            data[j][3] = ((PaidBook)new databaseChange().getABook(borrow.getIdBook())).getTitle();
+            data[j][3] = ((PaidBook) c.getABook(borrow.getIdBook())).getTitle();
             data[j][4] = borrow.getBorrowDays();
             Format formatter = new SimpleDateFormat("dd/MM/yyyy");
             data[j][5] = formatter.format(borrow.getDate());

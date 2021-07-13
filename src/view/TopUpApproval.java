@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package view;
-
-import controller.DataController;
+import controller.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class TopUpApproval {
     
-    DataController c = new DataController();
+    Controller c = new Controller();
     
     public TopUpApproval() {
         createApprovalScreen();

@@ -1,5 +1,4 @@
 package controller;
-
 import javax.swing.JTable;
 
 public class TableCheckBoxBorrowing extends JTable {

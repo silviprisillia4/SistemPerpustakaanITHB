@@ -2,27 +2,19 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import model.Book;
-import model.PaidBook;
-import controller.databaseChange;
+import javax.swing.*;
+import model.*;
+import controller.*;
 import java.awt.Color;
-import model.Admin;
-import model.UserManager;
 
 public class UpdateBookMenu {
+    Controller c = new Controller();
     JFrame frame;
+    
     public UpdateBookMenu() {
         updateABook();
     }
     public void updateABook() {
-        
         Admin admin = UserManager.getInstance().getAdmin();
         
         //declare components
@@ -153,7 +145,7 @@ public class UpdateBookMenu {
                     } else {
                         book.setBorrowPrice(0);
                     }
-                    boolean state = new databaseChange().updateBook(book);
+                    boolean state = c.updateBook(book);
                     if (state) {
                         book.setBorrowPrice(Integer.parseInt(inputPaid.getText()));
                         new OutputInfo().infoUpdateABook(book.getTitle(), state);
@@ -197,7 +189,7 @@ public class UpdateBookMenu {
         //create list book at a library
         String[] title = new String[admin.getBooks().size()];
         for (int i = 0; i < title.length; i++) {
-            title[i] = ((Book) new controller.databaseChange().getABook(admin.getBooks().get(i).getIdBook())).getTitle();
+            title[i] = ((Book) c.getABook(admin.getBooks().get(i).getIdBook())).getTitle();
         }
         
         //create combobox for list title

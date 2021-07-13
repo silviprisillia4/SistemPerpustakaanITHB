@@ -1,19 +1,11 @@
 package view;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import model.Admin;
-import model.PaidBook;
-import model.UserManager;
+import javax.swing.*;
+import model.*;
+import controller.*;
 
 public class AddABook {
     
@@ -193,10 +185,11 @@ public class AddABook {
                     book.setYear(Integer.parseInt(inputYear.getText()));
                     book.setIdBranch(admin.getIdBranch());
                     book.setStatus(1);
-
-                    boolean state = new controller.databaseChange().insertNewBook(book);
+                    
+                    Controller c = new Controller();
+                    boolean state = c.insertNewBook(book);
                     if (state) {
-                        ArrayList<PaidBook> books = new controller.databaseChange().getBookData(admin.getIdBranch());
+                        ArrayList<PaidBook> books = c.getAllBooks(admin.getIdBranch());
                         admin.getBooks().add(books.get(books.size()-1));
                         new OutputInfo().successAddNewBook(book.getTitle(), state);
                         frame.setVisible(false);

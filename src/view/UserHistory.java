@@ -1,8 +1,6 @@
 package view;
-
-import controller.databaseChange;
+import controller.*;
 import model.*;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -10,10 +8,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class UserHistory {
+    
+    Controller c = new Controller();
+    
     public UserHistory() {
         showUserHistory();
     }
-    public void showUserHistory() {
+    
+    public void showUserHistory() {        
         //declare components
         JFrame frame = new DefaultFrameSetting().defaultFrame();
         JPanel background = new DefaultFrameSetting().defaultPanel();
@@ -79,9 +81,9 @@ public class UserHistory {
 
 
         for (int i = 0; i < listMember.size(); i++) {
-            for (int j = 0; j < new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), 0).size(); j++) {
+            for (int j = 0; j < c.getAllBorrowList(listMember.get(i).getIdUser(), 0).size(); j++) {
                 Object[] datum = new Object[6];
-                Borrowing borrow = new databaseChange().getAllBorrowList(listMember.get(i).getIdUser(), 0).get(j);
+                Borrowing borrow = c.getAllBorrowList(listMember.get(i).getIdUser(), 0).get(j);
                 datum[0] = listMember.get(i).getFirstName() + " " + listMember.get(i).getLastName();
                 datum[1] = borrow.getBook().getTitle();
                 datum[2] = borrow.getBorrowDays();

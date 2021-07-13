@@ -53,10 +53,9 @@ public class ChangePassword {
             public void actionPerformed(ActionEvent e) {
                 Controller c = new Controller();
                 controller.RegexController r = new controller.RegexController();
-                Member memberSelected = c.getSelectedMember(member.getIdUser());
                 boolean updated = false;
                 
-                String oldPassword = c.getSelectedPassword(memberSelected.getIdUser()); //oldPassword dari database
+                String oldPassword = member.getPassword(); //oldPassword dari database
                 String hashedOldPassword = c.getMD5(String.valueOf(textFieldOldPassword.getPassword())); //oldPassword dari input dihash
                 
                 if(hashedOldPassword.equals(oldPassword)) {
@@ -64,9 +63,9 @@ public class ChangePassword {
                     String validatePassword = String.valueOf(textFieldValidatePassword.getPassword());
                     if(newPassword.equals(validatePassword)) {
                         String hashedNewPassword = c.getMD5(String.valueOf(textFieldNewPassword.getPassword())); //newPassword dari input dihash
-                        boolean isValid = RegexController.passValidation(newPassword);
+                        boolean isValid = r.passValidation(newPassword);
                         if(isValid) {
-                            updated = c.updatePassword(memberSelected, hashedNewPassword);
+                            updated = c.updatePassword(member, hashedNewPassword);
                         } else {
                             em.showErrorPasswordNotValid();
                         }

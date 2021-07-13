@@ -8,7 +8,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import model.Admin;
+import model.*;
 
 /**
  *
@@ -17,7 +17,7 @@ import model.Admin;
 public class ApprovalMenu {
     
     public ApprovalMenu() {
-        Admin admin = new model.UserManager().getInstance().getAdmin();
+        Admin admin = new UserManager().getInstance().getAdmin();
         
         JFrame mainFrame = new JFrame();
         mainFrame.setTitle("Sistem Perpustakaan");
