@@ -47,6 +47,7 @@ public class UserHistory {
         
         //set frame size
         frame.setSize(920, 700);
+        frame.setLocationRelativeTo(null);
     }
 
     public JPanel getUserHistory() {

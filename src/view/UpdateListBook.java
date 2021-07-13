@@ -55,5 +55,6 @@ public class UpdateListBook {
         
         //set frame size
         frame.setSize(330, 380);
+        frame.setLocationRelativeTo(null);
     }
 }

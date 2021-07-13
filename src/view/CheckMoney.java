@@ -48,6 +48,7 @@ public class CheckMoney {
             
             //set frame size
             frame.setSize(930, 590);
+            frame.setLocationRelativeTo(null);
         }
     }
 

@@ -180,8 +180,6 @@ public class RegistrationApproval {
         frame.setTitle("Penyetujuan Pendaftaran - Sistem Perpustakaan");
         frame.setSize(1260, 600);
         frame.getContentPane().setBackground(new Color(255, 228, 189));
-        frame.setLayout(null);
-        frame.setLocationRelativeTo(null);    
-        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 }

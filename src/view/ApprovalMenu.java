@@ -19,7 +19,7 @@ public class ApprovalMenu {
     public ApprovalMenu() {
         Admin admin = new UserManager().getInstance().getAdmin();
         
-        JFrame mainFrame = new JFrame();
+        JFrame mainFrame = new DefaultFrameSetting().defaultFrame();
         mainFrame.setTitle("Sistem Perpustakaan");
         mainFrame.setSize(335, 330);
         mainFrame.getContentPane().setBackground(new Color(255, 228, 189));

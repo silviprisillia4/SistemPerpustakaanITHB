@@ -15,7 +15,7 @@ public class MainScreen {
     }
     
     private void createMainScreen() {
-        JFrame mainFrame = new JFrame();
+        JFrame mainFrame = new DefaultFrameSetting().defaultFrame();
         
         JComboBox branchComboBox = new JComboBox();
         branchComboBox.setBounds(100, 10, 200, 20);
@@ -48,17 +48,15 @@ public class MainScreen {
         mainFrame.add(branchLabel); mainFrame.add(branchComboBox);
         mainFrame.add(registerButton); mainFrame.add(loginButton);
         
-        mainFrame.setTitle("Sistem Perpustakaan");
+        mainFrame.setTitle("Sistem Perpustakaan ITHB");
         mainFrame.setSize(330, 110);
         mainFrame.getContentPane().setBackground(new Color(255, 228, 189));
         mainFrame.setLocationRelativeTo(null);
-        mainFrame.setLayout(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setVisible(true);
     }
     
     public void createRegisterScreen(String selectedBranch) {
-        JFrame registerFrame = new JFrame();
+        JFrame registerFrame = new DefaultFrameSetting().defaultFrame();
         
         JTextField fnameFieldRegister = new JTextField();
         fnameFieldRegister.setBounds(130, 10, 200, 20);
@@ -159,12 +157,10 @@ public class MainScreen {
         registerFrame.setSize(360, 320);
         registerFrame.getContentPane().setBackground(new Color(255, 228, 189));
         registerFrame.setLocationRelativeTo(null);
-        registerFrame.setLayout(null);
-        registerFrame.setVisible(true);
     }
     
     public void createLoginScreen(String selectedBranch) {
-        JFrame loginFrame = new JFrame();
+        JFrame loginFrame = new DefaultFrameSetting().defaultFrame();
         
         JTextField emailFieldLogin = new JTextField();
         emailFieldLogin.setBounds(100, 10, 200, 20);
@@ -211,7 +207,5 @@ public class MainScreen {
         loginFrame.setSize(330, 170);
         loginFrame.getContentPane().setBackground(new Color(255, 228, 189));
         loginFrame.setLocationRelativeTo(null);
-        loginFrame.setLayout(null);
-        loginFrame.setVisible(true);
     }
 }

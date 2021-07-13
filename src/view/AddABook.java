@@ -237,5 +237,6 @@ public class AddABook {
 
         //set frame size
         frame.setSize(600, 700);
+        frame.setLocationRelativeTo(null);
     }
 }

@@ -91,6 +91,7 @@ public class AdminMenu {
 
         //set frame size
         frame.setSize(380, 700);
+        frame.setLocationRelativeTo(null);
     }
 }
 

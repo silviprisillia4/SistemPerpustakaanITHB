@@ -67,6 +67,7 @@ public class UpdateBookMenu {
         
         //set frame size
         frame.setSize(500,680);
+        frame.setLocationRelativeTo(null);
 
     }
 

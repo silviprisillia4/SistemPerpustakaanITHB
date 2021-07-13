@@ -111,7 +111,6 @@ public class ApproveBookReturn {
             data[j][5] = formatter.format(borrow.getDate());
             data[j][6] = formatter.format(new Date());
             int diffDays = (int) ((new Date().getTime() - borrow.getDate().getTime()) / (24 * 60 * 60 * 1000));
-            System.out.println(diffDays);
             if (diffDays <= borrow.getBorrowDays()) {
                 data[j][7] = 0;
             } else {
