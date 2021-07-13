@@ -1,10 +1,10 @@
 package controller;
+import model.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
-import model.*;
-import model.UserTypeEnum;
+import java.sql.Types;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,25 +15,172 @@ public class Controller {
 
     static DatabaseHandler conn = new DatabaseHandler();
     
-    public ArrayList<Member> getAllMembers() {
+    public boolean userRegisterAvailability(String branch, String email) {
+        int selectedBranch = getBranchIDByCity(branch);
+        
+        if (selectedBranch == -1) {
+            return false;
+        } else {
+            String query = "SELECT * FROM users WHERE idBranch = '" + selectedBranch + "'";
+            try {
+                Statement stmt = conn.con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    if (rs.getString("email").equals(email)) {
+                        return false;
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+    }
+    
+    public boolean userLoginAvailability(String branch, String email, String password) {
+        int selectedBranch = getBranchIDByCity(branch);
+        
+        if (selectedBranch == -1) {
+            return false;
+        } else {
+            String query = "SELECT * FROM users WHERE idBranch = '" + selectedBranch + "'";
+            try {
+                Statement stmt = conn.con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    if (rs.getString("email").equals(email)) {
+                        if (rs.getString("password").equals(password)) {
+                            return true;
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return false;
+        }
+    }
+    
+    public int getBranchIDByCity(String name) {
+        String query = "SELECT * FROM branches";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                if (rs.getString("city").equals(name)) {
+                    return rs.getInt("idBranch");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    
+    public ArrayList<String> getBranchesCity() {
+        ArrayList<String> names = new ArrayList<>();
+        String query = "SELECT * FROM branches";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                names.add(rs.getString("city"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return names;
+    }
+    
+    public boolean processingRegistration(int selectedBranch, String firstName, String lastName, String address, String phone, String email, String newPass, String rePass) {
+        boolean isValid = RegexController.firstNameValidation(firstName);
+        if (isValid) {
+            isValid = RegexController.lastNameValidation(lastName);
+            if (isValid) {
+                isValid = RegexController.addressValidation(address);
+                if (isValid) {
+                    isValid = RegexController.mobileNumberValidation(phone);
+                    if (isValid) {
+                        isValid = RegexController.emailValidation(email);
+                        if (isValid) {
+                            isValid = RegexController.passValidation(newPass);
+                            if (isValid) {
+                                if (newPass.equals(rePass)) {
+                                    createNewUserAccount(selectedBranch, firstName,
+                                            lastName,address, phone, email, getMD5(newPass));
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    public void createNewUserAccount(int branch, String firstName, String lastName, String address, String phone, String email, String pass) {
+        String query = "INSERT INTO users VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+            stmt.setNull(1, Types.INTEGER);
+            stmt.setInt(2, branch);
+            stmt.setString(3, firstName);
+            stmt.setString(4, lastName);
+            stmt.setString(5, email);
+            stmt.setString(6, pass);
+            stmt.setString(7, address);
+            stmt.setString(8, phone);
+            stmt.setString(9, UserTypeEnum.MEMBER.toString());
+            stmt.setInt(10, 0);
+            stmt.setInt(11, 0);
+            stmt.setInt(12, 0);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void approveAMember(String idUser) {
+        String query = "UPDATE users SET approved = '1' WHERE idUser = '" + idUser + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public ArrayList<Member> getAllMembers(int idBranch) {
         ArrayList<Member> members = new ArrayList<>();
         conn.connect();
-        String query = "SELECT * FROM users WHERE type = '"+UserTypeEnum.MEMBER+"'";
+        String query;
+
+        if (idBranch == 0) {
+            query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.MEMBER + "'";
+        } else {
+            query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.MEMBER + "' && idbranch = '" + idBranch + "'";
+        }
+
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 Member member = new Member();
-                member.setIdUser(rs.getInt("idUser"));
-                member.setFirstName(rs.getString("firstName"));
-                member.setLastName(rs.getString("lastName"));
-                member.setEmail(rs.getString("email"));
-                member.setPassword(rs.getString("password"));
                 member.setAddress(rs.getString("address"));
-                member.setPhoneNumber(rs.getString("phoneNumber"));
                 member.setCash(rs.getInt("cash"));
                 member.setDebt(rs.getInt("debt"));
-                member.setIdBranch(rs.getInt("idBracnh"));
+                member.setEmail(rs.getString("email"));
+                member.setFirstName(rs.getString("firstname"));
+                member.setLastName(rs.getString("lastname"));
+                member.setPhoneNumber(rs.getString("phonenumber"));
+                member.setIdBranch(rs.getInt("idbranch"));
+                member.setType(UserTypeEnum.MEMBER);
+                member.setPassword(rs.getString("password"));
+                member.setIdUser(rs.getInt("iduser"));
+                member.setBorrows(getAllBorrowList(rs.getInt("idBranch"), 0));
                 members.add(member);
             }
         } catch (SQLException e) {
@@ -42,24 +189,33 @@ public class Controller {
         return members;
     }
     
-    public ArrayList<Borrowing> getAllBorrowingHistory(int idUser) {
+    public ArrayList<Borrowing> getAllBorrowList(int id, int condition) {
         ArrayList<Borrowing> borrows = new ArrayList<>();
         conn.connect();
-        String query = "SELECT * FROM borrows WHERE idUser = '"+idUser+"' AND status = 0 OR status = 3";
+        String query = "";
+        if (condition == 0) {
+            query = "SELECT * FROM borrows WHERE idUser = '" + id + "'";
+        } else if (condition == 1) {
+            query = "SELECT * FROM borrows WHERE idBranch = '" + id + "' && status = '0'";
+        } else {
+            query = "SELECT * FROM borrows WHERE idUser = '" + id + "' && status = '0' || status = '3'";
+        }
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                Borrowing borrowing = new Borrowing();
-                borrowing.setIdBorrow(rs.getInt("idBorrow"));
-                borrowing.setIdBook(rs.getInt("idBook"));
-                borrowing.setIdBranch(rs.getInt("idBranch"));
-                borrowing.setBorrowDays(rs.getInt("borrowDays"));
-                borrowing.setPriceTotal(rs.getInt("priceTotal"));
-                borrowing.setDate(rs.getDate("date"));
-                borrowing.setStatus(rs.getInt("status"));
-                borrowing.setMoneyFine(rs.getInt("MoneyFine"));
-                borrows.add(borrowing);
+                Borrowing borrow = new Borrowing();
+                borrow.setBorrowDays(rs.getInt("borrowdays"));
+                borrow.setDate(rs.getDate("date"));
+                borrow.setIdBook(rs.getInt("idbook"));
+                borrow.setPriceTotal(rs.getInt("pricetotal"));
+                borrow.setIdBranch(rs.getInt("idbranch"));
+                borrow.setIdUser(rs.getInt("idUser"));
+                borrow.setIdBorrow(rs.getInt("idBorrow"));
+                borrow.setMoneyFine(rs.getInt("moneyFine"));
+                borrow.setStatus(rs.getInt("status"));
+                borrow.setBook((PaidBook) getABook(rs.getInt("idBook")));
+                borrows.add(borrow);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -145,7 +301,65 @@ public class Controller {
         return books;
     }
     
-    public Member getSelectedMember(int idUser) {
+    public void getAUser(String email, int idBranch) {
+        conn.connect();
+        String query = "SELECT * FROM users WHERE email = '" + email + "' && idBranch = '" + idBranch + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                int idUser = rs.getInt("idUser");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                UserTypeEnum type = UserTypeEnum.valueOf(rs.getString("type"));
+                String password = rs.getString("password");
+                if (type == UserTypeEnum.MEMBER) {
+                    Member member = new Member();
+                    ArrayList<Borrowing> borrows = getAllBorrowList(rs.getInt("idUser"), 0);
+                    member.setIdUser(idUser);
+                    member.setFirstName(firstName);
+                    member.setLastName(lastName);
+                    member.setType(type);
+                    member.setEmail(email);
+                    member.setPassword(password);
+                    member.setIdBranch(idBranch);
+                    member.setAddress(rs.getString("address"));
+                    member.setPhoneNumber(rs.getString("phoneNumber"));
+                    member.setCash(rs.getInt("cash"));
+                    member.setDebt(rs.getInt("debt"));
+                    member.setBorrows(borrows);
+                    new UserManager().getInstance().setUser(member);
+                } else if (type == UserTypeEnum.ADMIN) {
+                    Admin admin = new Admin();
+                    ArrayList<Member> members = getAllMembers(rs.getInt("idBranch"));
+                    ArrayList<PaidBook> books = getAllBooks(rs.getInt("idBranch"));
+                    admin.setIdUser(idUser);
+                    admin.setFirstName(firstName);
+                    admin.setLastName(lastName);
+                    admin.setType(type);
+                    admin.setEmail(email);
+                    admin.setPassword(password);
+                    admin.setIdBranch(idBranch);
+                    admin.setBooks(books);
+                    admin.setMembers(members);
+                    new UserManager().getInstance().setUser(admin);
+                } else {
+                    User owner = new User();
+                    owner.setIdUser(idUser);
+                    owner.setFirstName(firstName);
+                    owner.setLastName(lastName);
+                    owner.setType(type);
+                    owner.setEmail(email);
+                    owner.setPassword(password);
+                    new UserManager().getInstance().setUser(owner);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public Member getAMember(int idUser) {
         Member member = new Member();
         conn.connect();
         String query = "SELECT * FROM users WHERE idUser = '"+idUser+"'";
@@ -171,24 +385,25 @@ public class Controller {
         return member;
     }
     
-    public PaidBook getSelectedBook(int idBook) {
+    public PaidBook getABook(int idBuku) {
         PaidBook book = new PaidBook();
         conn.connect();
-        String query = "SELECT * FROM Books WHERE idBook = '"+idBook+"'";
+        String query = "SELECT * FROM Books WHERE idBook = '" + idBuku + "'";
+
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                book.setIdBranch(rs.getInt("idBranch"));
-                book.setIdBook(idBook);
                 book.setTitle(rs.getString("title"));
                 book.setAuthor(rs.getString("author"));
-                book.setPublisher(rs.getString("publisher"));
-                book.setPages(rs.getInt("pages"));
-                book.setYear(rs.getInt("year"));
                 book.setGenre(rs.getString("genre"));
-                book.setBorrowPrice(rs.getInt("borrowPrice"));
+                book.setIdBook(rs.getInt("idBook"));
+                book.setIdBranch(rs.getInt("idBranch"));
+                book.setPages(rs.getInt("pages"));
+                book.setPublisher(rs.getString("publisher"));
+                book.setYear(rs.getInt("year"));
                 book.setStatus(rs.getInt("status"));
+                book.setBorrowPrice(rs.getInt("borrowPrice"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -212,20 +427,30 @@ public class Controller {
         return title;
     }
     
-    public String getSelectedPassword(int idUser) {
-        String password = "";
-        conn.connect();
-        String query = "SELECT * FROM users WHERE idUser = '"+idUser+"'";
+    public boolean topUpByAdmin(int idUser, int saldo) {
+        boolean isSuccess = false;
+        int totalCash = 0;
+        String query = "SELECT * FROM users WHERE idUser = '" + idUser + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                password = rs.getString("password");
+                totalCash = rs.getInt("cash");
             }
+            isSuccess = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return password;
+        totalCash += saldo;
+        query = "UPDATE users SET cash = '" + totalCash + "' WHERE idUser = '" + idUser + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            isSuccess = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return isSuccess;
     }
     
     public boolean updatePassword(Member member, String newPassword) {
@@ -257,9 +482,9 @@ public class Controller {
         }
     }
     
-    public boolean updateBookStatus(int idBook) {
+    public static boolean updateBook(PaidBook book) {
         conn.connect();
-        String query = "UPDATE books SET status = 0 WHERE idBook = '"+idBook+"'";
+        String query = "UPDATE books SET borrowPrice ='" + book.getBorrowPrice() + "' WHERE idBook = '" + book.getIdBook() + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -267,6 +492,91 @@ public class Controller {
         } catch (SQLException e) {
             e.printStackTrace();
             return (false);
+        }
+    }
+    
+    public boolean updateBookStatusAfterBorrowed(int idBook) {
+        conn.connect();
+        String query = "UPDATE books SET status = 0 WHERE idBook = '" + idBook + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    
+    public boolean updateBookStatusAfterReturned(int idBook) {
+        conn.connect();
+        String query = "UPDATE books SET status = 1 WHERE idBook = '" + idBook + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    
+    public boolean updateBorrowing(int idBorrow, int finePrice) {
+        conn.connect();
+        String query = "SELECT * FROM borrows WHERE idBorrow = '" + idBorrow + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                if (updateBookStatusAfterReturned(rs.getInt("idBook"))) {
+                    query = "UPDATE borrows SET status = 3, moneyFine = '" + finePrice + "' WHERE idBorrow = '" + idBorrow + "'";
+                    try {
+                        stmt.executeUpdate(query);
+                        return (true);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        return (false);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public void updateUserMoney(int idUser, int fine) {
+        conn.connect();
+        Member member = new Member();
+        int cash;
+        String query = "SELECT * FROM users WHERE idUser ='" + idUser + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                member.setCash(rs.getInt("cash"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (member.getCash() >= fine) {
+            cash = member.getCash() - fine;
+            query = "UPDATE users SET cash = '" + cash + "' WHERE idUser = '" + idUser + "'";
+            try {
+                Statement stmt = conn.con.createStatement();
+                stmt.executeUpdate(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            cash = fine - member.getCash();
+            query = "UPDATE users SET cash = 0, debt = '" + cash + "' WHERE idUser = '" + idUser + "'";
+            try {
+                Statement stmt = conn.con.createStatement();
+                stmt.executeUpdate(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
     
@@ -284,6 +594,29 @@ public class Controller {
             stmt.setInt(7, borrowing.getPriceTotal());
             stmt.setInt(8, borrowing.getMoneyFine());
             stmt.setInt(9, borrowing.getStatus());
+            stmt.executeUpdate();
+            return (true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return (false);
+        }
+    }
+    
+    public boolean insertNewBook(PaidBook book) {
+        conn.connect();
+        String query = "INSERT INTO books VALUES(?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement stmt = conn.con.prepareStatement(query);
+            stmt.setInt(1, book.getIdBook());
+            stmt.setInt(2, book.getIdBranch());
+            stmt.setString(3, book.getTitle());
+            stmt.setString(4, book.getAuthor());
+            stmt.setString(5, book.getGenre());
+            stmt.setString(6, book.getPublisher());
+            stmt.setInt(7, book.getPages());
+            stmt.setInt(8, book.getBorrowPrice());
+            stmt.setInt(9, book.getYear());
+            stmt.setInt(10, book.getStatus());
             stmt.executeUpdate();
             return (true);
         } catch (SQLException e) {
