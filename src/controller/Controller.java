@@ -4,10 +4,10 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
-import java.sql.Types;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,9 +15,12 @@ public class Controller {
 
     static DatabaseHandler conn = new DatabaseHandler();
     
+    public Controller() {
+        conn.connect();
+    }
+    
     public boolean userRegisterAvailability(String branch, String email) {
         int selectedBranch = getBranchIDByCity(branch);
-        
         if (selectedBranch == -1) {
             return false;
         } else {
@@ -40,7 +43,6 @@ public class Controller {
     
     public boolean userLoginAvailability(String branch, String email, String password) {
         int selectedBranch = getBranchIDByCity(branch);
-        
         if (selectedBranch == -1) {
             return false;
         } else {
@@ -155,7 +157,6 @@ public class Controller {
     
     public ArrayList<Member> getAllMembers(int idBranch) {
         ArrayList<Member> members = new ArrayList<>();
-        conn.connect();
         String query;
 
         if (idBranch == 0) {
@@ -191,7 +192,6 @@ public class Controller {
     
     public ArrayList<Borrowing> getAllBorrowList(int id, int condition) {
         ArrayList<Borrowing> borrows = new ArrayList<>();
-        conn.connect();
         String query = "";
         if (condition == 0) {
             query = "SELECT * FROM borrows WHERE idUser = '" + id + "'";
@@ -225,7 +225,6 @@ public class Controller {
     
     public ArrayList<PaidBook> getAllBooks(int idBranch) {
         ArrayList<PaidBook> books = new ArrayList<>();
-        conn.connect();
         String query = "SELECT * from books WHERE idBranch = '"+idBranch+"' AND status = 1";
         try {
             Statement stmt = conn.con.createStatement();
@@ -251,7 +250,6 @@ public class Controller {
     
     public ArrayList<PaidBook> getAllBooksOrdered(int idBranch, String order) {
         ArrayList<PaidBook> books = new ArrayList<>();
-        conn.connect();
         String query = "SELECT * from books WHERE idBranch = '"+idBranch+"' AND status = 1 ORDER BY title "+order;
         try {
             Statement stmt = conn.con.createStatement();
@@ -277,7 +275,6 @@ public class Controller {
     
     public ArrayList<PaidBook> getAllBooksByFilter(int idBranch, String filter, String search) {
         ArrayList<PaidBook> books = new ArrayList<>();
-        conn.connect();
         String query = "SELECT * from books WHERE idBranch = '"+idBranch+"' AND status = 1 AND "+filter+" LIKE '%"+search+"%'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -302,7 +299,6 @@ public class Controller {
     }
     
     public void getAUser(String email, int idBranch) {
-        conn.connect();
         String query = "SELECT * FROM users WHERE email = '" + email + "' && idBranch = '" + idBranch + "'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -361,7 +357,6 @@ public class Controller {
     
     public Member getAMember(int idUser) {
         Member member = new Member();
-        conn.connect();
         String query = "SELECT * FROM users WHERE idUser = '"+idUser+"'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -387,7 +382,6 @@ public class Controller {
     
     public PaidBook getABook(int idBuku) {
         PaidBook book = new PaidBook();
-        conn.connect();
         String query = "SELECT * FROM Books WHERE idBook = '" + idBuku + "'";
 
         try {
@@ -413,7 +407,6 @@ public class Controller {
     
     public String getTitleSelectedBook(int idBook) {
         String title = "";
-        conn.connect();
         String query = "SELECT * FROM books WHERE idBook = '"+idBook+"'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -454,7 +447,6 @@ public class Controller {
     }
     
     public boolean updatePassword(Member member, String newPassword) {
-        conn.connect();
         String query = "UPDATE users SET password = '"+newPassword+"'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -467,7 +459,6 @@ public class Controller {
     }
     
     public boolean updateProfile(Member member) {
-        conn.connect();
         String query = "UPDATE users SET firstName = '"+member.getFirstName()+
                        "', lastName = '"+member.getLastName()+"', email = '"+
                        member.getEmail()+"', address = '"+member.getAddress()+
@@ -483,7 +474,6 @@ public class Controller {
     }
     
     public static boolean updateBook(PaidBook book) {
-        conn.connect();
         String query = "UPDATE books SET borrowPrice ='" + book.getBorrowPrice() + "' WHERE idBook = '" + book.getIdBook() + "'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -496,7 +486,6 @@ public class Controller {
     }
     
     public boolean updateBookStatusAfterBorrowed(int idBook) {
-        conn.connect();
         String query = "UPDATE books SET status = 0 WHERE idBook = '" + idBook + "'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -509,7 +498,6 @@ public class Controller {
     }
     
     public boolean updateBookStatusAfterReturned(int idBook) {
-        conn.connect();
         String query = "UPDATE books SET status = 1 WHERE idBook = '" + idBook + "'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -522,7 +510,6 @@ public class Controller {
     }
     
     public boolean updateBorrowing(int idBorrow, int finePrice) {
-        conn.connect();
         String query = "SELECT * FROM borrows WHERE idBorrow = '" + idBorrow + "'";
         try {
             Statement stmt = conn.con.createStatement();
@@ -546,7 +533,6 @@ public class Controller {
     }
     
     public void updateUserMoney(int idUser, int fine) {
-        conn.connect();
         Member member = new Member();
         int cash;
         String query = "SELECT * FROM users WHERE idUser ='" + idUser + "'";
@@ -581,7 +567,6 @@ public class Controller {
     }
     
     public boolean insertBorrowing(Borrowing borrowing) {
-        conn.connect();
         String query = "INSERT INTO borrows VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);
@@ -603,7 +588,6 @@ public class Controller {
     }
     
     public boolean insertNewBook(PaidBook book) {
-        conn.connect();
         String query = "INSERT INTO books VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conn.con.prepareStatement(query);

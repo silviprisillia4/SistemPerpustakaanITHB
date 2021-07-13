@@ -148,12 +148,12 @@ public class Profile {
         }
         
         //Set Column Size
-        table.getColumnModel().getColumn(0).setPreferredWidth(1000);
-        table.getColumnModel().getColumn(1).setPreferredWidth(1000);
-        table.getColumnModel().getColumn(2).setPreferredWidth(2000);
-        table.getColumnModel().getColumn(3).setPreferredWidth(3000);
-        table.getColumnModel().getColumn(4).setPreferredWidth(5000);
-        table.getColumnModel().getColumn(5).setPreferredWidth(5000);
+        table.getColumnModel().getColumn(0).setPreferredWidth(500);
+        table.getColumnModel().getColumn(1).setPreferredWidth(500);
+        table.getColumnModel().getColumn(2).setPreferredWidth(3000);
+        table.getColumnModel().getColumn(3).setPreferredWidth(500);
+        table.getColumnModel().getColumn(4).setPreferredWidth(1000);
+        table.getColumnModel().getColumn(5).setPreferredWidth(1000);
         
         table.setBounds(0, 0, 500, 170); 
         JScrollPane sp = new JScrollPane(table);
