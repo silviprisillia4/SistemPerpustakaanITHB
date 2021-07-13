@@ -11,10 +11,12 @@ public class LoginHandler {
         User user = new model.UserManager().getInstance().getUser();
         if (user.getType() == UserTypeEnum.ADMIN) {
             new AdminMenu();
+            new view.OutputInfo().welcomeToMenuAdmin();
         } else if (user.getType() == UserTypeEnum.MEMBER) {
             new MemberMenu();
         } else {
             new OwnerMenu();
+            new view.OutputInfo().welcomeToOwnerMenu();
         }
     }
 }
