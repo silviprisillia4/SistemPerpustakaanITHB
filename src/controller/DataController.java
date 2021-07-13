@@ -183,7 +183,7 @@ public class DataController {
                     user.setEmail(rs.getString("email"));
                     user.setPassword(rs.getString("password"));
                     user.setType(UserTypeEnum.valueOf(rs.getString("type")));
-                    UserManagerz.getInstance().setUser(user);
+                    new model.UserManager().getInstance().setUser(user);
                 } else if (rs.getString("type").equals(UserTypeEnum.ADMIN.toString())) {
                     Admin admin = new Admin();
                     admin.setIdUser(rs.getInt("idUser"));
@@ -193,7 +193,7 @@ public class DataController {
                     admin.setPassword(rs.getString("password"));
                     admin.setType(UserTypeEnum.valueOf(rs.getString("type")));
                     admin.setIdBranch(rs.getInt("idBranch"));
-                    UserManagerz.getInstance().setUser(admin);
+                    new model.UserManager().getInstance().setUser(admin);
                 } else if (rs.getString("type").equals(UserTypeEnum.MEMBER.toString())) {
                     Member member = new Member();
                     member.setIdUser(rs.getInt("idUser"));
@@ -208,7 +208,7 @@ public class DataController {
                     member.setCash(rs.getInt("cash"));
                     member.setDebt(rs.getInt("debt"));
                     member.setApproved(rs.getInt("approved"));
-                    UserManagerz.getInstance().setUser(member);
+                    new model.UserManager().getInstance().setUser(member);
                 }
             }
         } catch (SQLException e) {

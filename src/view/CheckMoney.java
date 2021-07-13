@@ -12,11 +12,14 @@ import java.util.ArrayList;
 
 public class CheckMoney {
 
-    public void printDanaSatuCabang() {
+    public CheckMoney() {
+        showBranchIncome();
+    }
+    public void showBranchIncome() {
         Admin admin = UserManager.getInstance().getAdmin();
         if (new controller.databaseChange().getAllMember(admin.getIdBranch()).size() == 0) {
             new OutputInfo().infoNoMoney();
-            new AdminMenu().adminMenu();
+            new AdminMenu();
         } else {
             //declare components
             JFrame frame = new DefaultFrameSetting().defaultFrame();
@@ -32,7 +35,7 @@ public class CheckMoney {
                 public void actionPerformed(ActionEvent e) {
                     frame.setVisible(false);
                     new OutputInfo().backToPreviousMenu();
-                    new AdminMenu().adminMenu();
+                    new AdminMenu();
                 }
             });
             //set background panel

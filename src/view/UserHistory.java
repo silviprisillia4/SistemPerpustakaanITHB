@@ -9,8 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ShowUserHistory {
-    public void userHistory() {
+public class UserHistory {
+    public UserHistory() {
+        showUserHistory();
+    }
+    public void showUserHistory() {
         //declare components
         JFrame frame = new DefaultFrameSetting().defaultFrame();
         JPanel background = new DefaultFrameSetting().defaultPanel();
@@ -25,7 +28,7 @@ public class ShowUserHistory {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new OutputInfo().backToPreviousMenu();
-                new AdminMenu().adminMenu();
+                new AdminMenu();
             }
 
         });

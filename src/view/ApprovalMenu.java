@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package view;
-import controller.UserManagerz;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
@@ -18,7 +17,7 @@ import model.Admin;
 public class ApprovalMenu {
     
     public ApprovalMenu() {
-        Admin admin = (Admin) UserManagerz.getInstance().getUser();
+        Admin admin = new model.UserManager().getInstance().getAdmin();
         
         JFrame mainFrame = new JFrame();
         mainFrame.setTitle("Sistem Perpustakaan");

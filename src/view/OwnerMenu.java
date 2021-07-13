@@ -12,7 +12,7 @@ import javax.swing.JTabbedPane;
 
 public class OwnerMenu {
 
-    public void ownerMenu() {
+    public OwnerMenu() {
         //declare components
         JFrame frame = new DefaultFrameSetting().defaultFrame();
         JPanel background = new DefaultFrameSetting().defaultPanel();

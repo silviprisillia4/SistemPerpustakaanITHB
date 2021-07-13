@@ -1,4 +1,3 @@
-
 package controller;
 
 import java.sql.PreparedStatement;
@@ -8,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.*;
-
 
 public class databaseChange {
 
@@ -37,15 +35,15 @@ public class databaseChange {
         }
     }
 
-    public Object getAUser(int idUser) {
+    public void getAUser(String mail, int branch) {
         Object object = new Object();
         conn.connect();
-        String query = "SELECT * FROM users WHERE idUser = '" + idUser + "'";
+        String query = "SELECT * FROM users WHERE email = '" + mail + "' && idBranch = '" + branch + "'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                String mail = rs.getString("email");
+                int idUser = rs.getInt("idUser");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
                 UserTypeEnum type = UserTypeEnum.valueOf(rs.getString("type"));
@@ -70,7 +68,25 @@ public class databaseChange {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return object;
+        new model.UserManager().getInstance().setUser(object);
+    }
+    
+    public Member getAMember(int idUser) {
+        Member member = new Member();
+        conn.connect();
+        String query = "SELECT * FROM users WHERE idUser = '" + idUser + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                member.setFirstName(rs.getString("firstName"));
+                member.setLastName(rs.getString("lastName"));
+                member.setIdUser(rs.getInt("idUser"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return member;
     }
 
     public ArrayList<Member> getAllMember(int idBranch) {
@@ -115,7 +131,7 @@ public class databaseChange {
         String query = "";
         if (condition == 0) {
             query = "SELECT * FROM Borrows WHERE iduser = '" + id + "'";
-        } else if (condition == 1){
+        } else if (condition == 1) {
             query = "SELECT * FROM Borrows WHERE idbranch = '" + id + "' && status = '0'";
         } else {
             query = "SELECT * FROM Borrows WHERE idbranch = '" + id + "' && status = '0' || status = '3'";

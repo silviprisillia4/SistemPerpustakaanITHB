@@ -15,9 +15,12 @@ import model.Admin;
 import model.PaidBook;
 import model.UserManager;
 
-public class AddNewBook {
+public class AddABook {
     
-    public void addBookData() {
+    public AddABook() {
+        addNewBookData();
+    }
+    public void addNewBookData() {
         Admin admin = UserManager.getInstance().getAdmin();
 
         //declare components
@@ -197,7 +200,7 @@ public class AddNewBook {
                         admin.getBooks().add(books.get(books.size()-1));
                         new OutputInfo().successAddNewBook(book.getTitle(), state);
                         frame.setVisible(false);
-                        new AdminMenu().adminMenu();
+                        new AdminMenu();
                     } else {
                         new OutputInfo().successAddNewBook(book.getTitle(), state);
                     }
@@ -211,7 +214,7 @@ public class AddNewBook {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new OutputInfo().backToPreviousMenu();
-                new ChangeListBook().bookListUpdate();
+                new UpdateListBook();
             }
         });
         //set background panel

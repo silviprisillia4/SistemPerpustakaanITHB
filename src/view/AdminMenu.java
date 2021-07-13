@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 public class AdminMenu {
     
-    public void adminMenu() {
+    public AdminMenu() {
         Admin admin = UserManager.getInstance().getAdmin();
         
         //declare
@@ -36,32 +36,32 @@ public class AdminMenu {
         //button action listener
         approval.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //nanti yen di sini ya hehe <3
+                new ApprovalMenu();
             }
         });
         changeListBooks.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new ChangeListBook().bookListUpdate();
+                new UpdateListBook();
             }
         });
         borrowingList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new ApproveBookReturn().returnBorrow();
+                new ApproveBookReturn();
             }
         });
         userHistory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new ShowUserHistory().userHistory();
+                new UserHistory();
             }
         });
         branchCash.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new OutputInfo().changeShowDanaCabang(admin.selectBranchCity(admin.getIdBranch()));
-                new CheckMoney().printDanaSatuCabang();
+                new CheckMoney();
             }
         });
         exit.addActionListener(new ActionListener() {

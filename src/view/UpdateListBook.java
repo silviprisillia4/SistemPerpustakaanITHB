@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ChangeListBook {
+public class UpdateListBook {
     
-    public void bookListUpdate() {
+    public UpdateListBook() {
         //declare components
         JFrame frame = new DefaultFrameSetting().defaultFrame();
         JPanel background = new DefaultFrameSetting().defaultPanel();
@@ -25,14 +25,14 @@ public class ChangeListBook {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new OutputInfo().infoUpdateListBook(true);
-                new UpdateSelectionBook().updateBookData();
+                new UpdateBookMenu();
             }
         });
         addBook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new OutputInfo().infoUpdateListBook(false);
-                new AddNewBook().addBookData();
+                new AddABook();
             }
         });
         exit.addActionListener(new ActionListener() {
@@ -40,7 +40,7 @@ public class ChangeListBook {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new OutputInfo().backToPreviousMenu();
-                new AdminMenu().adminMenu();
+                new AdminMenu();
             }
 
         });

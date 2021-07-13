@@ -14,12 +14,15 @@ import java.util.Date;
 
 public class ApproveBookReturn {
     
-    public void returnBorrow() {
+    public ApproveBookReturn() {
+        showBorrowingList();
+    }
+    public void showBorrowingList() {
         Admin admin = UserManager.getInstance().getAdmin();
         //check ada yang dipinjam atau ga
         if (new databaseChange().getAllBorrowList(admin.getIdBranch(), 1).size() == 0) {
             new OutputInfo().infoNoBorrowList();
-            new AdminMenu().adminMenu();
+            new AdminMenu();
         } else {
             //declare
             JFrame frame = new DefaultFrameSetting().defaultFrame();
@@ -61,7 +64,7 @@ public class ApproveBookReturn {
                     }
                     new OutputInfo().infoApprovePengembalian(true);
                     frame.setVisible(false);
-                    new AdminMenu().adminMenu();
+                    new AdminMenu();
                 }
             });
             exit.addActionListener(new ActionListener() {
@@ -69,7 +72,7 @@ public class ApproveBookReturn {
                 public void actionPerformed(ActionEvent e) {
                     frame.setVisible(false);
                     new OutputInfo().backToPreviousMenu();
-                    new AdminMenu().adminMenu();
+                    new AdminMenu();
                 }
 
             });
@@ -98,7 +101,7 @@ public class ApproveBookReturn {
         Object[][] data = new Object[new databaseChange().getAllBorrowList(admin.getIdBranch(), 1).size()][9];
         for (int j = 0; j < new databaseChange().getAllBorrowList(idBranch, 1).size(); j++) {
             Borrowing borrow = new databaseChange().getAllBorrowList(idBranch, 1).get(j);
-            Member member = (Member) new databaseChange().getAUser(borrow.getIdUser());
+            Member member = new databaseChange().getAMember(borrow.getIdUser());
             data[j][0] = borrow.getIdBorrow();
             data[j][1] = member.getFirstName() + " " + member.getLastName();
             data[j][2] = member.getIdUser();

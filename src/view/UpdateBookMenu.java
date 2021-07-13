@@ -16,9 +16,12 @@ import java.awt.Color;
 import model.Admin;
 import model.UserManager;
 
-public class UpdateSelectionBook {
+public class UpdateBookMenu {
     JFrame frame;
-    public void updateBookData() {
+    public UpdateBookMenu() {
+        updateABook();
+    }
+    public void updateABook() {
         
         Admin admin = UserManager.getInstance().getAdmin();
         
@@ -55,7 +58,7 @@ public class UpdateSelectionBook {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new OutputInfo().backToPreviousMenu();
-                new ChangeListBook().bookListUpdate();
+                new UpdateListBook();
             }
         });
         
@@ -155,7 +158,7 @@ public class UpdateSelectionBook {
                         book.setBorrowPrice(Integer.parseInt(inputPaid.getText()));
                         new OutputInfo().infoUpdateABook(book.getTitle(), state);
                         frame.setVisible(false);
-                        new AdminMenu().adminMenu();
+                        new AdminMenu();
                     } else {
                         new OutputInfo().infoUpdateABook(book.getTitle(), state);
                     }

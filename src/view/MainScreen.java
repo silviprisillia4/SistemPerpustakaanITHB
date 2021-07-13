@@ -7,7 +7,6 @@ package view;
 import controller.Controller;
 import controller.DataController;
 import controller.LoginHandler;
-import controller.UserManagerz;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
