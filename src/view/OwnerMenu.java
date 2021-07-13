@@ -23,7 +23,7 @@ public class OwnerMenu {
         JPanel panel3 = new DefaultFrameSetting().defaultPanel();
         JPanel panel2 = new DefaultFrameSetting().defaultPanel();
         JTabbedPane header = new JTabbedPane();
-        JButton exit = new JButton("Keluar");
+        JButton exit = new JButton("Log Out");
         JComboBox cb = chooseBranchMenu();
 
         //set components position

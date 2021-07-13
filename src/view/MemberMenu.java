@@ -42,7 +42,7 @@ public class MemberMenu {
             }
         });
         
-        btnExit = new JButton("Keluar");
+        btnExit = new JButton("Log Out");
         btnExit.setBounds(75, 140, 120, 40);
         btnExit.addActionListener(new ActionListener() {
             @Override

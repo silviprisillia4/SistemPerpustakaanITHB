@@ -6,7 +6,8 @@ public class DefaultFrameSetting {
     public JFrame defaultFrame() {
         //declare frame
         JFrame frame = new JFrame("Perpustakaan ITHB");
-
+        
+        
         //initialize frame
         frame.setLayout(null);
         frame.setVisible(true);

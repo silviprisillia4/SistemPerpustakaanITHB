@@ -19,9 +19,13 @@ public class OutputInfo {
     }
 
     public void welcomeToOwnerMenu() {
-        JOptionPane.showMessageDialog(null, "Selamat datang "+ UserTypeEnum.OWNER + " " + UserManager.getInstance().getAdmin().getFirstName() + " " + UserManager.getInstance().getAdmin().getLastName());
+        JOptionPane.showMessageDialog(null, "Selamat datang "+ UserTypeEnum.OWNER + " " + UserManager.getInstance().getOwner().getFirstName() + " " + UserManager.getInstance().getOwner().getLastName(), "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
     }
-
+    
+    public void welcomeToMemberMenu() {
+        JOptionPane.showMessageDialog(null, "Selamat datang " + UserManager.getInstance().getMember().getFirstName() + " " + UserManager.getInstance().getMember().getLastName() + " di Perpustakaan ITHB", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
     public void infoDanaCabang(String branch) {
         JOptionPane.showMessageDialog(null, "Berikut akan di tampilkan pendapatan dari cabang " + branch, "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -60,7 +64,7 @@ public class OutputInfo {
 
     public void infoUpdateABook(String title, boolean update) {
         if (update) {
-            JOptionPane.showMessageDialog(null, "Buku " + title + " berhasil diperbarui!");
+            JOptionPane.showMessageDialog(null, "Buku " + title + " berhasil diperbarui!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
         } else {
             em.showErrorFailedUpdateBook(title);
         }
