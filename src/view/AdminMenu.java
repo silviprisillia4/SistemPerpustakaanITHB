@@ -36,6 +36,7 @@ public class AdminMenu {
         //button action listener
         approval.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
                 new ApprovalMenu();
             }
         });
@@ -68,6 +69,7 @@ public class AdminMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new OutputInfo().logOutInfo();
+                frame.setVisible(false);
                 new MainScreen();
             }
 

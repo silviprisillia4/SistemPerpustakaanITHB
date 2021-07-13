@@ -121,11 +121,11 @@ public class BookBorrowApproval {
             price.setOpaque(true);
             DatabaseHandler conn = new DatabaseHandler();
             conn.connect();
-            if (data[i][6].equals("0")) {
+            if (data[i][6].equals("2")) {
                 buttons[i] = new JButton("Approve");
                 buttons[i].setBounds(900, y, 150, 20);
                 buttons[i].addActionListener((ActionEvent event) -> {
-                    String query = "UPDATE borrows SET status = '1' WHERE idBorrow = '" + data[index][0] + "'";
+                    String query = "UPDATE borrows SET status = '0' WHERE idBorrow = '" + data[index][0] + "'";
                     try {
                         Statement stmt = conn.con.createStatement();
                         int rs = stmt.executeUpdate(query);
@@ -137,11 +137,11 @@ public class BookBorrowApproval {
                     createApprovalScreen(id);
                 });
                 panel.add(buttons[i]);
-            } else if (data[i][6].equals("1")){
+            } else if (data[i][6].equals("0")){
                 buttons[i] = new JButton("Unapprove");
                 buttons[i].setBounds(900, y, 150, 20);
                 buttons[i].addActionListener((ActionEvent event) -> {
-                    String query = "UPDATE borrows SET status = '0' WHERE idBorrow = '" + data[index][0] + "'";
+                    String query = "UPDATE borrows SET status = '2' WHERE idBorrow = '" + data[index][0] + "'";
                     try {
                         Statement stmt = conn.con.createStatement();
                         int rs = stmt.executeUpdate(query);
