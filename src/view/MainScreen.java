@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package view;
-import controller.Controller;
-import controller.DataController;
+import controller.*;
 import controller.LoginHandler;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -24,6 +23,8 @@ import javax.swing.JOptionPane;
  */
 public class MainScreen {
     
+    Controller c = new Controller();
+    
     public MainScreen() {
         createMainScreen();
     }
@@ -33,8 +34,8 @@ public class MainScreen {
         
         JComboBox branchComboBox = new JComboBox();
         branchComboBox.setBounds(100, 10, 200, 20);
-        controller.DataController d = new controller.DataController();
-        ArrayList<String> branchesCity = d.getBranchesCity();
+        
+        ArrayList<String> branchesCity = c.getBranchesCity();
         for (int i = 0; i < branchesCity.size(); i++) {
             branchComboBox.addItem(branchesCity.get(i));
         }
@@ -126,7 +127,6 @@ public class MainScreen {
         JButton registerButton2 = new JButton("REGISTER");
         registerButton2.setBounds(10, 220, 320, 20);
         registerButton2.addActionListener((ActionEvent e) -> {
-            DataController c = new DataController();
             boolean available = c.userRegisterAvailability(selectedBranch, emailFieldRegister.getText());
             if (available) {
                 boolean isSuccess = c.processingRegistration(
@@ -198,9 +198,8 @@ public class MainScreen {
         JButton loginButton2 = new JButton("LOGIN");
         loginButton2.setBounds(10, 70, 290, 20);
         loginButton2.addActionListener((ActionEvent e) -> {
-            DataController d = new DataController();
             Controller c = new Controller();
-            boolean valid = d.userLoginAvailability(selectedBranch, emailFieldLogin.getText(), c.getMD5(passFieldLogin.getText()));
+            boolean valid = c.userLoginAvailability(selectedBranch, emailFieldLogin.getText(), c.getMD5(passFieldLogin.getText()));
             if (valid) {
                 loginFrame.dispose();
                 JOptionPane.showMessageDialog(null, "Login Berhasil!");
