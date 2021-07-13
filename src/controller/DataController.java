@@ -24,7 +24,6 @@ public class DataController {
     
     DatabaseHandler conn = new DatabaseHandler();
     static Controller c = new Controller();
-    static DataController d = new DataController();
     
     public DataController() {
         conn.connect();
@@ -124,7 +123,7 @@ public class DataController {
                             isValid = RegexController.passValidation(newPass);
                             if (isValid) {
                                 if (newPass.equals(rePass)) {
-                                    d.createNewUserAccount(selectedBranch, firstName,
+                                    createNewUserAccount(selectedBranch, firstName,
                                             lastName,address, phone, email, c.getMD5(newPass));
                                     return true;
                                 }
