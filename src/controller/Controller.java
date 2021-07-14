@@ -43,7 +43,7 @@ public class Controller {
         if (selectedBranch == -1) {
             return false;
         } else {
-            String query = "SELECT * FROM users WHERE idBranch = '" + selectedBranch + "'";
+            String query = "SELECT * FROM users WHERE idBranch = '" + selectedBranch + "' AND approved = '1'";
             try {
                 Statement stmt = conn.con.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
