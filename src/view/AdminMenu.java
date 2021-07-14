@@ -18,7 +18,7 @@ public class AdminMenu {
         //declare
         JFrame frame = new DefaultFrameSetting().defaultFrame();
         JPanel background = new DefaultFrameSetting().defaultPanel();
-        JButton approval = new JButton("Penyetujuan");
+        JButton approval = new JButton("Persetujuan");
         JButton changeListBooks = new JButton("Update Data Buku");
         JButton borrowingList = new JButton("List Pengembalian");
         JButton userHistory = new JButton("User History");

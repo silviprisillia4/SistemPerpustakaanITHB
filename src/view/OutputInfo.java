@@ -27,11 +27,11 @@ public class OutputInfo {
     }
     
     public void infoDanaCabang(String branch) {
-        JOptionPane.showMessageDialog(null, "Berikut akan di tampilkan pendapatan dari cabang " + branch, "Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Berikut akan ditampilkan pendapatan dari cabang " + branch, "Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void infoLogOut() {
-        JOptionPane.showMessageDialog(null, "Terima kasih sudah menggunakan layanan Sistem Perpustakaan ITHB!", "Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Terima kasih sudah menggunakan layanan Perpustakaan ITHB!", "Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void infoUpdateListBook(boolean update) {

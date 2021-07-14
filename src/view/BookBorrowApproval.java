@@ -182,7 +182,7 @@ public class BookBorrowApproval {
         frame.add(ok);
         
         //frame set
-        frame.setTitle("Perpustakaan ITHB - Penyetujuan Pinjaman");
+        frame.setTitle("Perpustakaan ITHB - Persetujuan Pinjaman");
         
         frame.setSize(1120, 600);
         frame.getContentPane().setBackground(new Color(255, 228, 189));

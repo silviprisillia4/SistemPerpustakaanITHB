@@ -19,7 +19,7 @@ public class ErrorMessages {
     }
     
     public void showErrorEmailRegistered() {
-        JOptionPane.showMessageDialog(null, "Email Anda sudah terdaftar!!", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE); 
+        JOptionPane.showMessageDialog(null, "Email Anda sudah terdaftar!", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE); 
     }
     
     public void showErrorCantSave() {
@@ -59,7 +59,7 @@ public class ErrorMessages {
     }
     
     public void showErrorFormValidate() {
-        JOptionPane.showMessageDialog(null, "Form belum terisi lengkap!!\nPeriksa kembali form!", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Form belum terisi lengkap!\nPeriksa kembali form!", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE);
     }
     
     public void showErrorNoBorrowList() {
