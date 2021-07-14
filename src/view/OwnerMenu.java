@@ -53,15 +53,20 @@ public class OwnerMenu {
             public void actionPerformed(ActionEvent e) {
                 panel3.setVisible(false);
                 panel3.removeAll();
-                if (cb.getItemAt(cb.getSelectedIndex()) == "Bandung") {
-                    new OutputInfo().infoDanaCabang("Bandung");
-                    panel3.add(new CheckMoney().danaPerpus(1));
-                } else if (cb.getItemAt(cb.getSelectedIndex()) == "Jakarta") {
-                    new OutputInfo().infoDanaCabang("Jakarta");
-                    panel3.add(new CheckMoney().danaPerpus(2));
-                } else {
-                    new OutputInfo().infoDanaCabang("Surabaya");
-                    panel3.add(new CheckMoney().danaPerpus(3));
+                String branch = (String) cb.getItemAt(cb.getSelectedIndex());
+                switch (branch) {
+                    case "Bandung":
+                        new OutputInfo().infoDanaCabang("Bandung");
+                        panel3.add(new CheckMoney().danaPerpus(1));
+                        break;
+                    case "Jakarta":
+                        new OutputInfo().infoDanaCabang("Jakarta");
+                        panel3.add(new CheckMoney().danaPerpus(2));
+                        break;
+                    default:
+                        new OutputInfo().infoDanaCabang("Surabaya");
+                        panel3.add(new CheckMoney().danaPerpus(3));
+                        break;
                 }
                 panel3.setVisible(true);
             }
@@ -91,6 +96,7 @@ public class OwnerMenu {
         
         //set frame size
         frame.setSize(1000, 680);
+        frame.setLocationRelativeTo(null);
     }
 
     public JComboBox chooseBranchMenu() {
