@@ -747,7 +747,6 @@ public class Controller {
             debt = member.getDebt();
             if (approval) {
                 if (cash >= price) {
-                    System.out.println("a");
                     cash -= price;
                     query = "UPDATE users SET cash = '" + cash + "' WHERE idUser = '" + idUser + "'";
                     member.setCash(cash);
@@ -758,7 +757,6 @@ public class Controller {
                         e.printStackTrace();
                     }
                 } else {
-                    System.out.println("b");
                     debt += (price - cash);
                     query = "UPDATE users SET cash = 0, debt = '" + debt + "' WHERE idUser = '" + idUser + "'";
                     member.setDebt(debt);
@@ -772,7 +770,6 @@ public class Controller {
                 }
             } else {
                 if (debt >= price) {
-                    System.out.println("c");
                     debt -= price;
                     query = "UPDATE users SET debt = '" + debt + "' WHERE idUser = '" + idUser + "'";
                     member.setDebt(debt);
@@ -783,7 +780,6 @@ public class Controller {
                         e.printStackTrace();
                     }
                 } else {
-                    System.out.println("d");
                     cash += (price - debt);
                     query = "UPDATE users SET debt = 0, cash = '" + cash + "' WHERE idUser = '" + idUser + "'";
                     member.setCash(cash);
