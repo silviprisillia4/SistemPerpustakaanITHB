@@ -11,19 +11,22 @@ import javax.swing.JPanel;
 
 
 public class AdminMenu {
+    JFrame frame;
+    JPanel background;
+    JButton approval, changeListBooks, borrowingList, userHistory, branchCash, exit;
     
     public AdminMenu() {
         Admin admin = UserManager.getInstance().getAdmin();
         
         //declare
-        JFrame frame = new DefaultFrameSetting().defaultFrame();
-        JPanel background = new DefaultFrameSetting().defaultPanel();
-        JButton approval = new JButton("Persetujuan");
-        JButton changeListBooks = new JButton("Update Data Buku");
-        JButton borrowingList = new JButton("List Pengembalian");
-        JButton userHistory = new JButton("User History");
-        JButton branchCash = new JButton("Cek Dana Perpustakaan");
-        JButton exit = new JButton("Log Out");
+        frame = new DefaultFrameSetting().defaultFrame();
+        background = new DefaultFrameSetting().defaultPanel();
+        approval = new JButton("Persetujuan");
+        changeListBooks = new JButton("Update Data Buku");
+        borrowingList = new JButton("List Pengembalian");
+        userHistory = new JButton("User History");
+        branchCash = new JButton("Cek Dana Perpustakaan");
+        exit = new JButton("Log Out");
 
         //set position
         approval.setBounds(50, 50, 250, 50);

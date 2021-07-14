@@ -9,7 +9,16 @@ import model.*;
 import controller.*;
 
 public class AddABook {
-
+    JFrame frame;
+    JPanel background, inputGenre;
+    JLabel paid;
+    JTextField inputPaid, inputYear;
+    JLabel title, author, publisher, genre, pages, year;
+    JTextField inputTitle, inputAuthor, inputPublisher, inputPages;
+    JRadioButton r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15;
+    JCheckBox checkPaid;
+    JButton addBook, exit;
+    
     public AddABook() {
         addNewBookData();
     }
@@ -18,40 +27,40 @@ public class AddABook {
         Admin admin = UserManager.getInstance().getAdmin();
 
         //declare components
-        JFrame frame = new DefaultFrameSetting().defaultFrame();
-        JPanel background = new DefaultFrameSetting().defaultPanel();
-        JLabel paid = new JLabel("Harga Pinjam Buku : ");
-        JTextField inputPaid = new JTextField();
-        JLabel title = new JLabel("Judul : ");
-        JLabel author = new JLabel("Penulis : ");
-        JLabel publisher = new JLabel("Penerbit : ");
-        JLabel genre = new JLabel("Genre : ");
-        JLabel pages = new JLabel("Jumlah Halaman : ");
-        JLabel year = new JLabel("Tahun Terbit : ");
-        JTextField inputTitle = new JTextField();
-        JTextField inputAuthor = new JTextField();
-        JTextField inputPublisher = new JTextField();
-        JRadioButton r1 = new JRadioButton("Horror");
-        JRadioButton r2 = new JRadioButton("Fantasi");
-        JRadioButton r3 = new JRadioButton("Sci-Fi");
-        JRadioButton r4 = new JRadioButton("Romantis");
-        JRadioButton r5 = new JRadioButton("Komedi");
-        JRadioButton r6 = new JRadioButton("Misteri");
-        JRadioButton r7 = new JRadioButton("Drama");
-        JRadioButton r8 = new JRadioButton("Biografi");
-        JRadioButton r9 = new JRadioButton("Ensiklopedia");
-        JRadioButton r10 = new JRadioButton("Pengetahuan");
-        JRadioButton r11 = new JRadioButton("Kamus");
-        JRadioButton r12 = new JRadioButton("Filsafat");
-        JRadioButton r13 = new JRadioButton("Sejarah");
-        JRadioButton r14 = new JRadioButton("Psikologi");
-        JRadioButton r15 = new JRadioButton("Lainnya");
-        JPanel inputGenre = new DefaultFrameSetting().defaultPanel();
-        JTextField inputPages = new JTextField();
-        JTextField inputYear = new JTextField();
-        JCheckBox checkPaid = new JCheckBox("Buku berbayar");
-        JButton addBook = new JButton("Add");
-        JButton exit = new JButton("Kembali");
+        frame = new DefaultFrameSetting().defaultFrame();
+        background = new DefaultFrameSetting().defaultPanel();
+        paid = new JLabel("Harga Pinjam Buku : ");
+        inputPaid = new JTextField();
+        title = new JLabel("Judul : ");
+        author = new JLabel("Penulis : ");
+        publisher = new JLabel("Penerbit : ");
+        genre = new JLabel("Genre : ");
+        pages = new JLabel("Jumlah Halaman : ");
+        year = new JLabel("Tahun Terbit : ");
+        inputTitle = new JTextField();
+        inputAuthor = new JTextField();
+        inputPublisher = new JTextField();
+        r1 = new JRadioButton("Horror");
+        r2 = new JRadioButton("Fantasi");
+        r3 = new JRadioButton("Sci-Fi");
+        r4 = new JRadioButton("Romantis");
+        r5 = new JRadioButton("Komedi");
+        r6 = new JRadioButton("Misteri");
+        r7 = new JRadioButton("Drama");
+        r8 = new JRadioButton("Biografi");
+        r9 = new JRadioButton("Ensiklopedia");
+        r10 = new JRadioButton("Pengetahuan");
+        r11 = new JRadioButton("Kamus");
+        r12 = new JRadioButton("Filsafat");
+        r13 = new JRadioButton("Sejarah");
+        r14 = new JRadioButton("Psikologi");
+        r15 = new JRadioButton("Lainnya");
+        inputGenre = new DefaultFrameSetting().defaultPanel();
+        inputPages = new JTextField();
+        inputYear = new JTextField();
+        checkPaid = new JCheckBox("Buku berbayar");
+        addBook = new JButton("Add");
+        exit = new JButton("Kembali");
 
         //set components position
         title.setBounds(30, 30, 130, 30);

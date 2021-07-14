@@ -11,7 +11,14 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class CheckMoney {
-
+    JFrame frame;
+    JPanel background, panel;
+    JButton exit;
+    DefaultTableModel tableModel;
+    JTable table;
+    JScrollPane sp;
+    JLabel label1, label2, label3, label4;
+    
     public void showBranchIncome() {
         Controller c = new Controller();
 
@@ -22,9 +29,9 @@ public class CheckMoney {
             new AdminMenu();
         } else {
             //declare components
-            JFrame frame = new DefaultFrameSetting().defaultFrame();
-            JPanel background = new DefaultFrameSetting().defaultPanel();
-            JButton exit = new JButton("Kembali");
+            frame = new DefaultFrameSetting().defaultFrame();
+            background = new DefaultFrameSetting().defaultPanel();
+            exit = new JButton("Kembali");
 
             //set components position
             exit.setBounds(50, 470, 800, 20);
@@ -66,14 +73,14 @@ public class CheckMoney {
         int pendapatanByBorrowing = 0;
         int pendapatanByMoneyFine = 0;
         String[] column = {"Keterangan", "Saldo", "Tanggal"};
-        DefaultTableModel tableModel = new DefaultTableModel(column, 0);
-        JTable table = new JTable(tableModel);
-        JScrollPane sp = new JScrollPane();
-        JPanel panel = new DefaultFrameSetting().defaultPanel();
-        JLabel label1 = new JLabel();
-        JLabel label2 = new JLabel();
-        JLabel label3 = new JLabel();
-        JLabel label4 = new JLabel();
+        tableModel = new DefaultTableModel(column, 0);
+        table = new JTable(tableModel);
+        sp = new JScrollPane();
+        panel = new DefaultFrameSetting().defaultPanel();
+        label1 = new JLabel();
+        label2 = new JLabel();
+        label3 = new JLabel();
+        label4 = new JLabel();
 
         //set format currency
         DecimalFormat priceFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();

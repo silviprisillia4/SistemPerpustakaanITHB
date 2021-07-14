@@ -11,7 +11,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ApprovalBookReturn {
-
+    JFrame frame;
+    JPanel background, panel1;
+    TableCheckBoxBorrowing table;
+    DefaultTableModel model;
+    JScrollPane scroll;
+    JButton button, exit;
+    
     Controller c = new Controller();
 
     public ApprovalBookReturn() {
@@ -27,14 +33,14 @@ public class ApprovalBookReturn {
             new AdminMenu();
         } else {
             //declare
-            JFrame frame = new DefaultFrameSetting().defaultFrame();
-            JPanel background = new DefaultFrameSetting().defaultPanel();
-            JPanel panel1 = new DefaultFrameSetting().defaultPanel();
-            TableCheckBoxBorrowing table = new controller.TableCheckBoxBorrowing();
-            DefaultTableModel model = new DefaultTableModel(getTableData(), getColumnData());
-            JScrollPane scroll = new JScrollPane();
-            JButton button = new JButton("Approve");
-            JButton exit = new JButton("Kembali");
+            frame = new DefaultFrameSetting().defaultFrame();
+            background = new DefaultFrameSetting().defaultPanel();
+            panel1 = new DefaultFrameSetting().defaultPanel();
+            table = new controller.TableCheckBoxBorrowing();
+            model = new DefaultTableModel(getTableData(), getColumnData());
+            scroll = new JScrollPane();
+            button = new JButton("Approve");
+            exit = new JButton("Kembali");
 
             //set position
             table.setBounds(50, 50, 1100, 300);
