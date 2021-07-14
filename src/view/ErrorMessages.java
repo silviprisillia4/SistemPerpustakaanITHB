@@ -6,6 +6,10 @@ public class ErrorMessages {
         JOptionPane.showMessageDialog(null, "Terjadi kesalahan.", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE); 
     }
     
+    public void showErrorEmptyDataInputPrice() {
+        JOptionPane.showMessageDialog(null, "Periksa kembali input harga buku.", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE); 
+    }
+    
     public void showErrorRegistrationFailed() {
         JOptionPane.showMessageDialog(null, "Registrasi gagal!\nHarap periksa kembali data Anda.", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE); 
     }
@@ -64,5 +68,9 @@ public class ErrorMessages {
 
     public void showErrorNoMoney() {
         JOptionPane.showMessageDialog(null,"Belum ada pemasukkan di cabang ini.", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public void showErrorNoReturnSelected() {
+        JOptionPane.showMessageDialog(null,"Belum ada pengembalian yang dipilih.", "Perpustakaan ITHB", JOptionPane.ERROR_MESSAGE);
     }
 }

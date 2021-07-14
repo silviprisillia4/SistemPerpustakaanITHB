@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,10 +9,11 @@ import model.*;
 import controller.*;
 
 public class AddABook {
-    
+
     public AddABook() {
         addNewBookData();
     }
+
     public void addNewBookData() {
         Admin admin = UserManager.getInstance().getAdmin();
 
@@ -84,7 +86,7 @@ public class AddABook {
         r15.setBounds(240, 140, 100, 30);
         addBook.setBounds(30, 600, 150, 30);
         exit.setBounds(380, 600, 150, 30);
-        
+
         //set components background color
         r1.setBackground(new Color(255, 234, 202));
         r2.setBackground(new Color(255, 234, 202));
@@ -102,7 +104,7 @@ public class AddABook {
         r14.setBackground(new Color(255, 234, 202));
         r15.setBackground(new Color(255, 234, 202));
         checkPaid.setBackground(new Color(255, 234, 202));
-        
+
         //add radio button to panel
         inputGenre.add(r1);
         inputGenre.add(r2);
@@ -128,11 +130,9 @@ public class AddABook {
         checkPaid.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (checkPaid.isSelected()) {
+                    checkPaid.setEnabled(false);
                     paid.setVisible(true);
                     inputPaid.setVisible(true);
-                } else {
-                    paid.setVisible(false);
-                    inputPaid.setVisible(false);
                 }
             }
         });
@@ -175,27 +175,48 @@ public class AddABook {
                     book.setGenre("Lainnya");
                 }
                 if (!"".equals(inputTitle.getText()) && !"".equals(inputAuthor.getText()) && !"".equals(inputPublisher.getText()) && !"".equals(inputPages.getText()) && !"".equals(inputYear.getText()) && book.getGenre() != null) {
+                    if (checkPaid.isSelected() && !"".equals(inputPaid.getText())) {
+                        if (!"".equals(inputPaid.getText())) {
+                            book.setBorrowPrice(Integer.parseInt(inputPaid.getText()));
+                        } else {
+                            book.setBorrowPrice(0);
+                        }
+                        book.setPages(Integer.parseInt(inputPages.getText()));
+                        book.setYear(Integer.parseInt(inputYear.getText()));
+                        book.setIdBranch(admin.getIdBranch());
+                        book.setStatus(1);
 
-                    if (!"".equals(inputPaid.getText())) {
-                        book.setBorrowPrice(Integer.parseInt(inputPaid.getText()));
-                    } else {
+                        Controller c = new Controller();
+                        boolean state = c.insertNewBook(book);
+                        if (state) {
+                            ArrayList<PaidBook> books = c.getAllBooks(admin.getIdBranch());
+                            admin.getBooks().add(books.get(books.size() - 1));
+                            new OutputInfo().successAddNewBook(book.getTitle(), state);
+                            frame.setVisible(false);
+                            new AdminMenu();
+                        } else {
+                            new OutputInfo().successAddNewBook(book.getTitle(), state);
+                        }
+                    } else if ((!checkPaid.isSelected()) && "".equals(inputPaid.getText()) ){
                         book.setBorrowPrice(0);
-                    }
-                    book.setPages(Integer.parseInt(inputPages.getText()));
-                    book.setYear(Integer.parseInt(inputYear.getText()));
-                    book.setIdBranch(admin.getIdBranch());
-                    book.setStatus(1);
-                    
-                    Controller c = new Controller();
-                    boolean state = c.insertNewBook(book);
-                    if (state) {
-                        ArrayList<PaidBook> books = c.getAllBooks(admin.getIdBranch());
-                        admin.getBooks().add(books.get(books.size()-1));
-                        new OutputInfo().successAddNewBook(book.getTitle(), state);
-                        frame.setVisible(false);
-                        new AdminMenu();
+                        book.setPages(Integer.parseInt(inputPages.getText()));
+                        book.setYear(Integer.parseInt(inputYear.getText()));
+                        book.setIdBranch(admin.getIdBranch());
+                        book.setStatus(1);
+
+                        Controller c = new Controller();
+                        boolean state = c.insertNewBook(book);
+                        if (state) {
+                            ArrayList<PaidBook> books = c.getAllBooks(admin.getIdBranch());
+                            admin.getBooks().add(books.get(books.size() - 1));
+                            new OutputInfo().successAddNewBook(book.getTitle(), state);
+                            frame.setVisible(false);
+                            new AdminMenu();
+                        } else {
+                            new OutputInfo().successAddNewBook(book.getTitle(), state);
+                        }
                     } else {
-                        new OutputInfo().successAddNewBook(book.getTitle(), state);
+                        new ErrorMessages().showErrorFormValidate();
                     }
                 } else {
                     new ErrorMessages().showErrorFormValidate();
@@ -211,7 +232,7 @@ public class AddABook {
             }
         });
         //set background panel
-        background.setSize(600,700);
+        background.setSize(600, 700);
 
         //add components to panel
         background.add(title);
@@ -234,10 +255,10 @@ public class AddABook {
 
         //add panel to frame
         frame.add(background);
-        
+
         //frame set
         frame.setTitle("Perpustakaan ITHB - Tambah Buku Baru");
-        
+
         //set frame size
         frame.setSize(600, 700);
         frame.setLocationRelativeTo(null);

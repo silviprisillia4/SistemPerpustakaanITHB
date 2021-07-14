@@ -55,6 +55,7 @@ public class ApproveBookReturn {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     DefaultTableModel tModel = (DefaultTableModel) table.getModel();
+                    int counterNotChecked = 0;
                     for (int i = 0; i < tModel.getRowCount(); i++) {
                         Boolean checked = (Boolean) model.getValueAt(i, 8);
                         if (checked) {
@@ -62,11 +63,17 @@ public class ApproveBookReturn {
                             if ((int) model.getValueAt(i, 7) != 0) {
                                 c.updateUserMoney((int) model.getValueAt(i, 2), (int) model.getValueAt(i, 7));
                             }
+                        } else {
+                            counterNotChecked++;
                         }
                     }
-                    new OutputInfo().infoApprovePengembalian(true);
-                    frame.setVisible(false);
-                    new AdminMenu();
+                    if (counterNotChecked == tModel.getRowCount()) {
+                        new ErrorMessages().showErrorNoReturnSelected();
+                    } else {
+                        new OutputInfo().infoApprovePengembalian(true);
+                        frame.setVisible(false);
+                        new AdminMenu();
+                    }
                 }
             });
             exit.addActionListener(new ActionListener() {
@@ -107,27 +114,30 @@ public class ApproveBookReturn {
 
     public Object[][] getTableData() {
         Admin admin = UserManager.getInstance().getAdmin();
-        int idBranch = admin.getIdBranch();
         Object[][] data = new Object[c.getAllBorrowList(admin.getIdBranch(), 1).size()][9];
-        for (int j = 0; j < c.getAllBorrowList(idBranch, 1).size(); j++) {
-            Borrowing borrow = c.getAllBorrowList(idBranch, 1).get(j);
-            Member member = c.getAMember(borrow.getIdUser());
-            data[j][0] = borrow.getIdBorrow();
-            data[j][1] = member.getFirstName() + " " + member.getLastName();
-            data[j][2] = member.getIdUser();
-            data[j][3] = ((PaidBook) c.getABook(borrow.getIdBook())).getTitle();
-            data[j][4] = borrow.getBorrowDays();
-            Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-            data[j][5] = formatter.format(borrow.getDate());
-            data[j][6] = formatter.format(new Date());
-            int diffDays = (int) ((new Date().getTime() - borrow.getDate().getTime()) / (24 * 60 * 60 * 1000));
-            if (diffDays <= borrow.getBorrowDays()) {
-                data[j][7] = 0;
-            } else {
-                diffDays -= borrow.getBorrowDays();
-                data[j][7] = diffDays * 2000;
+        for (int i = 0; i < admin.getMembers().size(); i++) {
+            for (int j = 0; j < admin.getMembers().get(i).getBorrows().size(); j++) {
+                Borrowing borrow = admin.getMembers().get(i).getBorrows().get(j);
+                if (borrow.getStatus() == 0) {
+                    Member member = c.getAMember(borrow.getIdUser());
+                    data[i][0] = borrow.getIdBorrow();
+                    data[i][1] = member.getFirstName() + " " + member.getLastName();
+                    data[i][2] = member.getIdUser();
+                    data[i][3] = ((PaidBook) c.getABook(borrow.getIdBook())).getTitle();
+                    data[i][4] = borrow.getBorrowDays();
+                    Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    data[i][5] = formatter.format(borrow.getDate());
+                    data[i][6] = formatter.format(new Date());
+                    int diffDays = (int) ((new Date().getTime() - borrow.getDate().getTime()) / (24 * 60 * 60 * 1000));
+                    if (diffDays <= borrow.getBorrowDays()) {
+                        data[i][7] = 0;
+                    } else {
+                        diffDays -= borrow.getBorrowDays();
+                        data[i][7] = diffDays * 2000;
+                    }
+                    data[i][8] = Boolean.FALSE;
+                }
             }
-            data[j][8] = Boolean.FALSE;
         }
         return data;
     }
