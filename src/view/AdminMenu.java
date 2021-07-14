@@ -68,8 +68,9 @@ public class AdminMenu {
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new OutputInfo().infoLogOut();
                 frame.setVisible(false);
+                new OutputInfo().infoLogOut();
+                UserManager.getInstance().logOut();
                 new MainScreen();
             }
 

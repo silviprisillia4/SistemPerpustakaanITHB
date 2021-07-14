@@ -202,7 +202,7 @@ public class MainScreen {
         loginFrame.add(emailFieldLogin); loginFrame.add(emailLabelLogin);
         loginFrame.add(passFieldLogin); loginFrame.add(passLabelLogin);
         loginFrame.add(loginButton2); loginFrame.add(backButton2);
-        
+        loginFrame.getRootPane().setDefaultButton(loginButton2);
         loginFrame.setTitle("Perpustakaan ITHB - Login");
         loginFrame.setSize(330, 170);
         loginFrame.getContentPane().setBackground(new Color(255, 228, 189));

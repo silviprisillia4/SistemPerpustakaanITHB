@@ -108,6 +108,7 @@ public class ChangePassword {
         //Initialize
         panel1.setLayout(null);
         frame.setLayout(null);
-        frame.setVisible(true);   
+        frame.setVisible(true);  
+        frame.getRootPane().setDefaultButton(btnSave);
     }
 }

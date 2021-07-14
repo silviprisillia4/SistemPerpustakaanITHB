@@ -48,9 +48,9 @@ public class MemberMenu {
         btnExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
                 new OutputInfo().infoLogOut();
                 UserManager.getInstance().logOut();
-                frame.setVisible(false);
                 new MainScreen();
             }
         });

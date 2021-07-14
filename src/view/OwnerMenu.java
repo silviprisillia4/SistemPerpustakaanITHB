@@ -1,10 +1,9 @@
 package view;
-
+import model.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
@@ -76,6 +75,7 @@ public class OwnerMenu {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new OutputInfo().infoLogOut();
+                UserManager.getInstance().logOut();
                 new MainScreen();
             }
             
