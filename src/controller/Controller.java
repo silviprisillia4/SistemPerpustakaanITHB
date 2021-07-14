@@ -758,7 +758,7 @@ public class Controller {
                     }
                 } else {
                     debt += (price - cash);
-                    query = "UPDATE users SET cash = 0, debt = '" + debt + "' WHERE idUser = '" + idUser + "'";
+                    query = "UPDATE users SET cash = '0', debt = '" + debt + "' WHERE idUser = '" + idUser + "'";
                     member.setDebt(debt);
                     member.setCash(0);
                     try {
@@ -781,7 +781,7 @@ public class Controller {
                     }
                 } else {
                     cash += (price - debt);
-                    query = "UPDATE users SET debt = 0, cash = '" + cash + "' WHERE idUser = '" + idUser + "'";
+                    query = "UPDATE users SET debt = '0', cash = '" + cash + "' WHERE idUser = '" + idUser + "'";
                     member.setCash(cash);
                     member.setDebt(0);
                     try {
