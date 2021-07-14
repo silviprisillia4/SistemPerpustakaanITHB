@@ -154,7 +154,7 @@ public class BorrowBook {
                         for (int i = 0; i < listCheckedBook.size(); i++) {
                             PaidBook book = c.getABook(listCheckedBook.get(i));
                             Borrowing borrowing = new Borrowing(0, book.getIdBook(), member.getIdUser(),
-                                    member.getIdBranch(), borrowDays, book.getBorrowPrice(), new Date(), 2, 0, book);
+                                    member.getIdBranch(), borrowDays, (book.getBorrowPrice() * borrowDays), new Date(), 2, 0, book);
                             success = c.insertBorrowing(borrowing) && c.updateBookStatusAfterBorrowed(book.getIdBook());
                         }
                         if (success) {

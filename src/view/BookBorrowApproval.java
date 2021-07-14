@@ -142,6 +142,7 @@ public class BookBorrowApproval {
                 }
             }
             JOptionPane.showMessageDialog(null, "Updated!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
+            UserManager.getInstance().getAdmin().setMembers(c.getAllMembers(UserManager.getInstance().getAdmin().getIdBranch()));
             frame.dispose();
             new ApprovalMenu();
         });
