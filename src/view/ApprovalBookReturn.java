@@ -116,27 +116,29 @@ public class ApprovalBookReturn {
     public Object[][] getTableData() {
         Admin admin = UserManager.getInstance().getAdmin();
         Object[][] data = new Object[c.getAllBorrowList(admin.getIdBranch(), 1).size()][9];
+        int user = 0;
         for (int i = 0; i < admin.getMembers().size(); i++) {
             for (int j = 0; j < admin.getMembers().get(i).getBorrows().size(); j++) {
                 Borrowing borrow = admin.getMembers().get(i).getBorrows().get(j);
                 if (borrow.getStatus() == 0) {
                     Member member = c.getAMember(borrow.getIdUser());
-                    data[i][0] = borrow.getIdBorrow();
-                    data[i][1] = member.getFirstName() + " " + member.getLastName();
-                    data[i][2] = member.getIdUser();
-                    data[i][3] = ((PaidBook) c.getABook(borrow.getIdBook())).getTitle();
-                    data[i][4] = borrow.getBorrowDays();
+                    data[user][0] = borrow.getIdBorrow();
+                    data[user][1] = member.getFirstName() + " " + member.getLastName();
+                    data[user][2] = member.getIdUser();
+                    data[user][3] = ((PaidBook) c.getABook(borrow.getIdBook())).getTitle();
+                    data[user][4] = borrow.getBorrowDays();
                     Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    data[i][5] = formatter.format(borrow.getDate());
-                    data[i][6] = formatter.format(new Date());
+                    data[user][5] = formatter.format(borrow.getDate());
+                    data[user][6] = formatter.format(new Date());
                     int diffDays = (int) ((new Date().getTime() - borrow.getDate().getTime()) / (24 * 60 * 60 * 1000));
                     if (diffDays <= borrow.getBorrowDays()) {
-                        data[i][7] = 0;
+                        data[user][7] = 0;
                     } else {
                         diffDays -= borrow.getBorrowDays();
-                        data[i][7] = diffDays * 2000;
+                        data[user][7] = diffDays * 2000;
                     }
-                    data[i][8] = Boolean.FALSE;
+                    data[user][8] = Boolean.FALSE;
+                    user++;
                 }
             }
         }

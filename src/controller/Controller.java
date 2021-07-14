@@ -223,7 +223,7 @@ public class Controller {
         } else if (condition == 1) {
             query = "SELECT * FROM borrows WHERE idBranch = '" + id + "' && status = '0'";
         } else {
-            query = "SELECT * FROM borrows WHERE idUser = '" + id + "' && status = '0' || status = '3'";
+            query = "SELECT * FROM borrows WHERE idUser = '" + id + "' && (status = '0' || status = '3')";
         }
         try {
             Statement stmt = conn.con.createStatement();
