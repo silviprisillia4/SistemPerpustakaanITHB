@@ -353,7 +353,7 @@ public class Controller {
                 } else if (type == UserTypeEnum.ADMIN) {
                     Admin admin = new Admin();
                     ArrayList<Member> members = getAllMembers(rs.getInt("idBranch"));
-                    ArrayList<PaidBook> books = getAllBooks(rs.getInt("idBranch"));
+                    ArrayList<PaidBook> books = getAllBooksOrdered(rs.getInt("idBranch"), "ASC");
                     admin.setIdUser(idUser);
                     admin.setFirstName(firstName);
                     admin.setLastName(lastName);
