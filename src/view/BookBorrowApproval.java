@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import model.Borrowing;
+import model.Member;
 
 public class BookBorrowApproval {
     
@@ -62,6 +63,7 @@ public class BookBorrowApproval {
         //ArrayList
         Controller c = new Controller();
         ArrayList<Borrowing> borrows = c.getBorrowArrayList(id);
+        int[] statusTemp = new int[borrows.size()];
         
         //Looping Data to Table
         for (int i = 0; i < borrows.size(); i++) {
@@ -74,8 +76,10 @@ public class BookBorrowApproval {
             addBorrows[4] = current.getBorrowDays();
             addBorrows[5] = current.getPriceTotal();
             if (current.getStatus()== 2) {
+                statusTemp[i] = 2;
                 addBorrows[6] = false;
             } else if (current.getStatus() == 0) {
+                statusTemp[i] = 0;
                 addBorrows[6] = true;
             }
             model = (DefaultTableModel)table.getModel();
@@ -103,23 +107,18 @@ public class BookBorrowApproval {
             conn.connect();
             for (int i = 0; i < table.getRowCount(); i++) {
                 Boolean status = (Boolean) table.getValueAt(i, 6);
-                if (status) {
-                    String query = "UPDATE borrows SET status = '0' WHERE idBorrow = '" + (int) table.getValueAt(i, 0) + "'";
-                    try {
-                        Statement stmt = conn.con.createStatement();
-                        int rs = stmt.executeUpdate(query);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+                Member member = c.getAMember((int) table.getValueAt(i, 2));
+                int borrowPrice = c.getABook((int) table.getValueAt(i, 1)).getBorrowPrice();
+                if (statusTemp[i] == 0) {
+                    if (table.getValueAt(i, 6).equals(false)) {
+                        c.updateCashMemberAfterApprovalBorrowing(member, borrowPrice, status);
                     }
-                } else {
-                    String query = "UPDATE borrows SET status = '2' WHERE idBorrow = '" + (int) table.getValueAt(i, 0) + "'";
-                    try {
-                        Statement stmt = conn.con.createStatement();
-                        int rs = stmt.executeUpdate(query);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+                } else if (statusTemp[i] == 2) {
+                    if (table.getValueAt(i, 6).equals(true)) {
+                        c.updateCashMemberAfterApprovalBorrowing(member, borrowPrice, status);
                     }
                 }
+                c.updateBorrowStatus((int) table.getValueAt(i, 0), status);
             }
             JOptionPane.showMessageDialog(null, "Updated!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();

@@ -738,4 +738,85 @@ public class Controller {
         }
         return borrows;
     }
+    
+    public void updateCashMemberAfterApprovalBorrowing(Member member, int price, boolean approval) {
+        if (price != 0) {
+            int cash, debt, idUser = member.getIdUser();
+            String query;
+            cash = member.getCash();
+            debt = member.getDebt();
+            if (approval) {
+                if (cash >= price) {
+                    System.out.println("a");
+                    cash -= price;
+                    query = "UPDATE users SET cash = '" + cash + "' WHERE idUser = '" + idUser + "'";
+                    member.setCash(cash);
+                    try {
+                        Statement stmt = conn.con.createStatement();
+                        stmt.executeUpdate(query);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("b");
+                    debt += (price - cash);
+                    query = "UPDATE users SET cash = 0, debt = '" + debt + "' WHERE idUser = '" + idUser + "'";
+                    member.setDebt(debt);
+                    member.setCash(0);
+                    try {
+                        Statement stmt = conn.con.createStatement();
+                        stmt.executeUpdate(query);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                if (debt >= price) {
+                    System.out.println("c");
+                    debt -= price;
+                    query = "UPDATE users SET debt = '" + debt + "' WHERE idUser = '" + idUser + "'";
+                    member.setDebt(debt);
+                    try {
+                        Statement stmt = conn.con.createStatement();
+                        stmt.executeUpdate(query);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("d");
+                    cash += (price - debt);
+                    query = "UPDATE users SET debt = 0, cash = '" + cash + "' WHERE idUser = '" + idUser + "'";
+                    member.setCash(cash);
+                    member.setDebt(0);
+                    try {
+                        Statement stmt = conn.con.createStatement();
+                        stmt.executeUpdate(query);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    public void updateBorrowStatus(int idBorrow, boolean status) {
+        if (status) {
+            String query = "UPDATE borrows SET status = '0' WHERE idBorrow = '" + idBorrow + "'";
+            try {
+                Statement stmt = conn.con.createStatement();
+                int rs = stmt.executeUpdate(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            String query = "UPDATE borrows SET status = '2' WHERE idBorrow = '" + idBorrow + "'";
+            try {
+                Statement stmt = conn.con.createStatement();
+                int rs = stmt.executeUpdate(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
