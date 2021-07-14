@@ -17,7 +17,7 @@ public class BorrowBook {
     JTable table;
     DefaultTableModel model;
     JScrollPane sp;
-    JLabel labelBorrowDays, labelSearch;
+    JLabel labelBorrowDays, labelOrder, labelSearch;
     JTextField textFieldSearch;
     JSpinner spinner;
     JButton btnBorrow, btnAscending, btnDescending, btnBack, btnTitle, btnAuthor, btnGenre, btnYear;
@@ -147,6 +147,8 @@ public class BorrowBook {
         //Label
         labelBorrowDays = new JLabel("Lama pinjam :                             hari");
         labelBorrowDays.setBounds(20, 330, 200, 20);
+        labelOrder = new JLabel("Urutkan judul secara : ");
+        labelOrder.setBounds(20, 365, 200, 20);
         labelSearch = new JLabel("Filter :");
         labelSearch.setBounds(520, 330, 40, 20);
         
@@ -190,7 +192,7 @@ public class BorrowBook {
         });
         
         btnAscending = new JButton("Ascending");
-        btnAscending.setBounds(20, 360, 150, 30);
+        btnAscending.setBounds(160, 360, 105, 30);
         btnAscending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -227,7 +229,7 @@ public class BorrowBook {
         });
         
         btnDescending = new JButton("Descending");
-        btnDescending.setBounds(180, 360, 150, 30);
+        btnDescending.setBounds(280, 360, 105, 30);
         btnDescending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -430,6 +432,7 @@ public class BorrowBook {
         panel1.add(sp);
         panel1.add(textFieldSearch);
         panel1.add(labelBorrowDays);
+        panel1.add(labelOrder);
         panel1.add(labelSearch);
         panel1.add(spinner);
         panel1.add(btnBorrow);

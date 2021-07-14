@@ -14,6 +14,7 @@ public class TopUpApproval {
     JLabel labelName, labelCash;
     JTextField textFieldCash;
     JComboBox comboMembers;
+    JButton btnSave, btnBack;
     int idUser = 0;
 
     public TopUpApproval() {
@@ -24,13 +25,13 @@ public class TopUpApproval {
         Admin admin = UserManager.getInstance().getAdmin();
         
         frame = new DefaultFrameSetting().defaultFrame();
-        frame.setSize(300, 200);
+        frame.setSize(300, 210);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Perpustakaan ITHB - Admin Top Up");
         
         panel1 = new DefaultFrameSetting().defaultPanel();
         panel1 = new DefaultFrameSetting().defaultPanel();
-        panel1.setSize(300, 200);
+        panel1.setSize(300, 210);
         panel1.setBackground(new Color(255, 234, 202));
         panel1.setVisible(true);
         
@@ -38,7 +39,7 @@ public class TopUpApproval {
         labelName.setBounds(20, 20, 100, 20);
         
         comboMembers = comboMembers();
-        comboMembers.setBounds(20, 60, 250, 20);
+        comboMembers.setBounds(20, 50, 250, 20);
         comboMembers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,13 +49,13 @@ public class TopUpApproval {
         });
         
         labelCash = new JLabel("Jumlah saldo : ");
-        labelCash.setBounds(20, 90, 100, 30);
+        labelCash.setBounds(20, 75, 100, 40);
         
         textFieldCash = new JTextField();
-        textFieldCash.setBounds(130, 90, 100, 30);
+        textFieldCash.setBounds(130, 80, 140, 30);
         
-        JButton btnSave = new JButton("Simpan");
-        btnSave.setBounds(20, 130, 100, 30);
+        btnSave = new JButton("Simpan");
+        btnSave.setBounds(20, 120, 120, 30);
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,11 +74,23 @@ public class TopUpApproval {
             }
         });
         
+        btnBack = new JButton("Kembali");
+        btnBack.setBounds(150, 120, 120, 30);
+        btnBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                new OutputInfo().backToPreviousMenu();
+                new ApprovalMenu();
+            }
+        });
+        
         panel1.add(labelName);
         panel1.add(comboMembers);
         panel1.add(labelCash);
         panel1.add(textFieldCash);
         panel1.add(btnSave);
+        panel1.add(btnBack);
         frame.add(panel1);
     }
     
@@ -86,7 +99,7 @@ public class TopUpApproval {
         //create list book at a library
         String[] members = new String[admin.getMembers().size()];
         for (int i = 0; i < members.length; i++) {
-            members[i] = c.getAllMembers(admin.getIdBranch()).get(i).getFirstName()+" "+c.getAllMembers(admin.getIdBranch()).get(i).getLastName();
+            members[i] = c.getAllMembersOrdered(admin.getIdBranch(), "ASC").get(i).getFirstName()+" "+c.getAllMembersOrdered(admin.getIdBranch(), "ASC").get(i).getLastName();
         }
 
         //create combobox for list title

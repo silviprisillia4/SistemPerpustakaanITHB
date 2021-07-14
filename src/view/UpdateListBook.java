@@ -11,7 +11,7 @@ public class UpdateListBook {
         JPanel background = new DefaultFrameSetting().defaultPanel();
         JButton updateBook = new JButton("Update Data Buku");
         JButton addBook = new JButton("Tambah Buku Baru");
-        JButton exit = new JButton("Back to Admin Menu");
+        JButton exit = new JButton("Kembali");
 
         //set components position
         updateBook.setBounds(50, 50, 200, 50);

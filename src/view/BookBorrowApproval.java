@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 import controller.DatabaseHandler;
 import controller.TableHandler;
@@ -21,10 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 
-/**
- *
- * @author yen
- */
 public class BookBorrowApproval {
     
     public BookBorrowApproval(int id) {

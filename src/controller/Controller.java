@@ -186,6 +186,34 @@ public class Controller {
         }
         return members;
     }
+    
+    public ArrayList<Member> getAllMembersOrdered(int idBranch, String order) {
+        ArrayList<Member> members = new ArrayList<>();
+        String query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.MEMBER + "' && idbranch = '" + idBranch + "' ORDER BY firstName "+order;
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Member member = new Member();
+                member.setAddress(rs.getString("address"));
+                member.setCash(rs.getInt("cash"));
+                member.setDebt(rs.getInt("debt"));
+                member.setEmail(rs.getString("email"));
+                member.setFirstName(rs.getString("firstname"));
+                member.setLastName(rs.getString("lastname"));
+                member.setPhoneNumber(rs.getString("phonenumber"));
+                member.setIdBranch(rs.getInt("idbranch"));
+                member.setType(UserTypeEnum.MEMBER);
+                member.setPassword(rs.getString("password"));
+                member.setIdUser(rs.getInt("iduser"));
+                member.setBorrows(getAllBorrowList(rs.getInt("idUser"), 0));
+                members.add(member);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return members;
+    }
 
     public ArrayList<Borrowing> getAllBorrowList(int id, int condition) {
         ArrayList<Borrowing> borrows = new ArrayList<>();
