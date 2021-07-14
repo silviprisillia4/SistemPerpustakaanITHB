@@ -1,7 +1,7 @@
 package view;
 
+import controller.Controller;
 import controller.DatabaseHandler;
-import controller.TableHandler;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,8 +60,8 @@ public class BookBorrowApproval {
         table = new JTable(model);
         
         //ArrayList
-        TableHandler t = new TableHandler();
-        ArrayList<Borrowing> borrows = t.getBorrowArrayList(id);
+        Controller c = new Controller();
+        ArrayList<Borrowing> borrows = c.getBorrowArrayList(id);
         
         //Looping Data to Table
         for (int i = 0; i < borrows.size(); i++) {
