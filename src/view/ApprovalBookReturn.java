@@ -67,7 +67,7 @@ public class ApprovalBookReturn {
                             counterNotChecked++;
                         }
                     }
-                    if (counterNotChecked > 0) {
+                    if (counterNotChecked == tModel.getRowCount()) {
                         new ErrorMessages().showErrorNoReturnSelected();
                     } else {
                         new OutputInfo().infoApprovePengembalian(true);
