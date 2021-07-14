@@ -70,6 +70,7 @@ public class ApprovalBookReturn {
                     if (counterNotChecked == tModel.getRowCount()) {
                         new ErrorMessages().showErrorNoReturnSelected();
                     } else {
+                        UserManager.getInstance().getAdmin().setMembers(c.getAllMembers(UserManager.getInstance().getAdmin().getIdBranch()));
                         new OutputInfo().infoApprovePengembalian(true);
                         frame.setVisible(false);
                         new AdminMenu();
