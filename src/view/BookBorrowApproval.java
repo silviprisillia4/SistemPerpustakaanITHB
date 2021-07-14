@@ -32,8 +32,8 @@ public class BookBorrowApproval {
     }
     
     private void createApprovalScreen(int id) {
-        JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
+        JFrame frame = new DefaultFrameSetting().defaultFrame();
+        JPanel panel = new DefaultFrameSetting().defaultPanel();
         
         TableHandler h = new TableHandler();        
         String[][] data = h.getBorrowsData(id);

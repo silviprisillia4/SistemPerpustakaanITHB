@@ -48,6 +48,7 @@ public class TopUp {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
+                new OutputInfo().backToPreviousMenu();
                 new Profile();
             }
         });

@@ -25,7 +25,7 @@ public class MainScreen {
             branchComboBox.addItem(branchesCity.get(i));
         }
         
-        JLabel branchLabel = new JLabel("Pilih Cabang:");
+        JLabel branchLabel = new JLabel("Pilih Cabang :");
         branchLabel.setBounds(10, 10, 90, 20);
         branchLabel.add(branchComboBox);
         
@@ -153,7 +153,7 @@ public class MainScreen {
         registerFrame.add(phoneFieldRegister); registerFrame.add(phoneLabelRegister);
         registerFrame.add(registerButton2); registerFrame.add(backButton);
         
-        registerFrame.setTitle("Register - Sistem Perpustakaan");
+        registerFrame.setTitle("Perpustakaan ITHB - Register");
         registerFrame.setSize(360, 320);
         registerFrame.getContentPane().setBackground(new Color(255, 228, 189));
         registerFrame.setLocationRelativeTo(null);
@@ -203,7 +203,7 @@ public class MainScreen {
         loginFrame.add(passFieldLogin); loginFrame.add(passLabelLogin);
         loginFrame.add(loginButton2); loginFrame.add(backButton2);
         
-        loginFrame.setTitle("Login - Sistem Perpustakaan");
+        loginFrame.setTitle("Perpustakaan ITHB - Login");
         loginFrame.setSize(330, 170);
         loginFrame.getContentPane().setBackground(new Color(255, 228, 189));
         loginFrame.setLocationRelativeTo(null);

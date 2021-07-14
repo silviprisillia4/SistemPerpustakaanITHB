@@ -34,13 +34,13 @@ public class BorrowBook {
 
         //Frame
         frame = new DefaultFrameSetting().defaultFrame();
-        frame.setSize(800, 490);
+        frame.setSize(800, 530);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Perpustakaan ITHB - Pinjam Buku");
         
         //Panel
         panel1 = new DefaultFrameSetting().defaultPanel();
-        panel1.setSize(800, 490);
+        panel1.setSize(800, 530);
         panel1.setBackground(new Color(255, 234, 202));
         panel1.setVisible(true);
         
@@ -157,7 +157,7 @@ public class BorrowBook {
         
         //Button
         btnBorrow = new JButton("Pinjam");
-        btnBorrow.setBounds(20, 360, 80, 30);
+        btnBorrow.setBounds(20, 400, 750, 30);
         btnBorrow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -190,7 +190,7 @@ public class BorrowBook {
         });
         
         btnAscending = new JButton("Ascending");
-        btnAscending.setBounds(110, 360, 110, 30);
+        btnAscending.setBounds(20, 360, 150, 30);
         btnAscending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -227,7 +227,7 @@ public class BorrowBook {
         });
         
         btnDescending = new JButton("Descending");
-        btnDescending.setBounds(230, 360, 110, 30);
+        btnDescending.setBounds(180, 360, 150, 30);
         btnDescending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -264,11 +264,12 @@ public class BorrowBook {
         });
         
         btnBack = new JButton("Kembali");
-        btnBack.setBounds(20, 400, 750, 30);
+        btnBack.setBounds(20, 440, 750, 30);
         btnBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
+                new OutputInfo().backToPreviousMenu();
                 new MemberMenu();
             }
         });

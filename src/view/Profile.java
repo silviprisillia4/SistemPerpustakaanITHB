@@ -1,5 +1,5 @@
 package view;
-import controller.Controller;
+import controller.*;
 import model.*;
 import javax.swing.*;
 import java.awt.Color;
@@ -118,6 +118,7 @@ public class Profile {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
+                new OutputInfo().backToPreviousMenu();
                 new MemberMenu();
             }
         });
@@ -156,9 +157,9 @@ public class Profile {
         table.getColumnModel().getColumn(4).setPreferredWidth(1000);
         table.getColumnModel().getColumn(5).setPreferredWidth(1000);
         
-        table.setBounds(0, 0, 500, 170); 
+        table.setBounds(0, 0, 500, 450); 
         JScrollPane sp = new JScrollPane(table);
-        sp.setBounds(0, 0, 500, 170);
+        sp.setBounds(0, 0, 500, 450);
         
         //Add
         panel1.add(labelId);
