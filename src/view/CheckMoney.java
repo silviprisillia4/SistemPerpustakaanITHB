@@ -94,7 +94,7 @@ public class CheckMoney {
 
         //make table data
         for (int i = 0; i < members.size(); i++) {
-            if (members.get(i).getApproved() != 1) {
+            if (members.get(i).getApproved() == 1) {
                 Object[] datum = new Object[3];
                 datum[0] = "Pendaftaran dari " + members.get(i).getFirstName() + " " + members.get(i).getLastName();
                 datum[1] = "(+) " + priceFormat.format(50000);

@@ -179,6 +179,7 @@ public class Controller {
                 member.setPassword(rs.getString("password"));
                 member.setIdUser(rs.getInt("iduser"));
                 member.setBorrows(getAllBorrowList(rs.getInt("idUser"), 0));
+                member.setApproved(rs.getInt("approved"));
                 members.add(member);
             }
         } catch (SQLException e) {
