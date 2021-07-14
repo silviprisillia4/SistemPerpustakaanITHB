@@ -130,9 +130,12 @@ public class AddABook {
         checkPaid.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (checkPaid.isSelected()) {
-                    checkPaid.setEnabled(false);
                     paid.setVisible(true);
                     inputPaid.setVisible(true);
+                } else {
+                    inputPaid.setText("");
+                    paid.setVisible(false);
+                    inputPaid.setVisible(false);
                 }
             }
         });
@@ -197,7 +200,7 @@ public class AddABook {
                         } else {
                             new OutputInfo().successAddNewBook(book.getTitle(), state);
                         }
-                    } else if ((!checkPaid.isSelected()) && "".equals(inputPaid.getText()) ){
+                    } else if ((!checkPaid.isSelected())) {
                         book.setBorrowPrice(0);
                         book.setPages(Integer.parseInt(inputPages.getText()));
                         book.setYear(Integer.parseInt(inputYear.getText()));
