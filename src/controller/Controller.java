@@ -419,6 +419,7 @@ public class Controller {
 
     public boolean topUpByAdmin(int idUser, int saldo) {
         boolean isSuccess = false;
+        boolean isValid = false;
         int totalCash = 0;
         int totalDebt = 0;
         String query = "SELECT * FROM users WHERE idUser = '" + idUser + "'";
@@ -426,34 +427,48 @@ public class Controller {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                totalCash = rs.getInt("cash");
-                totalDebt = rs.getInt("debt");
+                if (rs.getInt("status") == 1) {
+                    isValid = true;
+                }
             }
-            isSuccess = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //hitung total cash user
-        totalCash += saldo;
+        
+        if (isValid) {
+            try {
+                Statement stmt = conn.con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    totalCash = rs.getInt("cash");
+                    totalDebt = rs.getInt("debt");
+                }
+                isSuccess = true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            //hitung total cash user
+            totalCash += saldo;
 
-        //cek cash dan debt
-        if (totalDebt != 0) {
-            if (totalCash >= totalDebt) {
-                totalCash -= totalDebt;
-                query = "UPDATE users SET cash = '" + totalCash + "', debt = '0' WHERE idUser = '" + idUser + "'";
+            //cek cash dan debt
+            if (totalDebt != 0) {
+                if (totalCash >= totalDebt) {
+                    totalCash -= totalDebt;
+                    query = "UPDATE users SET cash = '" + totalCash + "', debt = '0' WHERE idUser = '" + idUser + "'";
+                } else {
+                    totalDebt -= totalCash;
+                    query = "UPDATE users SET cash = '0', debt = '" + totalDebt + "' WHERE idUser = '" + idUser + "'";
+                }
             } else {
-                totalDebt -= totalCash;
-                query = "UPDATE users SET cash = '0', debt = '" + totalDebt + "' WHERE idUser = '" + idUser + "'";
+                query = "UPDATE users SET cash = '" + totalCash + "' WHERE idUser = '" + idUser + "'";
             }
-        } else {
-            query = "UPDATE users SET cash = '" + totalCash + "' WHERE idUser = '" + idUser + "'";
-        }
-        try {
-            Statement stmt = conn.con.createStatement();
-            stmt.executeUpdate(query);
-            isSuccess = true;
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                Statement stmt = conn.con.createStatement();
+                stmt.executeUpdate(query);
+                isSuccess = true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return isSuccess;
     }
