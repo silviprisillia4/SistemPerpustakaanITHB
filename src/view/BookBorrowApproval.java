@@ -15,40 +15,40 @@ import model.Member;
 import model.UserManager;
 
 public class BookBorrowApproval {
-
+    
     JFrame frame;
     JPanel panel;
     JTable table;
     DefaultTableModel model;
     JScrollPane sp;
-
+    
     public BookBorrowApproval(int id) {
         createApprovalScreen(id);
     }
-
+    
     private void createApprovalScreen(int id) {
-
+        
         // Frame
         frame = new DefaultFrameSetting().defaultFrame();
         frame.setTitle("Perpustakaan ITHB - Persetujuan Pinjaman");
         frame.setSize(1120, 600);
         frame.setLocationRelativeTo(null);
-
+        
         // Panel
         panel = new DefaultFrameSetting().defaultPanel();
         panel.setSize(1120, 600);
         panel.setVisible(true);
-
+        
         //Table
         model = new DefaultTableModel() {
             @Override
             public Class getColumnClass(int columnIndex) {
-                switch (columnIndex) {
-                    case 3:
+                switch(columnIndex) {
+                    case 3 :
                         return Date.class;
                     case 6:
                         return Boolean.class;
-                    default:
+                    default :
                         return Integer.class;
                 }
             }
@@ -61,11 +61,12 @@ public class BookBorrowApproval {
         model.addColumn("Total Harga");
         model.addColumn("Approval");
         table = new JTable(model);
-
+        
         //ArrayList
         Controller c = new Controller();
         ArrayList<Borrowing> borrows = c.getBorrowArrayList(id);
-
+        int[] statusTemp = new int[borrows.size()];
+        
         //Looping Data to Table
         for (int i = 0; i < borrows.size(); i++) {
             Borrowing current = borrows.get(i);
@@ -76,15 +77,17 @@ public class BookBorrowApproval {
             addBorrows[3] = current.getDate();
             addBorrows[4] = current.getBorrowDays();
             addBorrows[5] = current.getPriceTotal();
-            if (current.getStatus() == 2) {
+            if (current.getStatus()== 2) {
+                statusTemp[i] = 2;
                 addBorrows[6] = false;
             } else if (current.getStatus() == 0) {
+                statusTemp[i] = 0;
                 addBorrows[6] = true;
             }
-            model = (DefaultTableModel) table.getModel();
+            model = (DefaultTableModel)table.getModel();
             model.addRow(addBorrows);
         }
-
+        
         //Set Column Size
         table.getColumnModel().getColumn(0).setPreferredWidth(100);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -93,11 +96,11 @@ public class BookBorrowApproval {
         table.getColumnModel().getColumn(4).setPreferredWidth(200);
         table.getColumnModel().getColumn(5).setPreferredWidth(300);
         table.getColumnModel().getColumn(6).setPreferredWidth(100);
-
+        
         table.setBounds(20, 20, 1065, 500);
         sp = new JScrollPane(table);
         sp.setBounds(20, 20, 1065, 500);
-
+        
         // Set OK Button
         JButton ok = new JButton("Update");
         ok.setBounds(920, 530, 150, 20);
@@ -105,6 +108,7 @@ public class BookBorrowApproval {
             DatabaseHandler conn = new DatabaseHandler();
             conn.connect();
             int idUser = 0;
+            
             for (int i = 0; i < table.getRowCount(); i++) {
                 String query = "SELECT * FROM borrows WHERE idBorrow = '" + (int) table.getValueAt(i, 0) + "'";
                 try {
@@ -121,27 +125,19 @@ public class BookBorrowApproval {
                     Member member = UserManager.getInstance().getAdmin().getMembers().get(j);
                     if (member.getIdUser() == idUser) {
                         Boolean status = (Boolean) table.getValueAt(i, 6);
-                        if (status) {
-                            query = "UPDATE borrows SET status = '0' WHERE idBorrow = '" + (int) table.getValueAt(i, 0) + "'";
-//                            c.updateCashMemberAfterApprovalBorrowing(member, (int) table.getValueAt(i,5), true);
-                            try {
-                                Statement stmt = conn.con.createStatement();
-                                stmt.executeUpdate(query);
-                                member.setBorrows(c.getAllBorrowList(member.getIdUser(), 0));
-                            } catch (SQLException e) {
-                                e.printStackTrace();
+                        Member newMember = c.getAMember((int) table.getValueAt(i, 2));
+                        int borrowPrice = c.getABook((int) table.getValueAt(i, 1)).getBorrowPrice();
+                        if (statusTemp[i] == 0) {
+                            if (table.getValueAt(i, 6).equals(false)) {
+                                c.updateCashMemberAfterApprovalBorrowing(newMember, borrowPrice, status);
                             }
-                        } else {
-                            query = "UPDATE borrows SET status = '2' WHERE idBorrow = '" + (int) table.getValueAt(i, 0) + "'";
-//                            c.updateCashMemberAfterApprovalBorrowing(member, (int) table.getValueAt(i,5), false);
-                            try {
-                                Statement stmt = conn.con.createStatement();
-                                stmt.executeUpdate(query);
-                                member.setBorrows(c.getAllBorrowList(member.getIdUser(), 0));
-                            } catch (SQLException e) {
-                                e.printStackTrace();
+                        } else if (statusTemp[i] == 2) {
+                            if (table.getValueAt(i, 6).equals(true)) {
+                                c.updateCashMemberAfterApprovalBorrowing(newMember, borrowPrice, status);
                             }
                         }
+                        member.setBorrows(c.getAllBorrowList(member.getIdUser(), 0));
+                        c.updateBorrowStatus((int) table.getValueAt(i, 0), status);
                     }
                 }
             }
@@ -150,7 +146,7 @@ public class BookBorrowApproval {
             new ApprovalMenu();
         });
         frame.add(ok);
-
+        
         // Set Back Button
         JButton back = new JButton("Kembali");
         back.setBounds(750, 530, 150, 20);
@@ -159,7 +155,7 @@ public class BookBorrowApproval {
             new ApprovalMenu();
         });
         frame.add(back);
-
+        
         //Add
         panel.add(sp);
         frame.add(panel);
