@@ -11,7 +11,12 @@ public class UpdateBookMenu {
 
     Controller c = new Controller();
     JFrame frame;
-    JPanel panel;
+    JPanel panel, background;
+    JComboBox comboTitle;
+    JLabel paid, label;
+    JTextField inputPaid;
+    JCheckBox checkPaid;
+    JButton addBook, exit;
 
     public UpdateBookMenu() {
         updateABook();
@@ -22,12 +27,12 @@ public class UpdateBookMenu {
 
         //declare components
         frame = new DefaultFrameSetting().defaultFrame();
-        JPanel background = new DefaultFrameSetting().defaultPanel();
+        background = new DefaultFrameSetting().defaultPanel();
         panel = new DefaultFrameSetting().defaultPanel();
         panel.setSize(500, 650);
-        JButton exit = new JButton("Kembali");
-        JComboBox comboTitle = comboBooksTitle();
-        JLabel label = new JLabel("Judul : ");
+        exit = new JButton("Kembali");
+        comboTitle = comboBooksTitle();
+        label = new JLabel("Judul : ");
 
         //add components to panel
         panel = changeBookData(admin.getBooks().get(0), 0);
@@ -82,11 +87,11 @@ public class UpdateBookMenu {
     public JPanel changeBookData(PaidBook book, int index) {
         //declare components
         panel = book.printBookData(panel);
-        JLabel paid = new JLabel("Harga Pinjam Buku : ");
-        JTextField inputPaid = new JTextField();
-        JCheckBox checkPaid = new JCheckBox("Buku berbayar");
-        JButton addBook = new JButton("Update");
-        
+        paid = new JLabel("Harga Pinjam Buku : ");
+        inputPaid = new JTextField();
+        checkPaid = new JCheckBox("Buku berbayar");
+        addBook = new JButton("Update");
+
         //set component size
         paid.setBounds(30, 440, 130, 30);
         inputPaid.setBounds(200, 440, 250, 30);
@@ -96,7 +101,7 @@ public class UpdateBookMenu {
         paid.setVisible(false);
         inputPaid.setText(String.valueOf(((PaidBook) book).getBorrowPrice()));
         inputPaid.setVisible(false);
-        
+
         //set component background
         checkPaid.setBackground(new Color(255, 234, 202));
 
@@ -140,7 +145,7 @@ public class UpdateBookMenu {
         panel.add(paid);
         panel.add(inputPaid);
         panel.add(addBook);
-        
+
         //set frame size
         return panel;
     }
@@ -154,7 +159,7 @@ public class UpdateBookMenu {
         }
 
         //create combobox for list title
-        JComboBox comboTitle = new JComboBox(title);
+        comboTitle = new JComboBox(title);
 
         return comboTitle;
     }

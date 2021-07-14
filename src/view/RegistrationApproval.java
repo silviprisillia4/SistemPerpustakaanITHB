@@ -17,6 +17,7 @@ public class RegistrationApproval {
     JTable table;
     DefaultTableModel model;
     JScrollPane sp;
+    JButton ok, back;
     
     public RegistrationApproval(int id) {
         createApprovalScreen(id);
@@ -99,7 +100,7 @@ public class RegistrationApproval {
         sp.setBounds(20, 20, 1205, 500);
         
         // Set OK Button
-        JButton ok = new JButton("Update");
+        ok = new JButton("Update");
         ok.setBounds(1070, 530, 150, 20);
         ok.addActionListener((ActionEvent event) -> {
             DatabaseHandler conn = new DatabaseHandler();
@@ -132,7 +133,7 @@ public class RegistrationApproval {
         frame.add(ok);
         
         // Set Back Button
-        JButton back = new JButton("Kembali");
+        back = new JButton("Kembali");
         back.setBounds(900, 530, 150, 20);
         back.addActionListener((ActionEvent event) -> {
             frame.dispose();

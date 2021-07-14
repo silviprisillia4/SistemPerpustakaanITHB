@@ -21,6 +21,7 @@ public class BorrowBook {
     JLabel labelBorrowDays, labelOrder, labelSearch;
     JTextField textFieldSearch;
     JSpinner spinner;
+    SpinnerModel value;
     JButton btnBorrow, btnAscending, btnDescending, btnBack, btnTitle, btnAuthor, btnGenre, btnYear;
     ArrayList<Integer> listCheckedBook = new ArrayList<>();
     ArrayList<PaidBook> booksByTitle = new ArrayList<>();
@@ -124,7 +125,7 @@ public class BorrowBook {
         labelSearch.setBounds(520, 330, 40, 20);
 
         // Spinner
-        SpinnerModel value = new SpinnerNumberModel(1, 1, 7, 1);
+        value = new SpinnerNumberModel(1, 1, 7, 1);
         spinner = new JSpinner(value);
         spinner.setBounds(120, 330, 50, 20);
 

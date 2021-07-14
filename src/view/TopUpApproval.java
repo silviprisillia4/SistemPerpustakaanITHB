@@ -103,7 +103,7 @@ public class TopUpApproval {
         }
 
         //create combobox for list title
-        JComboBox comboMembers = new JComboBox(members);
+        comboMembers = new JComboBox(members);
 
         return comboMembers;
     }

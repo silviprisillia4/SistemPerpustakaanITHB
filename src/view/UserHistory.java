@@ -10,6 +10,13 @@ import java.util.ArrayList;
 public class UserHistory {
     
     Controller c = new Controller();
+    JFrame frame;
+    JPanel background, panel;
+    JButton exit;
+    DefaultTableModel tableModel;
+    JTable table;
+    JScrollPane sp;
+    JLabel info, horror, fantasi, sciFi, roman, komedi, misteri, petualangan, biografi, ensiklopedia, jurnal, kamus, filsafat, sejarah, psikologi, others;
     
     public UserHistory() {
         showUserHistory();
@@ -17,9 +24,9 @@ public class UserHistory {
     
     public void showUserHistory() {        
         //declare components
-        JFrame frame = new DefaultFrameSetting().defaultFrame();
-        JPanel background = new DefaultFrameSetting().defaultPanel();
-        JButton exit = new JButton("Kembali");
+        frame = new DefaultFrameSetting().defaultFrame();
+        background = new DefaultFrameSetting().defaultPanel();
+        exit = new JButton("Kembali");
         
         //set components position
         exit.setBounds(50, 580, 800, 20);
@@ -59,28 +66,28 @@ public class UserHistory {
         
         //declare components
         int[] counterGenre = new int[15];
-        JPanel panel = new DefaultFrameSetting().defaultPanel();
-        ArrayList<Member> listMember = admin.getMembers();
+        panel = new DefaultFrameSetting().defaultPanel();
+        ArrayList<Member>listMember = admin.getMembers();
         String[] column = {"Peminjam", "Buku", "Lama Peminjaman", "Harga Pinjam Buku", "Denda", "Status"};
-        DefaultTableModel tableModel = new DefaultTableModel(column, 0);
-        JTable table = new JTable(tableModel);
-        JScrollPane sp = new JScrollPane();
-        JLabel info = new JLabel("Banyak Peminjaman Berdasar Genre : ");
-        JLabel horror = new JLabel();
-        JLabel fantasi = new JLabel();
-        JLabel sciFi = new JLabel();
-        JLabel roman = new JLabel();
-        JLabel komedi = new JLabel();
-        JLabel misteri = new JLabel();
-        JLabel petualangan = new JLabel();
-        JLabel biografi = new JLabel();
-        JLabel ensiklopedia = new JLabel();
-        JLabel jurnal = new JLabel();
-        JLabel kamus = new JLabel();
-        JLabel filsafat = new JLabel();
-        JLabel sejarah = new JLabel();
-        JLabel psikologi = new JLabel();
-        JLabel others = new JLabel();
+        tableModel = new DefaultTableModel(column, 0);
+        table = new JTable(tableModel);
+        sp = new JScrollPane();
+        info = new JLabel("Banyak Peminjaman Berdasar Genre : ");
+        horror = new JLabel();
+        fantasi = new JLabel();
+        sciFi = new JLabel();
+        roman = new JLabel();
+        komedi = new JLabel();
+        misteri = new JLabel();
+        petualangan = new JLabel();
+        biografi = new JLabel();
+        ensiklopedia = new JLabel();
+        jurnal = new JLabel();
+        kamus = new JLabel();
+        filsafat = new JLabel();
+        sejarah = new JLabel();
+        psikologi = new JLabel();
+        others = new JLabel();
 
 
 

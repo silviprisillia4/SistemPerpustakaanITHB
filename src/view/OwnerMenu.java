@@ -1,4 +1,5 @@
 package view;
+
 import model.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -12,22 +13,29 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class OwnerMenu {
-    
+
+    JFrame frame;
+    JPanel background, panel1, panel2, panel3;
+    JLabel label1;
+    JTabbedPane header;
+    JButton exit;
+    JComboBox cb, comboBranch;
+
     public OwnerMenu() {
         //declare components
-        JFrame frame = new DefaultFrameSetting().defaultFrame();
-        JPanel background = new DefaultFrameSetting().defaultPanel();
-        JPanel panel1 = new DefaultFrameSetting().defaultPanel();
-        JLabel label1 = new JLabel("PilihCabang : ");
-        JPanel panel3 = new DefaultFrameSetting().defaultPanel();
-        JPanel panel2 = new DefaultFrameSetting().defaultPanel();
-        JTabbedPane header = new JTabbedPane();
-        JButton exit = new JButton("Log Out");
-        JComboBox cb = chooseBranchMenu();
+        frame = new DefaultFrameSetting().defaultFrame();
+        background = new DefaultFrameSetting().defaultPanel();
+        panel1 = new DefaultFrameSetting().defaultPanel();
+        label1 = new JLabel("PilihCabang : ");
+        panel3 = new DefaultFrameSetting().defaultPanel();
+        panel2 = new DefaultFrameSetting().defaultPanel();
+        header = new JTabbedPane();
+        exit = new JButton("Log Out");
+        cb = chooseBranchMenu();
 
         //set components position
-        label1.setBounds(50,20,90,20);
-        cb.setBounds(150,20,90,20);
+        label1.setBounds(50, 20, 90, 20);
+        cb.setBounds(150, 20, 90, 20);
         header.setBounds(50, 50, 900, 500);
         exit.setBounds(50, 580, 900, 20);
 
@@ -35,7 +43,7 @@ public class OwnerMenu {
         //create panel to show branch money
         panel3.add(new CheckMoney().danaPerpus(1));
         //set check money table size
-        panel3.setSize(850,500);
+        panel3.setSize(850, 500);
         //add panel3 to panel1
         panel1.add(label1);
         panel1.add(cb);
@@ -78,10 +86,10 @@ public class OwnerMenu {
                 UserManager.getInstance().logOut();
                 new MainScreen();
             }
-            
+
         });
         //set background panel
-        background.setSize(1000,680);
+        background.setSize(1000, 680);
         background.setBackground(new Color(255, 234, 202));
 
         //add tabbedpane and button exit to frame
@@ -90,17 +98,17 @@ public class OwnerMenu {
 
         //add panel to frame
         frame.add(background);
-        
+
         //frame set
         frame.setTitle("Perpustakaan ITHB - Menu Owner");
-        
+
         //set frame size
         frame.setSize(1000, 680);
         frame.setLocationRelativeTo(null);
     }
 
     public JComboBox chooseBranchMenu() {
-        
+
         //declare array branch
         ArrayList<String> branch = new controller.Controller().getBranchesCity();
         String[] branches = new String[branch.size()];
@@ -109,7 +117,7 @@ public class OwnerMenu {
         }
 
         //declare combobox
-        JComboBox comboBranch = new JComboBox(branches);
+        comboBranch = new JComboBox(branches);
 
         //declare combobox position
         comboBranch.setBounds(30, 30, 90, 20);

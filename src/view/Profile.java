@@ -14,6 +14,8 @@ public class Profile {
     JTabbedPane tp;
     JButton btnEditProfile, btnChangePassword, btnTopUp, btnBack;
     JTable table;
+    DefaultTableModel model;
+    JScrollPane sp;
     
     public Profile() {
         Member member = UserManager.getInstance().getMember(); 
@@ -82,7 +84,7 @@ public class Profile {
         Controller c = new Controller();
         ArrayList<Borrowing> borrows = c.getAllBorrowList(member.getIdUser(), 2);
         member.setBorrows(borrows); 
-        DefaultTableModel model = new DefaultTableModel();
+        model = new DefaultTableModel();
         model.addColumn("ID Pinjam");
         model.addColumn("ID Buku");
         model.addColumn("Judul");
@@ -114,7 +116,7 @@ public class Profile {
         table.getColumnModel().getColumn(5).setPreferredWidth(1000);
         
         table.setBounds(0, 0, 500, 450); 
-        JScrollPane sp = new JScrollPane(table);
+        sp = new JScrollPane(table);
         sp.setBounds(0, 0, 500, 450);
         
         //Add

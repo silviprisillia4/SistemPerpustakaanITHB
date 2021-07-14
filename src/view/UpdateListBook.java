@@ -1,17 +1,22 @@
 package view;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UpdateListBook {
-    
+
+    JFrame frame;
+    JPanel background;
+    JButton updateBook, addBook, exit;
+
     public UpdateListBook() {
         //declare components
-        JFrame frame = new DefaultFrameSetting().defaultFrame();
-        JPanel background = new DefaultFrameSetting().defaultPanel();
-        JButton updateBook = new JButton("Update Data Buku");
-        JButton addBook = new JButton("Tambah Buku Baru");
-        JButton exit = new JButton("Kembali");
+        frame = new DefaultFrameSetting().defaultFrame();
+        background = new DefaultFrameSetting().defaultPanel();
+        updateBook = new JButton("Update Data Buku");
+        addBook = new JButton("Tambah Buku Baru");
+        exit = new JButton("Kembali");
 
         //set components position
         updateBook.setBounds(50, 50, 200, 50);
@@ -43,7 +48,7 @@ public class UpdateListBook {
 
         });
         //set background panel
-        background.setSize(330,380);
+        background.setSize(330, 380);
 
         //add components to frame
         background.add(exit);
@@ -52,10 +57,10 @@ public class UpdateListBook {
 
         //add panel to frame
         frame.add(background);
-        
+
         //frame set
         frame.setTitle("Perpustakaan ITHB - Menu Edit Buku");
-        
+
         //set frame size
         frame.setSize(330, 380);
         frame.setLocationRelativeTo(null);
