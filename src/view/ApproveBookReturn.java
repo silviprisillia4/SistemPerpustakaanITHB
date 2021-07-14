@@ -67,7 +67,7 @@ public class ApproveBookReturn {
                             counterNotChecked++;
                         }
                     }
-                    if (counterNotChecked == tModel.getRowCount()) {
+                    if (counterNotChecked > 0) {
                         new ErrorMessages().showErrorNoReturnSelected();
                     } else {
                         new OutputInfo().infoApprovePengembalian(true);
@@ -85,6 +85,7 @@ public class ApproveBookReturn {
                 }
 
             });
+            
             //set background panel
             background.setSize(1200, 550);
 

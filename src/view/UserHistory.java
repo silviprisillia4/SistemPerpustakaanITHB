@@ -19,7 +19,7 @@ public class UserHistory {
         //declare components
         JFrame frame = new DefaultFrameSetting().defaultFrame();
         JPanel background = new DefaultFrameSetting().defaultPanel();
-        JButton exit = new JButton("Exit");
+        JButton exit = new JButton("Kembali");
         
         //set components position
         exit.setBounds(50, 580, 800, 20);
@@ -96,7 +96,7 @@ public class UserHistory {
                 datum[5] = borrow.selectBookState(borrow.getStatus());
                 tableModel = (DefaultTableModel) table.getModel();
                 tableModel.addRow(datum);
-                counterGenre = genreCount(counterGenre, borrow.getBook().getGenre());
+                counterGenre = new controller.CounterGenre().genreCount(counterGenre, borrow.getBook().getGenre());
             }
         }
 
@@ -165,56 +165,5 @@ public class UserHistory {
         return panel;
     }
 
-    public int[] genreCount(int[] counterGenre, String genre) {
-        switch (genre) {
-            case "Horror":
-                counterGenre[0]++;
-                break;
-            case "Fantasi":
-                counterGenre[1]++;
-                break;
-            case "Sci-Fi":
-                counterGenre[2]++;
-                break;
-            case "Romantis":
-                counterGenre[3]++;
-                break;
-            case "Komedi":
-                counterGenre[4]++;
-                break;
-            case "Misteri":
-                counterGenre[5]++;
-                break;
-            case "Drama":
-                counterGenre[6]++;
-                break;
-            case "Biografi":
-                counterGenre[7]++;
-                break;
-            case "Ensiklopedia":
-                counterGenre[8]++;
-                break;
-            case "Pengetahuan":
-                counterGenre[9]++;
-                break;
-            case "Kamus":
-                counterGenre[10]++;
-                break;
-            case "Filsafat":
-                counterGenre[11]++;
-                break;
-            case "Sejarah":
-                counterGenre[12]++;
-                break;
-            case "Psikologi":
-                counterGenre[13]++;
-                break;
-            case "Lainnya":
-                counterGenre[14]++;
-                break;
-            default:
-                break;
-        }
-        return counterGenre;
-    }
+    
 }

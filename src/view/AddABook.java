@@ -62,7 +62,7 @@ public class AddABook {
         year.setBounds(30, 440, 130, 30);
         inputTitle.setBounds(200, 30, 330, 30);
         inputAuthor.setBounds(200, 80, 330, 30);
-        inputPublisher.setBounds(200, 140, 330, 30);
+        inputPublisher.setBounds(200, 130, 330, 30);
         inputGenre.setBounds(200, 180, 600, 200);
         inputPages.setBounds(200, 390, 330, 30);
         inputYear.setBounds(200, 440, 330, 30);
