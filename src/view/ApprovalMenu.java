@@ -27,21 +27,21 @@ public class ApprovalMenu {
         mainFrame.setVisible(true);
         
         // ------
-        JButton menu1 = new JButton("Penyetujuan Registrasi");
+        JButton menu1 = new JButton("Persetujuan Registrasi");
         menu1.setBounds(10, 10, 300, 60);
         menu1.addActionListener((ActionEvent e) -> {
             mainFrame.setVisible(false);
             new RegistrationApproval(admin.getIdBranch());
         });
         
-        JButton menu2 = new JButton("Penyetujuan Peminjaman Buku");
+        JButton menu2 = new JButton("Persetujuan Peminjaman Buku");
         menu2.setBounds(10, 80, 300, 60);
         menu2.addActionListener((ActionEvent e) -> {
             mainFrame.setVisible(false);
             new BookBorrowApproval(admin.getIdBranch());
         });
         
-        JButton menu3 = new JButton("Penyetujuan Top Up");
+        JButton menu3 = new JButton("Persetujuan Top Up");
         menu3.setBounds(10, 150, 300, 60);
         menu3.addActionListener((ActionEvent e) -> {
             mainFrame.setVisible(false);
@@ -60,7 +60,7 @@ public class ApprovalMenu {
         mainFrame.add(menu3); mainFrame.add(back1);
         
         //frame set
-        mainFrame.setTitle("Perpustakaan ITHB - Menu Penyetujuan");
+        mainFrame.setTitle("Perpustakaan ITHB - Menu Persetujuan");
         
     }
 }
