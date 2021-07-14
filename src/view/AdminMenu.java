@@ -49,7 +49,7 @@ public class AdminMenu {
         borrowingList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new ApproveBookReturn();
+                new ApprovalBookReturn();
             }
         });
         userHistory.addActionListener(new ActionListener() {

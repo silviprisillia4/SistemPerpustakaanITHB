@@ -10,11 +10,11 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ApproveBookReturn {
+public class ApprovalBookReturn {
 
     Controller c = new Controller();
 
-    public ApproveBookReturn() {
+    public ApprovalBookReturn() {
         showBorrowingList();
     }
 

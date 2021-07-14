@@ -23,7 +23,7 @@ public class UpdateBookMenu {
         frame = new DefaultFrameSetting().defaultFrame();
         JPanel background = new DefaultFrameSetting().defaultPanel();
         JPanel panel = new DefaultFrameSetting().defaultPanel();
-        JButton exit = new JButton("Back");
+        JButton exit = new JButton("Kembali");
         JComboBox comboTitle = comboBooksTitle();
         JLabel label = new JLabel("Judul : ");
 
