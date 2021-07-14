@@ -16,7 +16,7 @@ public class UserHistory {
     DefaultTableModel tableModel;
     JTable table;
     JScrollPane sp;
-    JLabel info, horror, fantasi, sciFi, roman, komedi, misteri, petualangan, biografi, ensiklopedia, jurnal, kamus, filsafat, sejarah, psikologi, others;
+    JLabel info, horror, fantasi, sciFi, roman, komedi, misteri, drama, biografi, ensiklopedia, pengetahuan, kamus, filsafat, sejarah, psikologi, others;
     
     public UserHistory() {
         showUserHistory();
@@ -79,10 +79,10 @@ public class UserHistory {
         roman = new JLabel();
         komedi = new JLabel();
         misteri = new JLabel();
-        petualangan = new JLabel();
+        drama = new JLabel();
         biografi = new JLabel();
         ensiklopedia = new JLabel();
-        jurnal = new JLabel();
+        pengetahuan = new JLabel();
         kamus = new JLabel();
         filsafat = new JLabel();
         sejarah = new JLabel();
@@ -117,10 +117,10 @@ public class UserHistory {
         roman.setBounds(210, 430, 140, 30);
         komedi.setBounds(210, 460, 140, 30);
         misteri.setBounds(210, 490, 140, 30);
-        petualangan.setBounds(370, 430, 140, 30);
+        drama.setBounds(370, 430, 140, 30);
         biografi.setBounds(370, 460, 140, 30);
         ensiklopedia.setBounds(370, 490, 140, 30);
-        jurnal.setBounds(530, 430, 140, 30);
+        pengetahuan.setBounds(530, 430, 140, 30);
         kamus.setBounds(530, 460, 140, 30);
         filsafat.setBounds(530, 490, 140, 30);
         sejarah.setBounds(690, 430, 140, 30);
@@ -138,10 +138,10 @@ public class UserHistory {
         roman.setText("Romantis : " + counterGenre[3]);
         komedi.setText("Komedi : " + counterGenre[4]);
         misteri.setText("Misteri : " + counterGenre[5]);
-        petualangan.setText("Drama : " + counterGenre[6]);
+        drama.setText("Drama : " + counterGenre[6]);
         biografi.setText("Biografi : " + counterGenre[7]);
         ensiklopedia.setText("Ensiklopedia : " + counterGenre[8]);
-        jurnal.setText("Pengetahuan : " + counterGenre[9]);
+        pengetahuan.setText("Pengetahuan : " + counterGenre[9]);
         kamus.setText("Kamus : " + counterGenre[10]);
         filsafat.setText("Filsafat : " + counterGenre[11]);
         sejarah.setText("Sejarah : " + counterGenre[12]);
@@ -155,10 +155,10 @@ public class UserHistory {
         panel.add(roman);
         panel.add(komedi);
         panel.add(misteri);
-        panel.add(petualangan);
+        panel.add(drama);
         panel.add(biografi);
         panel.add(ensiklopedia);
-        panel.add(jurnal);
+        panel.add(pengetahuan);
         panel.add(kamus);
         panel.add(filsafat);
         panel.add(sejarah);

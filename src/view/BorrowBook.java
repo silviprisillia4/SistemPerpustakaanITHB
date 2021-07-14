@@ -8,8 +8,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 public class BorrowBook {
@@ -36,13 +34,13 @@ public class BorrowBook {
 
         // Frame
         frame = new DefaultFrameSetting().defaultFrame();
-        frame.setSize(800, 530);
+        frame.setSize(800, 560);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Perpustakaan ITHB - Pinjam Buku");
 
         // Panel
         panel1 = new DefaultFrameSetting().defaultPanel();
-        panel1.setSize(800, 530);
+        panel1.setSize(800, 560);
         panel1.setBackground(new Color(255, 234, 202));
         panel1.setVisible(true);
 
@@ -120,7 +118,7 @@ public class BorrowBook {
         labelBorrowDays = new JLabel("Lama pinjam :                             hari");
         labelBorrowDays.setBounds(20, 330, 200, 20);
         labelOrder = new JLabel("Urutkan judul secara : ");
-        labelOrder.setBounds(20, 365, 200, 20);
+        labelOrder.setBounds(20, 360, 200, 20);
         labelSearch = new JLabel("Filter :");
         labelSearch.setBounds(520, 330, 40, 20);
 
@@ -131,7 +129,7 @@ public class BorrowBook {
 
         // Button
         btnBorrow = new JButton("Pinjam");
-        btnBorrow.setBounds(20, 400, 750, 30);
+        btnBorrow.setBounds(20, 430, 750, 30);
         btnBorrow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -173,7 +171,7 @@ public class BorrowBook {
         });
 
         btnAscending = new JButton("Ascending");
-        btnAscending.setBounds(160, 360, 105, 30);
+        btnAscending.setBounds(20, 390, 120, 30);
         btnAscending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -210,7 +208,7 @@ public class BorrowBook {
         });
 
         btnDescending = new JButton("Descending");
-        btnDescending.setBounds(280, 360, 105, 30);
+        btnDescending.setBounds(150, 390, 120, 30);
         btnDescending.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -247,7 +245,7 @@ public class BorrowBook {
         });
 
         btnBack = new JButton("Kembali");
-        btnBack.setBounds(20, 440, 750, 30);
+        btnBack.setBounds(20, 470, 750, 30);
         btnBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
