@@ -107,7 +107,7 @@ public class MainScreen {
         rePassLabelRegister.setBounds(10, 190, 110, 20);
         rePassLabelRegister.add(rePassFieldRegister);
         
-        JButton registerButton2 = new JButton("REGISTER");
+        JButton registerButton2 = new JButton("Register");
         registerButton2.setBounds(10, 220, 320, 20);
         registerButton2.addActionListener((ActionEvent e) -> {
             boolean available = c.userRegisterAvailability(selectedBranch, emailFieldRegister.getText());
@@ -137,7 +137,7 @@ public class MainScreen {
             }
         });
         
-        JButton backButton = new JButton("BACK");
+        JButton backButton = new JButton("Kembali");
         backButton.setBounds(10, 250, 320, 20);
         backButton.addActionListener((ActionEvent e) -> {
             registerFrame.dispose();
@@ -176,7 +176,7 @@ public class MainScreen {
         passLabelLogin.setBounds(10, 40, 110, 20);
         passLabelLogin.add(passFieldLogin);
         
-        JButton loginButton2 = new JButton("LOGIN");
+        JButton loginButton2 = new JButton("Login");
         loginButton2.setBounds(10, 70, 290, 20);
         loginButton2.addActionListener((ActionEvent e) -> {
             Controller c = new Controller();
@@ -192,7 +192,7 @@ public class MainScreen {
             }
         });
         
-        JButton backButton2 = new JButton("BACK");
+        JButton backButton2 = new JButton("Kembali");
         backButton2.setBounds(10, 100, 290, 20);
         backButton2.addActionListener((ActionEvent e) -> {
             loginFrame.dispose();

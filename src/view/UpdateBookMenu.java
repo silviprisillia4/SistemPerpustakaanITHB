@@ -11,6 +11,7 @@ public class UpdateBookMenu {
 
     Controller c = new Controller();
     JFrame frame;
+    JPanel panel;
 
     public UpdateBookMenu() {
         updateABook();
@@ -22,13 +23,14 @@ public class UpdateBookMenu {
         //declare components
         frame = new DefaultFrameSetting().defaultFrame();
         JPanel background = new DefaultFrameSetting().defaultPanel();
-        JPanel panel = new DefaultFrameSetting().defaultPanel();
+        panel = new DefaultFrameSetting().defaultPanel();
+        panel.setSize(500, 650);
         JButton exit = new JButton("Kembali");
         JComboBox comboTitle = comboBooksTitle();
         JLabel label = new JLabel("Judul : ");
 
         //add components to panel
-        panel.add(changeBookData(admin.getBooks().get(0), 0));
+        panel = changeBookData(admin.getBooks().get(0), 0);
 
         //set components position
         comboTitle.setBounds(200, 50, 250, 30);
@@ -42,7 +44,7 @@ public class UpdateBookMenu {
             public void actionPerformed(ActionEvent e) {
                 panel.removeAll();
                 panel.setVisible(false);
-                panel.add(changeBookData(admin.getBooks().get(comboTitle.getSelectedIndex()), comboTitle.getSelectedIndex()));
+                panel = changeBookData(admin.getBooks().get(comboTitle.getSelectedIndex()), comboTitle.getSelectedIndex());
                 panel.setVisible(true);
             }
 
@@ -79,53 +81,22 @@ public class UpdateBookMenu {
 
     public JPanel changeBookData(PaidBook book, int index) {
         //declare components
-        JPanel panel = new DefaultFrameSetting().defaultPanel();
-        JLabel author = new JLabel("Penulis : ");
-        JLabel publisher = new JLabel("Penerbit : ");
-        JLabel genre = new JLabel("Genre : ");
-        JLabel pages = new JLabel("Jumlah Halaman : ");
-        JLabel year = new JLabel("Tahun Terbit : ");
+        panel = book.printBookData(panel);
         JLabel paid = new JLabel("Harga Pinjam Buku : ");
-        JTextField inputAuthor = new JTextField();
-        JTextField inputPublisher = new JTextField();
-        JTextField inputGenre = new JTextField();
-        JTextField inputPages = new JTextField();
-        JTextField inputYear = new JTextField();
         JTextField inputPaid = new JTextField();
         JCheckBox checkPaid = new JCheckBox("Buku berbayar");
         JButton addBook = new JButton("Update");
-
-        //set components position
-        author.setBounds(30, 80, 130, 30);
-        publisher.setBounds(30, 140, 130, 30);
-        genre.setBounds(30, 200, 130, 30);
-        pages.setBounds(30, 260, 130, 30);
-        year.setBounds(30, 320, 130, 30);
+        
+        //set component size
         paid.setBounds(30, 440, 130, 30);
-        inputAuthor.setBounds(200, 80, 250, 30);
-        inputPublisher.setBounds(200, 140, 250, 30);
-        inputGenre.setBounds(200, 200, 250, 30);
-        inputPages.setBounds(200, 260, 250, 30);
-        inputYear.setBounds(200, 320, 250, 30);
-        checkPaid.setBounds(30, 380, 150, 30);
         inputPaid.setBounds(200, 440, 250, 30);
+        checkPaid.setBounds(30, 380, 150, 30);
         addBook.setBounds(30, 500, 430, 30);
 
-        //set components
-        inputAuthor.setText(book.getAuthor());
-        inputAuthor.setEnabled(false);
-        inputPublisher.setText(book.getPublisher());
-        inputPublisher.setEnabled(false);
-        inputGenre.setText(book.getGenre());
-        inputGenre.setEnabled(false);
-        inputPages.setText(String.valueOf(book.getPages()));
-        inputPages.setEnabled(false);
-        inputYear.setText(String.valueOf(book.getYear()));
-        inputYear.setEnabled(false);
         paid.setVisible(false);
         inputPaid.setText(String.valueOf(((PaidBook) book).getBorrowPrice()));
         inputPaid.setVisible(false);
-
+        
         //set component background
         checkPaid.setBackground(new Color(255, 234, 202));
 
@@ -164,24 +135,13 @@ public class UpdateBookMenu {
             }
         });
 
-        //add components to frame
-        panel.add(author);
-        panel.add(publisher);
-        panel.add(genre);
-        panel.add(pages);
-        panel.add(year);
+        //add components
         panel.add(checkPaid);
-        panel.add(inputAuthor);
-        panel.add(inputPublisher);
-        panel.add(inputGenre);
-        panel.add(inputPages);
-        panel.add(inputYear);
         panel.add(paid);
         panel.add(inputPaid);
         panel.add(addBook);
-
+        
         //set frame size
-        panel.setSize(500, 650);
         return panel;
     }
 

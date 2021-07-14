@@ -12,8 +12,6 @@ public class Profile {
     JFrame frame;
     JPanel panel1, panel2;
     JTabbedPane tp;
-    JLabel labelId, labelName, labelEmail, labelPassword, labelAddress, labelPhoneNumber, labelCash, labelDebt, labelBranch;
-    JLabel labelDataId, labelDataName, labelDataEmail, labelDataPassword, labelDataAddress, labelDataPhoneNumber, labelDataCash, labelDataDebt, labelDataBranch;
     JButton btnEditProfile, btnChangePassword, btnTopUp, btnBack;
     JTable table;
     
@@ -28,19 +26,15 @@ public class Profile {
         
         //Panel
         panel1 = new DefaultFrameSetting().defaultPanel();
-        panel1 = member.printDataMember();
-        panel1.setSize(500, 450);
+        panel1 = member.printMemberData();
         panel1.setBackground(new Color(255, 234, 202));
         panel2 = new DefaultFrameSetting().defaultPanel();
         panel2.setSize(500, 450);
         panel2.setBackground(new Color(255, 234, 202));
         
-        
         //Tabbed Panes
         tp = new JTabbedPane();  
         tp.setBounds(20, 20, 500, 450);  
-        
-        
         
         //Button
         btnEditProfile = new JButton("Edit Profil");

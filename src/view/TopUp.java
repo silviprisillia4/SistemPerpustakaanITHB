@@ -16,24 +16,24 @@ public class TopUp {
     public TopUp() {
         //Frame
         frame = new DefaultFrameSetting().defaultFrame(); 
-        frame.setSize(350, 230);
+        frame.setSize(360, 230);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Perpustakaan ITHB - Member Top Up");
         
         //Panel
         panel1 = new DefaultFrameSetting().defaultPanel();
-        panel1.setSize(350, 230);
+        panel1.setSize(360, 230);
         panel1.setBackground(new Color(255, 234, 202));
         panel1.setVisible(true);
         
         //Label
         String VA = "00112345678";        
         labelInfo = new JLabel("<html>2 cara top up saldo :<br><br>- Top up mandiri dengan transfer Virtual Account BCA "+VA+"<br><br>- Top up via admin</html>");
-        labelInfo.setBounds(30, 0, 200, 200);
+        labelInfo.setBounds(30, -30, 200, 200);
         
         //Button
         btnCopyText = new JButton("Salin");
-        btnCopyText.setBounds(240, 80, 80, 30);
+        btnCopyText.setBounds(240, 60, 80, 30);
         btnCopyText.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,7 +43,7 @@ public class TopUp {
             }
         });
         btnBack = new JButton("Kembali");
-        btnBack.setBounds(240, 120, 80, 30);
+        btnBack.setBounds(30, 140, 290, 30);
         btnBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

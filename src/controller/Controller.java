@@ -541,7 +541,7 @@ public class Controller {
     }
 
     public boolean updateBookStatusAfterBorrowed(int idBook) {
-        String query = "UPDATE books SET status = 2 WHERE idBook = '" + idBook + "'";
+        String query = "UPDATE books SET status = 0 WHERE idBook = '" + idBook + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
