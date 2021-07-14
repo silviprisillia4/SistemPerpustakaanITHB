@@ -159,7 +159,7 @@ public class Controller {
         if (idBranch == 0) {
             query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.MEMBER + "'";
         } else {
-            query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.MEMBER + "' && idbranch = '" + idBranch + "'";
+            query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.MEMBER + "' && idbranch = '" + idBranch + "' ORDER by firstName ASC";
         }
 
         try {
@@ -455,7 +455,7 @@ public class Controller {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                if (rs.getInt("status") == 1) {
+                if (rs.getInt("approved") == 1) {
                     isValid = true;
                 }
             }
