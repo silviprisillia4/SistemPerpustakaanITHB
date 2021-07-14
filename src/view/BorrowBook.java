@@ -107,13 +107,6 @@ public class BorrowBook {
         table.getColumnModel().getColumn(7).setPreferredWidth(10);
         table.getColumnModel().getColumn(8).setPreferredWidth(2);
 
-        // table.getModel().addTableModelListener(new TableModelListener() {
-        //     @Override
-        //     public void tableChanged(TableModelEvent e) {
-
-        //     }
-        // });
-
         table.setBounds(20, 20, 750, 300);
         sp = new JScrollPane(table);
         sp.setBounds(20, 20, 750, 300);
@@ -147,27 +140,9 @@ public class BorrowBook {
                 for (int i = 0; i < model.getRowCount(); i++) {
                     boolean check = (Boolean) model.getValueAt(i, 8);
                     if (check) {
-                        if (normal) {
-                            listCheckedBook.add((int)model.getValueAt(i, 0));
-                        } else if (ascending) {
-                            listCheckedBook.add((Integer) model.getValueAt(i, 0));
-                        } else if (descending) {
-                            listCheckedBook.add((Integer) model.getValueAt(i, 0));
-                        } else if (title) {
-                            listCheckedBook.add((Integer) model.getValueAt(i, 0));
-                        } else if (author) {
-                            listCheckedBook.add((Integer) model.getValueAt(i, 0));
-                        } else if (genre) {
-                            listCheckedBook.add((Integer) model.getValueAt(i, 0));
-                        } else {
-                            listCheckedBook.add((Integer) model.getValueAt(i, 0));
-                        }
+                        listCheckedBook.add((Integer) model.getValueAt(i, 0));
                     }
                 }
-                for (int i = 0; i < listCheckedBook.size(); i++) {
-                    System.out.println(listCheckedBook.get(i));
-                }
-                System.out.println("======================");
                 String allBooks = "";
                 if (listCheckedBook.size() != 0) {
                     for (int i = 0; i < listCheckedBook.size(); i++) {
