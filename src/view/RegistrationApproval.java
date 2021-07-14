@@ -1,6 +1,6 @@
 package view;
+import controller.Controller;
 import controller.DatabaseHandler;
-import controller.TableHandler;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,8 +60,8 @@ public class RegistrationApproval {
         table = new JTable(model);
         
         //ArrayList
-        TableHandler t = new TableHandler();
-        ArrayList<Member> members = t.getMemberArrayList(id);
+        Controller c = new Controller();
+        ArrayList<Member> members = c.getMemberArrayList(id);
         
         //Looping Data to Table
         for (int i = 0; i < members.size(); i++) {
