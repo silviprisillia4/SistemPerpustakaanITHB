@@ -159,7 +159,7 @@ public class Controller {
         if (idBranch == 0) {
             query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.MEMBER + "'";
         } else {
-            query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.MEMBER + "' && idbranch = '" + idBranch + "'";
+            query = "SELECT * FROM Users WHERE type = '" + UserTypeEnum.MEMBER + "' && idbranch = '" + idBranch + "' ORDER by firstName ASC";
         }
 
         try {
@@ -455,7 +455,7 @@ public class Controller {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                if (rs.getInt("status") == 1) {
+                if (rs.getInt("approved") == 1) {
                     isValid = true;
                 }
             }
@@ -541,7 +541,7 @@ public class Controller {
     }
 
     public boolean updateBookStatusAfterBorrowed(int idBook) {
-        String query = "UPDATE books SET status = 2 WHERE idBook = '" + idBook + "'";
+        String query = "UPDATE books SET status = 0 WHERE idBook = '" + idBook + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -588,21 +588,19 @@ public class Controller {
     }
 
     public void updateUserMoney(int idUser, int fine) {
-        Member member = new Member();
+        Member member = null;
         int cash;
-        String query = "SELECT * FROM users WHERE idUser ='" + idUser + "'";
-        try {
-            Statement stmt = conn.con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                member.setCash(rs.getInt("cash"));
+        String query;
+        for (int i = 0; i < UserManager.getInstance().getAdmin().getMembers().size(); i++) {
+            member = UserManager.getInstance().getAdmin().getMembers().get(i);
+            if (member.getIdUser() == idUser) {
+                break;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         if (member.getCash() >= fine) {
             cash = member.getCash() - fine;
             query = "UPDATE users SET cash = '" + cash + "' WHERE idUser = '" + idUser + "'";
+            member.setCash(cash);
             try {
                 Statement stmt = conn.con.createStatement();
                 stmt.executeUpdate(query);
@@ -612,6 +610,8 @@ public class Controller {
         } else {
             cash = fine - member.getCash();
             query = "UPDATE users SET cash = 0, debt = '" + cash + "' WHERE idUser = '" + idUser + "'";
+            member.setCash(0);
+            member.setDebt(cash);
             try {
                 Statement stmt = conn.con.createStatement();
                 stmt.executeUpdate(query);

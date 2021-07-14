@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 import controller.DatabaseHandler;
 import java.awt.event.ActionEvent;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import model.Borrowing;
 import model.Member;
+import model.UserManager;
 
 public class BookBorrowApproval {
     
@@ -105,20 +107,39 @@ public class BookBorrowApproval {
         ok.addActionListener((ActionEvent event) -> {
             DatabaseHandler conn = new DatabaseHandler();
             conn.connect();
+            int idUser = 0;
+            
             for (int i = 0; i < table.getRowCount(); i++) {
-                Boolean status = (Boolean) table.getValueAt(i, 6);
-                Member member = c.getAMember((int) table.getValueAt(i, 2));
-                int borrowPrice = c.getABook((int) table.getValueAt(i, 1)).getBorrowPrice();
-                if (statusTemp[i] == 0) {
-                    if (table.getValueAt(i, 6).equals(false)) {
-                        c.updateCashMemberAfterApprovalBorrowing(member, borrowPrice, status);
+                String query = "SELECT * FROM borrows WHERE idBorrow = '" + (int) table.getValueAt(i, 0) + "'";
+                try {
+                    Statement stmt = conn.con.createStatement();
+                    ResultSet rs = stmt.executeQuery(query);
+                    while (rs.next()) {
+                        idUser = rs.getInt("idUser");
                     }
-                } else if (statusTemp[i] == 2) {
-                    if (table.getValueAt(i, 6).equals(true)) {
-                        c.updateCashMemberAfterApprovalBorrowing(member, borrowPrice, status);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                for (int j = 0; j < UserManager.getInstance().getAdmin().getMembers().size(); j++) {
+                    Member member = UserManager.getInstance().getAdmin().getMembers().get(j);
+                    if (member.getIdUser() == idUser) {
+                        Boolean status = (Boolean) table.getValueAt(i, 6);
+                        Member newMember = c.getAMember((int) table.getValueAt(i, 2));
+                        int borrowPrice = c.getABook((int) table.getValueAt(i, 1)).getBorrowPrice();
+                        if (statusTemp[i] == 0) {
+                            if (table.getValueAt(i, 6).equals(false)) {
+                                c.updateCashMemberAfterApprovalBorrowing(newMember, borrowPrice, status);
+                            }
+                        } else if (statusTemp[i] == 2) {
+                            if (table.getValueAt(i, 6).equals(true)) {
+                                c.updateCashMemberAfterApprovalBorrowing(newMember, borrowPrice, status);
+                            }
+                        }
+                        member.setBorrows(c.getAllBorrowList(member.getIdUser(), 0));
+                        c.updateBorrowStatus((int) table.getValueAt(i, 0), status);
                     }
                 }
-                c.updateBorrowStatus((int) table.getValueAt(i, 0), status);
             }
             JOptionPane.showMessageDialog(null, "Updated!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();

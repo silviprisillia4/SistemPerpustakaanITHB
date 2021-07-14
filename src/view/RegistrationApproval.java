@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import model.Member;
+import model.UserManager;
 
 public class RegistrationApproval {
     
@@ -122,6 +123,7 @@ public class RegistrationApproval {
                         e.printStackTrace();
                     }
                 }
+                UserManager.getInstance().getAdmin().setMembers(c.getAllMembers(UserManager.getInstance().getAdmin().getIdBranch()));
             }
             JOptionPane.showMessageDialog(null, "Updated!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();

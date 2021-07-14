@@ -1,4 +1,5 @@
 package model;
+import javax.swing.*;
 
 public class Book implements InterfaceBookState, InterfaceBranchCity {
     private int idBook;
@@ -99,8 +100,55 @@ public class Book implements InterfaceBookState, InterfaceBranchCity {
         this.genre = genre;
     }
     
-    public void printDataBuku() {
+    public JPanel printBookData(JPanel panel) {
+        JLabel author = new JLabel("Penulis : ");
+        JLabel publisher = new JLabel("Penerbit : ");
+        JLabel genre = new JLabel("Genre : ");
+        JLabel pages = new JLabel("Jumlah Halaman : ");
+        JLabel year = new JLabel("Tahun Terbit : ");
+        JTextField inputAuthor = new JTextField();
+        JTextField inputPublisher = new JTextField();
+        JTextField inputGenre = new JTextField();
+        JTextField inputPages = new JTextField();
+        JTextField inputYear = new JTextField();
+
+        //set components position
+        author.setBounds(30, 80, 130, 30);
+        publisher.setBounds(30, 140, 130, 30);
+        genre.setBounds(30, 200, 130, 30);
+        pages.setBounds(30, 260, 130, 30);
+        year.setBounds(30, 320, 130, 30);
+        inputAuthor.setBounds(200, 80, 250, 30);
+        inputPublisher.setBounds(200, 140, 250, 30);
+        inputGenre.setBounds(200, 200, 250, 30);
+        inputPages.setBounds(200, 260, 250, 30);
+        inputYear.setBounds(200, 320, 250, 30);
+
+        //set components
+        inputAuthor.setText(this.getAuthor());
+        inputAuthor.setEnabled(false);
+        inputPublisher.setText(this.getPublisher());
+        inputPublisher.setEnabled(false);
+        inputGenre.setText(this.getGenre());
+        inputGenre.setEnabled(false);
+        inputPages.setText(String.valueOf(this.getPages()));
+        inputPages.setEnabled(false);
+        inputYear.setText(String.valueOf(this.getYear()));
+        inputYear.setEnabled(false);
         
+        //add components to frame
+        panel.add(author);
+        panel.add(publisher);
+        panel.add(genre);
+        panel.add(pages);
+        panel.add(year);
+        panel.add(inputAuthor);
+        panel.add(inputPublisher);
+        panel.add(inputGenre);
+        panel.add(inputPages);
+        panel.add(inputYear);
+        
+        return panel;
     }
     
     @Override

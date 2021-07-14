@@ -1,6 +1,5 @@
 package model;
 import java.util.ArrayList;
-import controller.*;
 import javax.swing.*;
 
 public class Member extends User implements InterfaceBranchCity {
@@ -82,9 +81,8 @@ public class Member extends User implements InterfaceBranchCity {
         this.borrows = borrows;
     }
     
-    public JPanel printDataMember() {
-        JPanel panel1 = new JPanel();
-        
+    public JPanel printMemberData() {
+        JPanel panel = new JPanel();
         JLabel labelId, labelName, labelEmail, labelPassword, labelAddress, labelPhoneNumber, labelCash, labelDebt, labelBranch;
         JLabel labelDataId, labelDataName, labelDataEmail, labelDataPassword, labelDataAddress, labelDataPhoneNumber, labelDataCash, labelDataDebt, labelDataBranch;
         
@@ -129,27 +127,28 @@ public class Member extends User implements InterfaceBranchCity {
         labelDataBranch = new JLabel(this.selectBranchCity(this.getIdBranch()));
         labelDataBranch.setBounds(140, 270, 100, 20);
         
-        panel1.add(labelId);
-        panel1.add(labelName);
-        panel1.add(labelEmail);
-        panel1.add(labelPassword);
-        panel1.add(labelAddress);
-        panel1.add(labelPhoneNumber);
-        panel1.add(labelCash);
-        panel1.add(labelDebt);
-        panel1.add(labelBranch);
+        panel.add(labelId);
+        panel.add(labelName);
+        panel.add(labelEmail);
+        panel.add(labelPassword);
+        panel.add(labelAddress);
+        panel.add(labelPhoneNumber);
+        panel.add(labelCash);
+        panel.add(labelDebt);
+        panel.add(labelBranch);
         
-        panel1.add(labelDataId);
-        panel1.add(labelDataName);
-        panel1.add(labelDataEmail);
-        panel1.add(labelDataPassword);
-        panel1.add(labelDataAddress);
-        panel1.add(labelDataPhoneNumber);
-        panel1.add(labelDataCash);
-        panel1.add(labelDataDebt);
-        panel1.add(labelDataBranch);
+        panel.add(labelDataId);
+        panel.add(labelDataName);
+        panel.add(labelDataEmail);
+        panel.add(labelDataPassword);
+        panel.add(labelDataAddress);
+        panel.add(labelDataPhoneNumber);
+        panel.add(labelDataCash);
+        panel.add(labelDataDebt);
+        panel.add(labelDataBranch);
         
-        return panel1;
+        panel.setSize(500, 450);
+        return panel;
     }
 
     @Override

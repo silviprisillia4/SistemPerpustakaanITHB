@@ -45,7 +45,6 @@ public class TopUpApproval {
             public void actionPerformed(ActionEvent e) {
                 idUser = admin.getMembers().get(comboMembers.getSelectedIndex()).getIdUser();
             }
-
         });
         
         labelCash = new JLabel("Jumlah saldo : ");
@@ -70,6 +69,7 @@ public class TopUpApproval {
                 } else {
                     new ErrorMessages().showErrorFailedTopUp();
                 }
+                frame.setVisible(false);
                 new ApprovalMenu();
             }
         });

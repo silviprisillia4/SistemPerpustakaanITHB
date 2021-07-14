@@ -135,7 +135,6 @@ public class BorrowBook {
             @Override
             public void actionPerformed(ActionEvent e) {
                 listCheckedBook = new ArrayList<>();
-                boolean added = false;
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 for (int i = 0; i < model.getRowCount(); i++) {
                     boolean check = (Boolean) model.getValueAt(i, 8);
@@ -149,11 +148,7 @@ public class BorrowBook {
                         allBooks += "- " + c.getTitleSelectedBook(listCheckedBook.get(i)) + "\n";
                     }
                     int borrowDays = (Integer) spinner.getValue();
-                    int confirm = JOptionPane
-                            .showConfirmDialog(
-                                    null, "Buku yang anda pinjam adalah :\n" + allBooks + "\nWaktu peminjaman : "
-                                            + borrowDays + " hari\n\nYakin pinjam?",
-                                    "Perpustakaan ITHB", JOptionPane.YES_NO_OPTION);
+                    int confirm = JOptionPane.showConfirmDialog(null, "Buku yang anda pinjam adalah :\n" + allBooks + "\nWaktu peminjaman : " + borrowDays + " hari\n\nYakin pinjam?", "Perpustakaan ITHB", JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
                         boolean success = false;
                         for (int i = 0; i < listCheckedBook.size(); i++) {
