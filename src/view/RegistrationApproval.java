@@ -1,185 +1,155 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package view;
-import controller.*;
-import java.awt.Color;
-import java.awt.Dimension;
+
+import controller.DatabaseHandler;
+import controller.TableHandler;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.BorderFactory;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
+import model.Member;
 
+/**
+ *
+ * @author Yen
+ */
 public class RegistrationApproval {
+    
+    JFrame frame;
+    JPanel panel;
+    JTable table;
+    DefaultTableModel model;
+    JScrollPane sp;
     
     public RegistrationApproval(int id) {
         createApprovalScreen(id);
     }
     
     private void createApprovalScreen(int id) {
-        JFrame frame = new DefaultFrameSetting().defaultFrame();
-        JPanel panel = new DefaultFrameSetting().defaultPanel();
         
-        TableHandler h = new TableHandler();
-        String[][] data = h.getMembersData(id);
+        // Frame
+        frame = new DefaultFrameSetting().defaultFrame();
+        frame.setTitle("Perpustakaan ITHB - Penyetujuan Pendaftaran");
+        frame.setSize(1260, 600);
+        frame.setLocationRelativeTo(null);
         
-        // Create Label
-        JLabel idUserLabel = new JLabel("User ID");
-        idUserLabel.setBounds(20, 10, 150, 20);
-        idUserLabel.setBackground(new Color(240, 240, 240));
-        idUserLabel.setOpaque(true);
-        JLabel idBranchLabel = new JLabel("Branch ID");
-        idBranchLabel.setBounds(170, 10, 150, 20);
-        idBranchLabel.setBackground(new Color(240, 240, 240));
-        idBranchLabel.setOpaque(true);
-        JLabel fnameLabel = new JLabel("First Name");
-        fnameLabel.setBounds(320, 10, 150, 20);
-        fnameLabel.setBackground(new Color(240, 240, 240));
-        fnameLabel.setOpaque(true);
-        JLabel lnameLabel = new JLabel("Last Name");
-        lnameLabel.setBounds(470, 10, 150, 20);
-        lnameLabel.setBackground(new Color(240, 240, 240));
-        lnameLabel.setOpaque(true);
-        JLabel emailLabel = new JLabel("Email");
-        emailLabel.setBounds(620, 10, 150, 20);
-        emailLabel.setBackground(new Color(240, 240, 240));
-        emailLabel.setOpaque(true);
-        JLabel addressLabel = new JLabel("Address");
-        addressLabel.setBounds(770, 10, 150, 20);
-        addressLabel.setBackground(new Color(240, 240, 240));
-        addressLabel.setOpaque(true);
-        JLabel phoneLabel = new JLabel("Phone Number");
-        phoneLabel.setBounds(920, 10, 150, 20);
-        phoneLabel.setBackground(new Color(240, 240, 240));
-        phoneLabel.setOpaque(true);
-        JLabel approveLabel = new JLabel("Approve");
-        approveLabel.setBounds(1070, 10, 150, 20);
-        approveLabel.setBackground(new Color(240, 240, 240));
-        approveLabel.setOpaque(true);
+        // Panel
+        panel = new DefaultFrameSetting().defaultPanel();
+        panel.setSize(1260, 600);
+        panel.setVisible(true);
         
-        // Create Border
-        Border boldBorder = BorderFactory.createLineBorder(Color.GRAY, 2);
-        Border lightBorder = BorderFactory.createLineBorder(Color.GRAY, 1);
-        idUserLabel.setBorder(boldBorder);
-        idBranchLabel.setBorder(boldBorder);
-        fnameLabel.setBorder(boldBorder);
-        lnameLabel.setBorder(boldBorder);
-        emailLabel.setBorder(boldBorder);
-        addressLabel.setBorder(boldBorder);
-        phoneLabel.setBorder(boldBorder);
-        approveLabel.setBorder(boldBorder);
-        
-        frame.add(idUserLabel); frame.add(idBranchLabel);
-        frame.add(fnameLabel); frame.add(lnameLabel);
-        frame.add(emailLabel); frame.add(addressLabel);
-        frame.add(phoneLabel); frame.add(approveLabel);
-        
-        int y = 0;
-        JButton[] buttons = new JButton[data.length];
-        
-        for (int i = 0; i < data.length; i++) {
-            int index = i;
-            JLabel idUser = new JLabel(data[i][0]);
-            idUser.setBounds(0, y, 150, 20);
-            idUser.setBorder(lightBorder);
-            idUser.setBackground(new Color(240, 240, 240));
-            idUser.setOpaque(true);
-            JLabel idBranch = new JLabel(data[i][1]);
-            idBranch.setBounds(150, y, 150, 20);
-            idBranch.setBorder(lightBorder);
-            idBranch.setBackground(new Color(240, 240, 240));
-            idBranch.setOpaque(true);
-            JLabel fname = new JLabel(data[i][2]);
-            fname.setBounds(300, y, 150, 20);
-            fname.setBorder(lightBorder);
-            fname.setBackground(new Color(240, 240, 240));
-            fname.setOpaque(true);
-            JLabel lname = new JLabel(data[i][3]);
-            lname.setBounds(450, y, 150, 20);
-            lname.setBorder(lightBorder);
-            lname.setBackground(new Color(240, 240, 240));
-            lname.setOpaque(true);
-            JLabel email = new JLabel(data[i][4]);
-            email.setBounds(600, y, 150, 20);
-            email.setBorder(lightBorder);
-            email.setBackground(new Color(240, 240, 240));
-            email.setOpaque(true);
-            JLabel address = new JLabel(data[i][5]);
-            address.setBounds(750, y, 150, 20);
-            address.setBorder(lightBorder);
-            address.setBackground(new Color(240, 240, 240));
-            address.setOpaque(true);
-            JLabel phone = new JLabel(data[i][6]);
-            phone.setBounds(900, y, 150, 20);
-            phone.setBorder(lightBorder);
-            phone.setBackground(new Color(240, 240, 240));
-            phone.setOpaque(true);
-            DatabaseHandler conn = new DatabaseHandler();
-            conn.connect();
-            if (data[i][7].equals("0")) {
-                buttons[i] = new JButton("Approve");
-                buttons[i].setBounds(1050, y, 150, 20);
-                buttons[i].addActionListener((ActionEvent event) -> {
-                    String query = "UPDATE users SET approved = '1' WHERE idUser = '" + data[index][0] + "'";
-                    try {
-                        Statement stmt = conn.con.createStatement();
-                        int rs = stmt.executeUpdate(query);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    JOptionPane.showMessageDialog(null, "Approved!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
-                    frame.dispose();
-                    createApprovalScreen(id);
-                });
-                panel.add(buttons[i]);
-            } else if (data[i][7].equals("1")){
-                buttons[i] = new JButton("Unapprove");
-                buttons[i].setBounds(1050, y, 150, 20);
-                buttons[i].addActionListener((ActionEvent event) -> {
-                    String query = "UPDATE users SET approved = '0' WHERE idUser = '" + data[index][0] + "'";
-                    try {
-                        Statement stmt = conn.con.createStatement();
-                        int rs = stmt.executeUpdate(query);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    JOptionPane.showMessageDialog(null, "Unapproved!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
-                    frame.dispose();
-                    createApprovalScreen(id);
-                });
-                panel.add(buttons[i]);
+        //Table
+        model = new DefaultTableModel() {
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                switch(columnIndex) {
+                    case 0 :
+                    case 1 :
+                        return Integer.class;
+                    case 7:
+                        return Boolean.class;
+                    default :
+                        return String.class;
+                }
             }
-            panel.add(idUser); panel.add(idBranch);
-            panel.add(fname); panel.add(lname);
-            panel.add(email); panel.add(address);
-            panel.add(phone);
-            y += 20;
+        };
+        model.addColumn("ID User");
+        model.addColumn("ID Cabang");
+        model.addColumn("Nama Depan");
+        model.addColumn("Nama Belakang");
+        model.addColumn("Email");
+        model.addColumn("Alamat");
+        model.addColumn("No. Telp");
+        model.addColumn("Approval");
+        table = new JTable(model);
+        
+        //ArrayList
+        TableHandler t = new TableHandler();
+        ArrayList<Member> members = t.getMemberArrayList(id);
+        
+        //Looping Data to Table
+        for (int i = 0; i < members.size(); i++) {
+            Member current = members.get(i);
+            Object[] addMembers = new Object[8];
+            addMembers[0] = current.getIdUser();
+            addMembers[1] = current.getIdBranch();
+            addMembers[2] = current.getFirstName();
+            addMembers[3] = current.getLastName();
+            addMembers[4] = current.getEmail();
+            addMembers[5] = current.getAddress();
+            addMembers[6] = current.getPhoneNumber();
+            if (current.getApproved() == 0) {
+                addMembers[7] = false;
+            } else if (current.getApproved() == 1) {
+                addMembers[7] = true;
+            }
+            model = (DefaultTableModel)table.getModel();
+            model.addRow(addMembers);
         }
         
-        // Set JScrollPane
-        panel.setPreferredSize(new Dimension(1195, y));
-        panel.setLayout(null);
-        panel.setBackground(new Color(255, 228, 189));
-        JScrollPane sp = new JScrollPane(panel);
-        sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setBounds(20, 35, 1215, 480);
-        Border bottomBorder = BorderFactory.createMatteBorder(1, 0, 1, 0, Color.GRAY);
-        sp.setBorder(bottomBorder);
-        frame.add(sp);
+        //Set Column Size
+        table.getColumnModel().getColumn(0).setPreferredWidth(10);
+        table.getColumnModel().getColumn(1).setPreferredWidth(20);
+        table.getColumnModel().getColumn(2).setPreferredWidth(60);
+        table.getColumnModel().getColumn(3).setPreferredWidth(60);
+        table.getColumnModel().getColumn(4).setPreferredWidth(160);
+        table.getColumnModel().getColumn(5).setPreferredWidth(150);
+        table.getColumnModel().getColumn(6).setPreferredWidth(80);
+        table.getColumnModel().getColumn(7).setPreferredWidth(30);
+        
+        table.setBounds(20, 20, 1205, 500);
+        sp = new JScrollPane(table);
+        sp.setBounds(20, 20, 1205, 500);
         
         // Set OK Button
-        JButton ok = new JButton("Kembali");
+        JButton ok = new JButton("Update");
         ok.setBounds(1070, 530, 150, 20);
         ok.addActionListener((ActionEvent event) -> {
+            DatabaseHandler conn = new DatabaseHandler();
+            conn.connect();
+            for (int i = 0; i < table.getRowCount(); i++) {
+                Boolean status = (Boolean) table.getValueAt(i, 7);
+                if (status) {
+                    String query = "UPDATE users SET approved = '1' WHERE idUser = '" + (int) table.getValueAt(i, 0) + "'";
+                    try {
+                        Statement stmt = conn.con.createStatement();
+                        int rs = stmt.executeUpdate(query);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    String query = "UPDATE users SET approved = '0' WHERE idUser = '" + (int) table.getValueAt(i, 0) + "'";
+                    try {
+                        Statement stmt = conn.con.createStatement();
+                        int rs = stmt.executeUpdate(query);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Updated!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();
             new ApprovalMenu();
         });
         frame.add(ok);
         
-        frame.setTitle("Perpustakaan ITHB - Penyetujuan Pendaftaran");
-        frame.setSize(1260, 600);
-        frame.getContentPane().setBackground(new Color(255, 228, 189));
-        frame.setLocationRelativeTo(null);
+        // Set Back Button
+        JButton back = new JButton("Kembali");
+        back.setBounds(900, 530, 150, 20);
+        back.addActionListener((ActionEvent event) -> {
+            frame.dispose();
+            new ApprovalMenu();
+        });
+        frame.add(back);
+        
+        //Add
+        panel.add(sp);
+        frame.add(panel);
     }
 }

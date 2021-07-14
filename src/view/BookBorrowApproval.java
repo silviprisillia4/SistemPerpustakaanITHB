@@ -4,191 +4,155 @@
  * and open the template in the editor.
  */
 package view;
+
 import controller.DatabaseHandler;
 import controller.TableHandler;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JFrame;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.Border;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.Borrowing;
+import model.Member;
 
 /**
  *
- * @author yen
+ * @author Yen
  */
 public class BookBorrowApproval {
+    
+    JFrame frame;
+    JPanel panel;
+    JTable table;
+    DefaultTableModel model;
+    JScrollPane sp;
     
     public BookBorrowApproval(int id) {
         createApprovalScreen(id);
     }
     
     private void createApprovalScreen(int id) {
-        JFrame frame = new DefaultFrameSetting().defaultFrame();
-        JPanel panel = new DefaultFrameSetting().defaultPanel();
         
-        TableHandler h = new TableHandler();        
-        String[][] data = h.getBorrowsData(id);
+        // Frame
+        frame = new DefaultFrameSetting().defaultFrame();
+        frame.setTitle("Perpustakaan ITHB - Persetujuan Pinjaman");
+        frame.setSize(1120, 600);
+        frame.setLocationRelativeTo(null);
         
-        // Create Label
-        JLabel idBorrowLabel = new JLabel("Borrow ID");
-        idBorrowLabel.setBounds(20, 10, 150, 20);
-        idBorrowLabel.setBackground(new Color(240, 240, 240));
-        idBorrowLabel.setOpaque(true);
-        JLabel idBookLabel = new JLabel("Book ID");
-        idBookLabel.setBounds(170, 10, 150, 20);
-        idBookLabel.setBackground(new Color(240, 240, 240));
-        idBookLabel.setOpaque(true);
-        JLabel idUserLabel = new JLabel("Borrower ID");
-        idUserLabel.setBounds(320, 10, 150, 20);
-        idUserLabel.setBackground(new Color(240, 240, 240));
-        idUserLabel.setOpaque(true);
-        JLabel dateLabel = new JLabel("Date");
-        dateLabel.setBounds(470, 10, 150, 20);
-        dateLabel.setBackground(new Color(240, 240, 240));
-        dateLabel.setOpaque(true);
-        JLabel daysLabel = new JLabel("Borrow Days");
-        daysLabel.setBounds(620, 10, 150, 20);
-        daysLabel.setBackground(new Color(240, 240, 240));
-        daysLabel.setOpaque(true);
-        JLabel priceLabel = new JLabel("Total Price");
-        priceLabel.setBounds(770, 10, 150, 20);
-        priceLabel.setBackground(new Color(240, 240, 240));
-        priceLabel.setOpaque(true);
-        JLabel approveLabel = new JLabel("Approve");
-        approveLabel.setBounds(920, 10, 150, 20);
-        approveLabel.setBackground(new Color(240, 240, 240));
-        approveLabel.setOpaque(true);
+        // Panel
+        panel = new DefaultFrameSetting().defaultPanel();
+        panel.setSize(1120, 600);
+        panel.setVisible(true);
         
-        // Create Border
-        Border boldBorder = BorderFactory.createLineBorder(Color.GRAY, 2);
-        Border lightBorder = BorderFactory.createLineBorder(Color.GRAY, 1);
-        idBorrowLabel.setBorder(boldBorder);
-        idBookLabel.setBorder(boldBorder);
-        idUserLabel.setBorder(boldBorder);
-        dateLabel.setBorder(boldBorder);
-        daysLabel.setBorder(boldBorder);
-        priceLabel.setBorder(boldBorder);
-        approveLabel.setBorder(boldBorder);
-        
-        frame.add(idBorrowLabel); frame.add(idBookLabel);
-        frame.add(idUserLabel); frame.add(dateLabel);
-        frame.add(daysLabel); frame.add(priceLabel);
-        frame.add(approveLabel);
-        
-        int y = 0;
-        JButton[] buttons = new JButton[data.length];
-        
-        for (int i = 0; i < data.length; i++) {
-            int index = i;
-            JLabel idBorrow = new JLabel(data[i][0]);
-            idBorrow.setBounds(0, y, 150, 20);
-            idBorrow.setBorder(lightBorder);
-            idBorrow.setBackground(new Color(240, 240, 240));
-            idBorrow.setOpaque(true);
-            JLabel idBook = new JLabel(data[i][1]);
-            idBook.setBounds(150, y, 150, 20);
-            idBook.setBorder(lightBorder);
-            idBook.setBackground(new Color(240, 240, 240));
-            idBook.setOpaque(true);
-            JLabel idUser = new JLabel(data[i][2]);
-            idUser.setBounds(300, y, 150, 20);
-            idUser.setBorder(lightBorder);
-            idUser.setBackground(new Color(240, 240, 240));
-            idUser.setOpaque(true);
-            JLabel date = new JLabel(data[i][3]);
-            date.setBounds(450, y, 150, 20);
-            date.setBorder(lightBorder);
-            date.setBackground(new Color(240, 240, 240));
-            date.setOpaque(true);
-            JLabel days = new JLabel(data[i][4]);
-            days.setBounds(600, y, 150, 20);
-            days.setBorder(lightBorder);
-            days.setBackground(new Color(240, 240, 240));
-            days.setOpaque(true);
-            JLabel price = new JLabel(data[i][5]);
-            price.setBounds(750, y, 150, 20);
-            price.setBorder(lightBorder);
-            price.setBackground(new Color(240, 240, 240));
-            price.setOpaque(true);
-            DatabaseHandler conn = new DatabaseHandler();
-            conn.connect();
-            if (data[i][6].equals("2")) {
-                buttons[i] = new JButton("Approve");
-                buttons[i].setBounds(900, y, 150, 20);
-                buttons[i].addActionListener((ActionEvent event) -> {
-                    String query = "UPDATE borrows SET status = '0' WHERE idBorrow = '" + data[index][0] + "'";
-                    try {
-                        Statement stmt = conn.con.createStatement();
-                        int rs = stmt.executeUpdate(query);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    JOptionPane.showMessageDialog(null, "Approved!");
-                    frame.dispose();
-                    createApprovalScreen(id);
-                });
-                panel.add(buttons[i]);
-            } else if (data[i][6].equals("0")){
-                buttons[i] = new JButton("Unapprove");
-                buttons[i].setBounds(900, y, 150, 20);
-                buttons[i].addActionListener((ActionEvent event) -> {
-                    String query = "UPDATE borrows SET status = '2' WHERE idBorrow = '" + data[index][0] + "'";
-                    try {
-                        Statement stmt = conn.con.createStatement();
-                        int rs = stmt.executeUpdate(query);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    JOptionPane.showMessageDialog(null, "Unapproved!");
-                    frame.dispose();
-                    createApprovalScreen(id);
-                });
-                panel.add(buttons[i]);
+        //Table
+        model = new DefaultTableModel() {
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                switch(columnIndex) {
+                    case 3 :
+                        return Date.class;
+                    case 6:
+                        return Boolean.class;
+                    default :
+                        return Integer.class;
+                }
             }
-            y += 20;
-            panel.add(idBorrow); panel.add(idBook);
-            panel.add(idUser); panel.add(date);
-            panel.add(days); panel.add(price);
+        };
+        model.addColumn("ID Pinjaman");
+        model.addColumn("ID Buku");
+        model.addColumn("ID Peminjam");
+        model.addColumn("Tanggal");
+        model.addColumn("Lama Pinjam");
+        model.addColumn("Total Harga");
+        model.addColumn("Approval");
+        table = new JTable(model);
+        
+        //ArrayList
+        TableHandler t = new TableHandler();
+        ArrayList<Borrowing> borrows = t.getBorrowArrayList(id);
+        
+        //Looping Data to Table
+        for (int i = 0; i < borrows.size(); i++) {
+            Borrowing current = borrows.get(i);
+            Object[] addBorrows = new Object[7];
+            addBorrows[0] = current.getIdBorrow();
+            addBorrows[1] = current.getIdBook();
+            addBorrows[2] = current.getIdUser();
+            addBorrows[3] = current.getDate();
+            addBorrows[4] = current.getBorrowDays();
+            addBorrows[5] = current.getPriceTotal();
+            if (current.getStatus()== 2) {
+                addBorrows[6] = false;
+            } else if (current.getStatus() == 0) {
+                addBorrows[6] = true;
+            }
+            model = (DefaultTableModel)table.getModel();
+            model.addRow(addBorrows);
         }
         
-        // Set JScrollPane
-        panel.setPreferredSize(new Dimension(1055, y));
-        panel.setLayout(null);
-        panel.setBackground(new Color(255, 228, 189));
-        JScrollPane sp = new JScrollPane(panel);
-        sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setBounds(20, 35, 1075, 480);
-        Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY);
-        sp.setBorder(bottomBorder);
-        frame.add(sp);
+        //Set Column Size
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getColumn(2).setPreferredWidth(100);
+        table.getColumnModel().getColumn(3).setPreferredWidth(300);
+        table.getColumnModel().getColumn(4).setPreferredWidth(200);
+        table.getColumnModel().getColumn(5).setPreferredWidth(300);
+        table.getColumnModel().getColumn(6).setPreferredWidth(100);
+        
+        table.setBounds(20, 20, 1065, 500);
+        sp = new JScrollPane(table);
+        sp.setBounds(20, 20, 1065, 500);
         
         // Set OK Button
-        JButton ok = new JButton("Kembali");
+        JButton ok = new JButton("Update");
         ok.setBounds(920, 530, 150, 20);
         ok.addActionListener((ActionEvent event) -> {
+            DatabaseHandler conn = new DatabaseHandler();
+            conn.connect();
+            for (int i = 0; i < table.getRowCount(); i++) {
+                Boolean status = (Boolean) table.getValueAt(i, 6);
+                if (status) {
+                    String query = "UPDATE borrows SET status = '0' WHERE idBorrow = '" + (int) table.getValueAt(i, 0) + "'";
+                    try {
+                        Statement stmt = conn.con.createStatement();
+                        int rs = stmt.executeUpdate(query);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    String query = "UPDATE borrows SET status = '2' WHERE idBorrow = '" + (int) table.getValueAt(i, 0) + "'";
+                    try {
+                        Statement stmt = conn.con.createStatement();
+                        int rs = stmt.executeUpdate(query);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Updated!", "Sistem Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();
             new ApprovalMenu();
         });
         frame.add(ok);
         
-        //frame set
-        frame.setTitle("Perpustakaan ITHB - Penyetujuan Pinjaman");
+        // Set Back Button
+        JButton back = new JButton("Kembali");
+        back.setBounds(750, 530, 150, 20);
+        back.addActionListener((ActionEvent event) -> {
+            frame.dispose();
+            new ApprovalMenu();
+        });
+        frame.add(back);
         
-        frame.setSize(1120, 600);
-        frame.getContentPane().setBackground(new Color(255, 228, 189));
-        frame.setLayout(null);
-        frame.setLocationRelativeTo(null);    
-        frame.setVisible(true);
+        //Add
+        panel.add(sp);
+        frame.add(panel);
     }
 }
-
