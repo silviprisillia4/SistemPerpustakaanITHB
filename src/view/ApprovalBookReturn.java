@@ -48,11 +48,22 @@ public class ApprovalBookReturn {
             panel1.setSize(1150, 1150);
             button.setBounds(50, 400, 1100, 30);
             exit.setBounds(50, 450, 1100, 30);
-
+            
             //set component
             table.setModel(model);
             scroll.setViewportView(table);
-
+            
+            //set tabel size
+            table.getColumnModel().getColumn(0).setPreferredWidth(100);
+            table.getColumnModel().getColumn(1).setPreferredWidth(350);
+            table.getColumnModel().getColumn(2).setPreferredWidth(100);
+            table.getColumnModel().getColumn(3).setPreferredWidth(350);
+            table.getColumnModel().getColumn(4).setPreferredWidth(200);
+            table.getColumnModel().getColumn(5).setPreferredWidth(200);
+            table.getColumnModel().getColumn(6).setPreferredWidth(200);
+            table.getColumnModel().getColumn(7).setPreferredWidth(150);
+            table.getColumnModel().getColumn(8).setPreferredWidth(100);
+            
             //add component to panel
             panel1.add(scroll);
 

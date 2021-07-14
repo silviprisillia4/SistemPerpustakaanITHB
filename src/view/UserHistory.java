@@ -138,10 +138,10 @@ public class UserHistory {
         roman.setText("Romantis : " + counterGenre[3]);
         komedi.setText("Komedi : " + counterGenre[4]);
         misteri.setText("Misteri : " + counterGenre[5]);
-        petualangan.setText("Petualangan : " + counterGenre[6]);
+        petualangan.setText("Drama : " + counterGenre[6]);
         biografi.setText("Biografi : " + counterGenre[7]);
         ensiklopedia.setText("Ensiklopedia : " + counterGenre[8]);
-        jurnal.setText("Jurnal : " + counterGenre[9]);
+        jurnal.setText("Pengetahuan : " + counterGenre[9]);
         kamus.setText("Kamus : " + counterGenre[10]);
         filsafat.setText("Filsafat : " + counterGenre[11]);
         sejarah.setText("Sejarah : " + counterGenre[12]);
