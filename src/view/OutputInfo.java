@@ -14,6 +14,10 @@ public class OutputInfo {
         JOptionPane.showMessageDialog(null, "Login berhasil!", "Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
     }
     
+    public void infoPasswordChanged() {
+        JOptionPane.showMessageDialog(null, "Password berhasil diubah!", "Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
     public void welcomeToMenuAdmin() {
         JOptionPane.showMessageDialog(null, "Selamat datang "+ UserTypeEnum.ADMIN + " " + UserManager.getInstance().getAdmin().getFirstName() + " " + UserManager.getInstance().getAdmin().getLastName() + " cabang " + UserManager.getInstance().getAdmin().selectBranchCity(UserManager.getInstance().getAdmin().getIdBranch()), "Perpustakaan ITHB", JOptionPane.INFORMATION_MESSAGE);
     }

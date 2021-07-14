@@ -502,8 +502,8 @@ public class Controller {
         return isSuccess;
     }
 
-    public boolean updatePassword(Member member, String newPassword) {
-        String query = "UPDATE users SET password = '" + newPassword + "'";
+    public boolean updatePassword(int idUser, String newPassword) {
+        String query = "UPDATE users SET password = '" + newPassword + "' WHERE idUser = '" + idUser + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);

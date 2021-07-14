@@ -66,7 +66,7 @@ public class ChangePassword {
                         String hashedNewPassword = c.getMD5(String.valueOf(textFieldNewPassword.getPassword())); //newPassword dari input dihash
                         boolean isValid = r.passValidation(newPassword);
                         if(isValid) {
-                            updated = c.updatePassword(member, hashedNewPassword);
+                            updated = c.updatePassword(member.getIdUser(), hashedNewPassword);
                         } else {
                             em.showErrorPasswordNotValid();
                         }
@@ -78,6 +78,7 @@ public class ChangePassword {
                 }
                 
                 if(updated) {
+                    new OutputInfo().infoPasswordChanged();
                     frame.setVisible(false);
                     new Profile();
                 }
