@@ -153,6 +153,7 @@ public class BookBorrowApproval {
         back.setBounds(750, 530, 150, 20);
         back.addActionListener((ActionEvent event) -> {
             frame.dispose();
+            new OutputInfo().backToPreviousMenu();
             new ApprovalMenu();
         });
         frame.add(back);

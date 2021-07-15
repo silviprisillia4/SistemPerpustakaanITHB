@@ -137,6 +137,7 @@ public class RegistrationApproval {
         back.setBounds(900, 530, 150, 20);
         back.addActionListener((ActionEvent event) -> {
             frame.dispose();
+            new OutputInfo().backToPreviousMenu();
             new ApprovalMenu();
         });
         frame.add(back);

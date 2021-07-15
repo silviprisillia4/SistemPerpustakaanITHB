@@ -43,6 +43,7 @@ public class ApprovalMenu {
         back1.setBounds(10, 220, 300, 60);
         back1.addActionListener((ActionEvent e) -> {
             mainFrame.setVisible(false);
+            new OutputInfo().backToPreviousMenu();
             new AdminMenu();
         });
         // ------
